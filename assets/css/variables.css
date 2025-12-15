@@ -1,0 +1,11 @@
+/* variables.css */
+:root{
+  --bg:#0b0b10;
+  --fg:#ffffff;
+  --muted:rgba(255,255,255,.75);
+  --accent:#F6B600;
+  --radius:16px;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+  --max:1100px;
+}
+.
