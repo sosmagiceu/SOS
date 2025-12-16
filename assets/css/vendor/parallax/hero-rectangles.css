@@ -1,0 +1,139 @@
+/* parallax bundle: hero-rectangles.css */
+
+/* Rectangle Elements for Hero Section */
+.rectangles-bottom-left {
+	position: absolute;
+	bottom: 15vh;
+	left: 5%;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 15px;
+	z-index: 5;
+	transform: rotate(-45deg);
+	transform-origin: center;
+}
+
+.rectangles-top-right {
+	position: absolute;
+	top: 15vh;
+	right: 5%;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 15px;
+	z-index: 5;
+	transform: rotate(45deg);
+	transform-origin: center;
+}
+
+.rect {
+	background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(255, 0, 234, 0.1));
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	transition: all 0.3s ease;
+	cursor: pointer;
+}
+
+/* Bottom Left Rectangle Group - Different Sizes (25% larger) */
+.rect-bl-1 {
+	width: 88px;
+	height: 56px;
+	animation: float-rect 6s ease-in-out infinite;
+}
+
+.rect-bl-2 {
+	width: 113px;
+	height: 69px;
+	animation: float-rect 6s ease-in-out infinite;
+}
+
+.rect-bl-3 {
+	width: 94px;
+	height: 75px;
+	animation: float-rect 6s ease-in-out infinite;
+}
+
+.rect-bl-4 {
+	width: 106px;
+	height: 50px;
+	animation: float-rect 6s ease-in-out infinite;
+}
+
+.rect-bl-5 {
+	width: 81px;
+	height: 63px;
+	animation: float-rect 6s ease-in-out infinite;
+}
+
+.rect-bl-6 {
+	width: 119px;
+	height: 81px;
+	animation: float-rect 6s ease-in-out infinite;
+}
+
+/* Top Right Rectangle Group - Different Sizes */
+.rect-tr-1 {
+	width: 80px;
+	height: 70px;
+	animation: float-rect 8s ease-in-out infinite;
+}
+
+.rect-tr-2 {
+	width: 100px;
+	height: 55px;
+	animation: float-rect 8s ease-in-out infinite;
+}
+
+.rect-tr-3 {
+	width: 75px;
+	height: 65px;
+	animation: float-rect 8s ease-in-out infinite;
+}
+
+.rect-tr-4 {
+	width: 90px;
+	height: 50px;
+	animation: float-rect 8s ease-in-out infinite;
+}
+
+.rect-bl-2,
+.rect-tr-2 {
+	animation-delay: 0.5s;
+}
+
+.rect-bl-3,
+.rect-tr-3 {
+	animation-delay: 1s;
+}
+
+.rect-bl-4,
+.rect-tr-4 {
+	animation-delay: 1.5s;
+}
+
+.rect-bl-5 {
+	animation-delay: 2s;
+}
+
+.rect-bl-6 {
+	animation-delay: 2.5s;
+}
+
+@keyframes float-rect {
+
+	0%,
+	100% {
+		transform: translateY(0) rotate(0deg);
+		opacity: 0.6;
+	}
+
+	50% {
+		transform: translateY(-20px) rotate(2deg);
+		opacity: 1;
+	}
+}
+
+.rect:hover {
+	background: linear-gradient(135deg, rgba(0, 217, 255, 0.3), rgba(255, 0, 234, 0.3));
+	border-color: var(--primary);
+	box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4);
+}

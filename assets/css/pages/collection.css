@@ -1,1 +1,3 @@
-body[data-page='collection']{}
+/* pages/collection.css */
+body[data-page='collection'] .tm-carousel{margin-top:24px}
+.
