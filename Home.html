@@ -35,109 +35,14 @@ Free HTML CSS Template
 </nav>
 </div>
 </div>
-
-
+<!-- Mouse Follower -->
+<div class="mouse-follower" id="mouseFollower"></div>
 <!-- Stars Background -->
 <div class="stars" id="stars"></div>
-<!-- Hero Section with Parallax Layers -->
-<div class="hero-container" id="hero">
-<!-- Grid Overlay -->
-<div class="grid-overlay">
-<div class="grid-diagonal-1"></div>
-<div class="grid-diagonal-2"></div>
-</div>
-<!-- Logo -->
-<div class="logo-container">
-<a class="logo" href="#hero">
-<svg class="logo-svg" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<!-- Outer hexagon -->
-<polygon fill="none" points="50,5 90,27.5 90,72.5 50,95 10,72.5 10,27.5" stroke="url(#logo-gradient)" stroke-width="2"></polygon>
-<!-- Inner triangles creating depth -->
-<polygon fill="url(#logo-gradient)" opacity="0.8" points="50,20 70,35 50,50"></polygon>
-<polygon fill="url(#logo-gradient2)" opacity="0.6" points="50,50 70,35 70,65"></polygon>
-<polygon fill="url(#logo-gradient)" opacity="0.7" points="50,50 70,65 50,80"></polygon>
-<polygon fill="url(#logo-gradient2)" opacity="0.7" points="50,20 30,35 50,50"></polygon>
-<polygon fill="url(#logo-gradient)" opacity="0.5" points="50,50 30,35 30,65"></polygon>
-<polygon fill="url(#logo-gradient2)" opacity="0.8" points="50,50 30,65 50,80"></polygon>
-<!-- Center gem -->
-<polygon fill="url(#logo-gradient3)" points="50,40 60,50 50,60 40,50" stroke="#00ffcc" stroke-width="1"></polygon>
-<!-- Gradient definitions -->
-<defs>
-<lineargradient id="logo-gradient" x1="0%" x2="100%" y1="0%" y2="100%">
-<stop offset="0%" style="stop-color:#00d9ff;stop-opacity:1"></stop>
-<stop offset="100%" style="stop-color:#ff00ea;stop-opacity:1"></stop>
-</lineargradient>
-<lineargradient id="logo-gradient2" x1="100%" x2="0%" y1="0%" y2="100%">
-<stop offset="0%" style="stop-color:#ff00ea;stop-opacity:1"></stop>
-<stop offset="100%" style="stop-color:#00ffcc;stop-opacity:1"></stop>
-</lineargradient>
-<lineargradient id="logo-gradient3" x1="50%" x2="50%" y1="0%" y2="100%">
-<stop offset="0%" style="stop-color:#00ffcc;stop-opacity:1"></stop>
-<stop offset="100%" style="stop-color:#00d9ff;stop-opacity:1"></stop>
-</lineargradient>
-</defs>
-</svg>
-<span class="logo-text">Parallax</span>
-</a>
-</div>
-<!-- Background Layer -->
-<div class="parallax-layer layer-bg"></div>
-<!-- Floating Elements Layer -->
-<div class="parallax-layer layer-float">
-<!-- Bottom Left Rectangle Group -->
-<!-- Top Right Rectangle Group -->
-</div>
-<!-- Foreground Layer -->
-<div class="parallax-layer layer-fg">
 
 
-</div>
-<!-- Hero Content -->
-<div class="hero-content">
-<h1 class="hero-title">PARALLAX DEPTH</h1>
-<p class="hero-subtitle">Immersive Multi-Layer Scrolling Experience</p>
-<a class="cta-button" href="#about">Explore Depths</a>
-</div>
-<!-- Navigation -->
-
-</div>
-<!-- About Section -->
-<section class="content-section section-gradient" id="about">
-<div class="container">
-<h2 class="section-title">About The Experience</h2>
-<div class="about-content">
-<div class="about-text">
-<h3>Crafted with Precision</h3>
-<p>This parallax experience represents the cutting edge of modern web design, where every scroll reveals new dimensions and every interaction creates magic. Built with pure CSS and vanilla JavaScript, it demonstrates the power of creative coding.</p>
-<p>Our multi-layered approach creates genuine depth perception, with background elements moving slower than foreground ones, mimicking real-world parallax. Each layer is carefully orchestrated to provide smooth, butter-like scrolling performance.</p>
-<div class="about-boxes">
-<div class="info-box">
-<div class="box-icon">
-                                ⚡
-                                <span class="box-number">1</span>
-</div>
-<h4 class="box-title">Performance</h4>
-<p class="box-description">Optimized animations with 60fps smooth scrolling and GPU acceleration for flawless experience.</p>
-</div>
-<div class="info-box">
-<div class="box-icon">
-                                🎯
-                                <span class="box-number">2</span>
-</div>
-<h4 class="box-title">Precision</h4>
-<p class="box-description">Pixel-perfect design with carefully calculated parallax speeds and seamless transitions.</p>
-</div>
-</div>
-</div>
-<div class="about-visual">
-
-</div>
-</div>
-</div>
-<!-- Navigation -->
 
 
-</section>
 <!-- Features Section with 3D Carousel -->
 <section class="content-section features-section-bg" id="features">
 <!-- Grid Overlay -->
@@ -194,8 +99,21 @@ Free HTML CSS Template
 </div>
 </div>
 <!-- Navigation -->
-
-
+<a class="nav-btn-prev" href="#about" title="Previous Section">
+<div class="hexagon">
+<span class="hex-content">▲</span>
+</div>
+</a>
+<a class="nav-btn-next" href="#gallery" title="Next Section">
+<div class="pyramid">
+<div class="pyramid-face"></div>
+<div class="pyramid-face"></div>
+<div class="pyramid-face"></div>
+<div class="pyramid-face"></div>
+<div class="pyramid-base"></div>
+<span class="pyramid-inner">▼</span>
+</div>
+</a>
 </section>
 <!-- Gallery Section -->
 <section class="gallery-section section-gradient" id="gallery">
@@ -261,8 +179,21 @@ Free HTML CSS Template
 </div>
 </div>
 <!-- Navigation -->
-
-
+<a class="nav-btn-prev" href="#features" title="Previous Section">
+<div class="hexagon">
+<span class="hex-content">▲</span>
+</div>
+</a>
+<a class="nav-btn-next" href="#contact" title="Next Section">
+<div class="pyramid">
+<div class="pyramid-face"></div>
+<div class="pyramid-face"></div>
+<div class="pyramid-face"></div>
+<div class="pyramid-face"></div>
+<div class="pyramid-base"></div>
+<span class="pyramid-inner">▼</span>
+</div>
+</a>
 </section>
 <!-- Contact Section -->
 <section class="content-section contact-section-bg" id="contact">
@@ -306,25 +237,14 @@ Free HTML CSS Template
 </div>
 </div>
 <!-- Navigation -->
-
+<a class="nav-btn-prev" href="#gallery" title="Previous Section">
+<div class="hexagon">
+<span class="hex-content">▲</span>
+</div>
+</a>
 </section>
-<!-- Footer -->
-<footer class="footer">
-<div class="footer-content">
-<div class="footer-links">
-<a class="footer-link" href="#hero">Home</a>
-<a class="footer-link" href="#about">About</a>
-<a class="footer-link" href="#features">Features</a>
-<a class="footer-link" href="#gallery">Gallery</a>
-<a class="footer-link" href="#contact">Contact</a>
-</div>
-<div class="footer-divider"></div>
-<div class="footer-copyright">
-<p>© 2048 Parallax Depth Experience. All rights reserved.</p>
-<p>Design: <a href="https://www.tooplate.com" rel="nofollow noopener" target="_blank">Tooplate</a></p>
-</div>
-</div>
-</footer>
+
+
 <script src="/assets/js/vendor/tooplate-2144-parallax-scripts.js"></script>
 </body>
 </html>
