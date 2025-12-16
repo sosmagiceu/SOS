@@ -31,7 +31,7 @@ body {
 	font-family: var(--font-body);
 	background: var(--dark);
 	overflow-x: hidden;
-	cursor: crosshair;
+
 	font-weight: 300;
 	letter-spacing: 0.02em;
 }
