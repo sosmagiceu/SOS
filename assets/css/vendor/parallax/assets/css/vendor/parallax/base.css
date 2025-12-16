@@ -1,0 +1,37 @@
+/* parallax bundle: base.css */
+
+/* CSS Document */
+
+/*
+
+Tooplate 2144 Parallax Depth
+
+https://www.tooplate.com/view/2144-parallax-depth
+
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--primary: #00d9ff;
+	--secondary: #ff00ea;
+	--dark: #0a0a0f;
+	--light: #ffffff;
+	--glow: #00ffcc;
+	--font-display: 'Orbitron', monospace;
+	--font-heading: 'Space Grotesk', sans-serif;
+	--font-body: 'Inter', sans-serif;
+}
+
+body {
+	font-family: var(--font-body);
+	background: var(--dark);
+	overflow-x: hidden;
+
+	font-weight: 300;
+	letter-spacing: 0.02em;
+}
