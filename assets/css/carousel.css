@@ -19,3 +19,31 @@
   background:rgba(255,255,255,.10);cursor:pointer}
 .tm-dot.is-active{background:var(--glow);border-color:rgba(0,0,0,.25)}
 @media (max-width:900px){.tm-carousel__slide{grid-template-columns:1fr}.tm-carousel__media img{height:240px}}
+
+
+/* ---------- Home 3D carousel: active card neon fill ---------- */
+/* Only the FRONT card gets the neon background (diagonal motion). */
+@keyframes cardNeonShiftDiagonal {
+  0%   { background-position: 0% 0%; }
+  50%  { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+.carousel-3d .feature-card-3d.is-active{
+  /* Diagonal moving neon, contained inside the card */
+  background: linear-gradient(
+    135deg,
+    rgba(255,0,255,.28) 0%,
+    rgba(120,0,255,.20) 35%,
+    rgba(0,255,255,.28) 100%
+  );
+  background-size: 220% 220%;
+  animation: cardNeonShiftDiagonal 5.5s ease-in-out infinite;
+  border-color: rgba(255,255,255,.30);
+  box-shadow: 0 18px 60px rgba(0, 255, 255, 0.12);
+}
+
+/* Keep the existing fancy border glow active as well */
+.carousel-3d .feature-card-3d.is-active::before{
+  opacity: 1;
+}
