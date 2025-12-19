@@ -35,33 +35,25 @@
   }
 
   function initHeaderUI(root = document) {
-    const drawer = qs("#topbarDrawer", root);
-    const overlay = qs("[data-drawer-overlay]", root);
-    const hamBtn = qs(".hamburger-btn", root);
+    const drawer = qs("#topbarDrawer", root);    const hamBtn = qs(".hamburger-btn", root);
     const closeBtn = qs(".drawer-close", root);
 
     const langBtn = qs(".lang-btn", root);
     const langMenu = qs("#langMenu", root);
 
     // Hard reset states (prevents "always open" caused by random CSS)
-    if (drawer) drawer.hidden = true;
-    if (overlay) overlay.hidden = true;
-    if (langMenu) langMenu.hidden = true;
+    if (drawer) drawer.hidden = true;    if (langMenu) langMenu.hidden = true;
     setExpanded(hamBtn, false);
     setExpanded(langBtn, false);
 
     function openDrawer() {
-      if (!drawer || !overlay) return;
-      drawer.hidden = false;
-      overlay.hidden = false;
-      setExpanded(hamBtn, true);
+      if (!drawer) return;
+      drawer.hidden = false;      setExpanded(hamBtn, true);
       document.body.classList.add("drawer-open");
     }
     function closeDrawer() {
-      if (!drawer || !overlay) return;
-      drawer.hidden = true;
-      overlay.hidden = true;
-      setExpanded(hamBtn, false);
+      if (!drawer) return;
+      drawer.hidden = true;      setExpanded(hamBtn, false);
       document.body.classList.remove("drawer-open");
     }
     function toggleDrawer() { (drawer && drawer.hidden) ? openDrawer() : closeDrawer(); }
@@ -85,8 +77,6 @@
     });
 
     closeBtn?.addEventListener("click", (e) => { e.preventDefault(); closeDrawer(); });
-    overlay?.addEventListener("click", () => { closeDrawer(); closeLang(); });
-
     langBtn?.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -107,6 +97,16 @@
         if (!inLang) closeLang();
       }
     }, { passive: true });
+
+    // Close drawer on outside click (no dim overlay, behaves like the globe)
+    document.addEventListener("click", (e) => {
+      const t = e.target;
+      if (hamBtn && drawer) {
+        const inDrawer = hamBtn.contains(t) || drawer.contains(t);
+        if (!inDrawer) closeDrawer();
+      }
+    }, { passive: true });
+
 
     // Language selection hook (doesn't translate content magically, because reality)
     langMenu?.addEventListener("click", (e) => {
