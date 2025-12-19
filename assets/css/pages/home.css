@@ -1,39 +1,44 @@
 /* pages/home.css */
-body[data-page='home'] .tm-carousel{margin-top:24px}
-.
 
+body[data-page='home'] .tm-carousel{
+  margin-top:24px;
+}
 
-
-/* ---- SOS MAGIC title sweep (2s idle, 1s sweep, 2s idle) ---- */
-/* Put this in assets/css/pages/home.css (append). */
+/* ============================= */
+/* SOS MAGIC TITLE NEON SWEEP    */
+/* ============================= */
 
 .section-title{
   text-align: center;
 }
 
-/* Keep the actual title centered and sized normally */
+/* Base title: always visible */
 .section-title .sos-title{
   position: relative;
   display: inline-block;
-  color: #fff;            /* always visible base */
+  color: #ffffff;
+  z-index: 1;
 }
 
-/* Neon overlay strictly confined to the letters */
+/* Neon scanner band */
 .section-title .sos-title::after{
-  content: attr(data-text);
-  content: "SOS MAGIC"; /* safe fallback */
+  content: "SOS MAGIC";
   position: absolute;
   inset: 0;
   pointer-events: none;
 
-  /* gradient text */
-  background: linear-gradient(90deg,
-    rgba(255,0,255,1),
-    rgba(0,255,255,1),
-    rgba(255,0,255,1)
+  /* Narrow moving band */
+  background: linear-gradient(
+    90deg,
+    rgba(255,0,255,0) 0%,
+    rgba(255,0,255,0) 40%,
+    rgba(255,0,255,1) 47%,
+    rgba(0,255,255,1) 53%,
+    rgba(0,255,255,0) 60%,
+    rgba(0,255,255,0) 100%
   );
-  background-size: 200% 100%;
-  background-position: 0% 50%;
+  background-size: 260% 100%;
+  background-position: -120% 50%;
 
   color: transparent;
   -webkit-text-fill-color: transparent;
@@ -41,17 +46,36 @@ body[data-page='home'] .tm-carousel{margin-top:24px}
   background-clip: text;
 
   opacity: 0;
+  z-index: 2;
+
   animation: sosNeonSweep 5s linear infinite;
 }
 
-/* 2s idle (white), 1s sweep (neon), 2s idle */
+/* Timing:
+   0–2s  : idle (white)
+   2–3s  : sweep left → right
+   3–5s  : idle
+*/
 @keyframes sosNeonSweep{
-  0%, 39%   { opacity: 0; background-position: 0% 50%; }
-  40%       { opacity: 1; background-position: 0% 50%; }
-  60%       { opacity: 1; background-position: 100% 50%; }
-  61%,100%  { opacity: 0; background-position: 100% 50%; }
+  0%, 39%{
+    opacity: 0;
+    background-position: -120% 50%;
+  }
+  40%{
+    opacity: 1;
+    background-position: -120% 50%;
+  }
+  60%{
+    opacity: 1;
+    background-position: 120% 50%;
+  }
+  61%, 100%{
+    opacity: 0;
+    background-position: 120% 50%;
+  }
 }
 
-
-/* Disable legacy title sweep attempts */
-.section-title.neon-sweep::after{ display:none !important; }
+/* Kill any old broken sweep attempts */
+.section-title.neon-sweep::after{
+  display:none !important;
+}
