@@ -20,8 +20,8 @@
     header.classList.remove('lang-open');
     const menu = header.querySelector('#dropdown-menu');
     const lang = header.querySelector('#lang-dropdown');
-    if (menu) { menu.setAttribute('aria-hidden', 'true'); }
-    if (lang) { lang.style.display = 'none'; }
+    if (menu) { menu.setAttribute('aria-hidden', 'true'); menu.classList.remove('open'); }
+    if (lang) { lang.style.display = 'none'; lang.classList.remove('open'); }
     const menuToggle = header.querySelector('#menu-toggle');
     const langToggle = header.querySelector('#lang-toggle');
     if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
@@ -35,15 +35,15 @@
     const lang = header.querySelector('#lang-dropdown');
 
     // Init hidden
-    if (menu) menu.setAttribute('aria-hidden', 'true');
-    if (lang) lang.style.display = 'none';
+    if (menu) { menu.setAttribute('aria-hidden', 'true'); menu.classList.remove('open'); }
+    if (lang) { lang.style.display = 'none'; lang.classList.remove('open'); }
 
     menuToggle?.addEventListener('click', (e) => {
       e.preventDefault();
       const open = header.classList.toggle('menu-open');
       header.classList.remove('lang-open');
       if (menuToggle) menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (menu) menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+      if (menu) { menu.setAttribute('aria-hidden', open ? 'false' : 'true'); menu.classList.toggle('open', open); }
       if (langToggle) langToggle.setAttribute('aria-expanded', 'false');
       if (lang) lang.style.display = 'none';
     });
@@ -53,9 +53,9 @@
       const open = header.classList.toggle('lang-open');
       header.classList.remove('menu-open');
       if (langToggle) langToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (lang) lang.style.display = open ? 'flex' : 'none';
+      if (lang) { lang.style.display = open ? 'flex' : 'none'; lang.classList.toggle('open', open); }
       if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
-      if (menu) menu.setAttribute('aria-hidden', 'true');
+      if (menu) { menu.setAttribute('aria-hidden', 'true'); menu.classList.remove('open'); }
     });
 
     // choose language (EN only for now)

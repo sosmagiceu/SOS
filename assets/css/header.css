@@ -127,7 +127,7 @@
   user-select: none;
 
   --_mustard: var(--mustard, #F6B600);
-  background: var(--_mustard);
+  background: rgba(255,255,255,.08);
   color: #fff;
 
   border-radius: 10px;       /* slightly tighter radius */
@@ -206,7 +206,7 @@
   user-select: none;
 
   --_mustard: var(--mustard, #F6B600);
-  background: var(--_mustard);
+  background: rgba(255,255,255,.08);
   color: #fff;
 
   border-radius: 12px;
