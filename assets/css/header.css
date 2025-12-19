@@ -1,157 +1,204 @@
-/* /assets/css/header.css */
+/* /assets/css/header.css (SOS) */
+/* One header stylesheet. If you want another one, adopt a cactus. */
 
-[hidden] { display: none !important; }
+:root{
+  --primary: #00d9ff;
+  --secondary: #ff00ea;
+  --glow: #00ffd5;
+
+  --header-h: 64px;
+  --header-radius: 28px;
+  --header-bg: transparent; /* less "mystery fog", more readable */
+  --header-border: transparent;
+  --header-blur: 0px;
+}
+
+/* Make native hidden actually hidden even if other CSS tries to be clever */
+[hidden]{ display:none !important; }
 
 .site-topbar{
   position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 9999;
-  padding: 18px 20px;
-  pointer-events: none; /* allows background to be interactive except buttons */
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 5000;
+  border-radius: var(--header-radius);
+  background: var(--header-bg);
+  border: 1px solid var(--header-border);
+  backdrop-filter: blur(var(--header-blur));
+  -webkit-backdrop-filter: blur(var(--header-blur));
 }
 
 .site-topbar .inner{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  pointer-events: auto; /* re-enable for header content */
+  height: var(--header-h);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 0 14px;
 }
 
-.brand{
-  font-family: inherit;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-decoration: none;
-  color: #fff;
-  opacity: .9;
+.site-topbar .brand{
+  color: rgba(255,255,255,.92);
+  text-decoration:none;
+  font-weight: 800;
+  letter-spacing: .12em;
+  font-family: Orbitron, system-ui, sans-serif;
+  font-size: 13px;
+  white-space: nowrap;
 }
 
 .topbar-actions{
-  display: flex;
-  align-items: center;
+  display:flex;
+  align-items:center;
   gap: 10px;
 }
 
-.menu-wrap{
-  position: relative;
-}
-
 .icon-btn{
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(0,0,0,.00); /* invisible */
-  color: rgba(255,255,255,.9);
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  transition: transform .15s ease;
-  overflow: visible;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.14);
+  color: rgba(255,255,255,.92);
 }
 
-.icon-btn:hover{
-  transform: translateY(-1px);
-}
+.icon-btn:hover{ background: rgba(255,255,255,.10); }
 
-/* ================================
-   Neon system (BEHIND everything)
-   - icons/text stay crisp
-   - panels glow behind
-   ================================ */
-.icon-btn,
-.menu-item,
-.menu-link,
-.menu-panel{
-  position: relative;
-  isolation: isolate; /* critical: keeps glow behind content */
-}
+.lang-wrap{ position: relative; }
 
-.icon-btn::after,
-.menu-item::after,
-.menu-link::after,
-.menu-panel::after{
-  content: "";
-  position: absolute;
-  inset: -6px;
-  border-radius: inherit;
-  background: linear-gradient(
-    90deg,
-    rgba(255,0,255,0),
-    rgba(255,0,255,0.9),
-    rgba(0,255,255,0.9)
-  );
-  filter: blur(12px);
-  opacity: 0;
-  transition: opacity .25s ease;
-  z-index: -1;          /* behind icon/text/panel */
-  pointer-events: none; /* never blocks clicks */
-}
-
-/* hover triggers */
-.icon-btn:hover::after,
-.menu-item:hover::after,
-.menu-link:hover::after,
-.menu-panel:hover::after{
-  opacity: 1;
-}
-
-/* keep foreground crisp */
-.icon-btn,
-.menu-item,
-.menu-link,
-.menu-panel{
-  background-clip: padding-box;
-}
-
-/* ================================
-   Panels / items
-   ================================ */
-.menu-panel{
+.lang-menu{
   position: absolute;
   top: calc(100% + 10px);
   right: 0;
   min-width: 170px;
-  padding: 10px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.16);
-  background: rgba(0,0,0,.55);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 18px 50px rgba(0,0,0,.45);
+  padding: 8px;
+  border-radius: 16px;
+  background: rgba(0,0,0,.86);
+  border: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
+  z-index: 6000;
 }
 
-.menu-panel--wide{
-  min-width: 230px;
-}
-
-.menu-item{
+.lang-option{
   width: 100%;
-  text-align: left;
-  padding: 12px 12px;
+  text-align:left;
+  padding: 10px 12px;
   border-radius: 12px;
+  background: rgba(255,255,255,.06);
   border: 1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.15);
+  color: rgba(255,255,255,.95);
+  font-weight: 700;
+  cursor:pointer;
+}
+
+.lang-option:hover{ background: rgba(255,255,255,.12); }
+.lang-option.is-active{ border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.10); }
+
+/* Drawer */
+/* removed overlay */
+
+.topbar-drawer{
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  width: min(340px, calc(100vw - 24px));
+  max-height: calc(100vh - 24px);
+  overflow:auto;
+  z-index: 7000;
+  border-radius: 22px;
+  background: rgba(0,0,0,.86);
+  border: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 14px;
+}
+
+.drawer-close{
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
   color: rgba(255,255,255,.92);
-  cursor: pointer;
+  cursor:pointer;
+  font-size: 24px;
+  line-height: 1;
 }
 
-.menu-list{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.drawer-close:hover{ background: rgba(255,255,255,.10); }
+
+.drawer-nav{
+  margin-top: 10px;
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
 }
 
-.menu-link{
-  display: block;
+.drawer-nav a{
+  text-decoration:none;
+  color: rgba(255,255,255,.92);
   padding: 12px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.15);
-  color: rgba(255,255,255,.92);
-  text-decoration: none;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  font-weight: 700;
 }
 
-.menu-link:hover,
-.menu-item:hover{
-  border-color: rgba(255,255,255,.22);
+.drawer-nav a:hover{ background: rgba(255,255,255,.08); }
+
+/* optional: stop page scroll when drawer open */
+body.drawer-open{ overflow:hidden; }
+
+/* Gradient hover like the 3D feature cards */
+.icon-btn,
+.lang-option,
+.drawer-nav a{
+  position: relative;
+  isolation: isolate; /* keep glow BEHIND text/icons */
+  z-index: 0;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.12);
+  overflow: hidden;
 }
+
+.icon-btn::after,
+.lang-option::after,
+.drawer-nav a::after{
+  content: "";
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  background: linear-gradient(45deg, var(--secondary), var(--primary), var(--glow), var(--secondary));
+  background-size: 300% 300%;
+  border-radius: inherit;
+  opacity: 0;
+  z-index: -1; /* behind content */
+  transition: opacity .35s ease;
+  animation: gradient-border 3s linear infinite;
+  pointer-events: none;
+}
+
+.icon-btn:hover,
+.lang-option:hover,
+.drawer-nav a:hover{
+  background: rgba(0,0,0,.25);
+}
+
+.icon-btn:hover::after,
+.lang-option:hover::after,
+.drawer-nav a:hover::after{
+  opacity: 1;
+}
+
+@keyframes gradient-border{
+  0%{ background-position: 0% 50%; }
+  50%{ background-position: 100% 50%; }
+  100%{ background-position: 0% 50%; }
+}
+
