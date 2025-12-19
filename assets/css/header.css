@@ -47,39 +47,66 @@
   place-items: center;
   cursor: pointer;
   transition: transform .15s ease;
+  overflow: visible;
 }
 
 .icon-btn:hover{
   transform: translateY(-1px);
 }
 
-/* Neon hover effect (match your carousel vibe) */
+/* ================================
+   Neon system (BEHIND everything)
+   - icons/text stay crisp
+   - panels glow behind
+   ================================ */
 .icon-btn,
 .menu-item,
-.menu-link{
+.menu-link,
+.menu-panel{
   position: relative;
-  overflow: hidden;
+  isolation: isolate; /* critical: keeps glow behind content */
 }
 
-.icon-btn::before,
-.menu-item::before,
-.menu-link::before{
+.icon-btn::after,
+.menu-item::after,
+.menu-link::after,
+.menu-panel::after{
   content: "";
   position: absolute;
-  inset: -2px;
-  background: linear-gradient(90deg, rgba(255,0,255,.0), rgba(255,0,255,.85), rgba(0,255,255,.85));
+  inset: -6px;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    rgba(255,0,255,0),
+    rgba(255,0,255,0.9),
+    rgba(0,255,255,0.9)
+  );
+  filter: blur(12px);
   opacity: 0;
-  transition: opacity .2s ease;
-  filter: blur(8px);
-  pointer-events: none;
+  transition: opacity .25s ease;
+  z-index: -1;          /* behind icon/text/panel */
+  pointer-events: none; /* never blocks clicks */
 }
 
-.icon-btn:hover::before,
-.menu-item:hover::before,
-.menu-link:hover::before{
+/* hover triggers */
+.icon-btn:hover::after,
+.menu-item:hover::after,
+.menu-link:hover::after,
+.menu-panel:hover::after{
   opacity: 1;
 }
 
+/* keep foreground crisp */
+.icon-btn,
+.menu-item,
+.menu-link,
+.menu-panel{
+  background-clip: padding-box;
+}
+
+/* ================================
+   Panels / items
+   ================================ */
 .menu-panel{
   position: absolute;
   top: calc(100% + 10px);
