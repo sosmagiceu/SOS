@@ -24,6 +24,29 @@
   box-sizing: border-box;
 }
 
+/* Basic icon button styling (keeps it clean, not browser-default boxes) */
+#site-header .btn{
+  appearance: none;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(0,0,0,.25);
+  color: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+#site-header .btn:hover{
+  border-color: rgba(255,255,255,.32);
+  background: rgba(0,0,0,.34);
+}
+#site-header .btn:active{ transform: translateY(1px); }
+
+
 /* Logo in the header, pinned top-left but nudged down */
 #logo {
   position: absolute;
@@ -127,7 +150,7 @@
   user-select: none;
 
   --_mustard: var(--mustard, #F6B600);
-  background: rgba(255,255,255,.08);
+  background: rgba(255,255,255,.18);
   color: #fff;
 
   border-radius: 10px;       /* slightly tighter radius */
@@ -162,7 +185,7 @@
 #lang-dropdown .lang-option:focus-visible {
   box-shadow:
     0 0 0 2px rgba(255,255,255,.65),
-    0 0 0 4px color-mix(in srgb, var(--_mustard) 70%, transparent),
+    0 0 0 4px rgba(255,255,255,.22),
     0 8px 18px rgba(0,0,0,.34);
 }
 
@@ -206,7 +229,7 @@
   user-select: none;
 
   --_mustard: var(--mustard, #F6B600);
-  background: rgba(255,255,255,.08);
+  background: rgba(255,255,255,.22);
   color: #fff;
 
   border-radius: 12px;
@@ -241,7 +264,7 @@
 #dropdown-menu a:focus-visible {
   box-shadow:
     0 0 0 2px rgba(255,255,255,.65),
-    0 0 0 4px color-mix(in srgb, var(--_mustard) 70%, transparent),
+    0 0 0 4px rgba(255,255,255,.22),
     0 10px 22px rgba(0,0,0,.38);
 }
 #dropdown-menu a.start-button {
@@ -441,4 +464,18 @@ header#site-header {
   height: clamp(84px, calc(var(--header-h) * 2), 140px);
   width: auto;
   max-width: none;
+}
+
+
+/* Neutral (no mustard) menu + language options */
+#lang-dropdown .lang-option,
+#dropdown-menu a{
+  background: rgba(0,0,0,.35) !important;
+  border: 1px solid rgba(255,255,255,.16) !important;
+  color: #fff !important;
+}
+#lang-dropdown .lang-option:hover,
+#dropdown-menu a:hover{
+  border-color: rgba(255,255,255,.32) !important;
+  background: rgba(0,0,0,.48) !important;
 }
