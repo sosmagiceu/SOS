@@ -1,1 +1,444 @@
-.site-header{position:sticky;top:0;background:#000;color:#fff;padding:16px}
+:root{
+  --header-h: 84px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --mustard: #F6B600;
+  --_mustard: #F6B600;
+}
+
+/* header.css (copied/adapted from ABC Island Escapes header styles) */
+
+#site-header{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 10000;
+  height: var(--header-h);
+  padding: calc(var(--safe-top)) 12px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: transparent;
+  overflow: visible;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-sizing: border-box;
+}
+
+/* Logo in the header, pinned top-left but nudged down */
+#logo {
+  position: absolute;
+  top: 0;           /* keep at very top */
+  left: 0;
+  line-height: 0;
+  z-index: 10001;
+  display: inline-block;
+}
+#logo a {
+  display: block;
+  outline: none;
+  box-shadow: none;
+  border: 0;
+  background: transparent;
+  -webkit-tap-highlight-color: transparent;
+}
+#logo img {
+  display: block;
+  height: clamp(70px, calc(var(--header-h) * 2), 110px);
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  margin: 0;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+
+  /* New: nudge down visually so it isn’t cut off */
+  transform: translateY(5px);
+}
+
+/* Right-side controls */
+.header-actions{
+  margin-left: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  position: relative;
+  z-index: 12000;
+}
+
+/* Icon button boxes */
+#lang-toggle,#menu-toggle{
+  display: grid; place-items: center;
+  width: 26px; height: 26px;
+  border-radius: 999px; cursor: pointer;
+  color: #fff; background: transparent; border: none;
+  margin-top: 0;
+  position: relative; z-index: 12001;
+}
+
+/* Hamburger icon bars */
+#menu-toggle .burger,
+#menu-toggle .burger::before,
+#menu-toggle .burger::after{
+  display:block; width:16px; height:2px; background:#fff; content:""; position:relative;
+}
+#menu-toggle .burger::before{ position:absolute; top:-5px }
+#menu-toggle .burger::after{ position:absolute; top:5px }
+
+
+/* language dropdown */
+
+/* =======================
+   LANGUAGE DROPDOWN
+   (smaller buttons, same mustard style)
+======================= */
+#lang-dropdown {
+  position: absolute;
+  /* place under its trigger when wrapped (header.js does this) */
+  top: calc(100% + 8px);
+  right: 0;
+  left: auto;
+
+  display: none;
+  flex-direction: column;
+  gap: 3px; /* compact spacing */
+  background: transparent;
+  border: 0;
+  padding: 0;
+  z-index: 2100;
+}
+#lang-dropdown.open { display: flex; }
+
+/* Detached from buttons.css; compact sizing */
+#lang-dropdown .lang-option{
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 32px;          /* was bigger before */
+  padding: 6px 14px;         /* tighter */
+  font-size: 12.5px;         /* slightly smaller */
+  font-weight: 800;
+  letter-spacing: .3px;
+  text-decoration: none;
+
+  cursor: pointer;
+  user-select: none;
+
+  --_mustard: var(--mustard, #F6B600);
+  background: var(--_mustard);
+  color: #fff;
+
+  border-radius: 10px;       /* slightly tighter radius */
+  border: 1px solid rgba(0,0,0,.12);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.08) inset,
+    0 5px 14px rgba(0,0,0,.26);
+
+  transition:
+    transform .15s ease,
+    background .15s ease,
+    box-shadow .15s ease,
+    border-color .15s ease,
+    filter .15s ease;
+
+  opacity: 1 !important;
+  filter: none !important;
+  margin: 0 !important;
+}
+#lang-dropdown .lang-option:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.10) inset,
+    0 8px 18px rgba(0,0,0,.34);
+}
+#lang-dropdown .lang-option:active {
+  transform: translateY(-1px) scale(.99);
+  filter: brightness(0.98);
+}
+#lang-dropdown .lang-option:focus { outline: none !important; }
+#lang-dropdown .lang-option:focus-visible {
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,.65),
+    0 0 0 4px color-mix(in srgb, var(--_mustard) 70%, transparent),
+    0 8px 18px rgba(0,0,0,.34);
+}
+
+/* =======================
+   DRAWER MENU (UNCHANGED LOOK)
+======================= */
+#dropdown-menu{
+  position: fixed;
+  top: calc(var(--header-h) + var(--safe-top));
+  left: 0; right: 0;
+  margin-top: 8px;
+  display: grid;
+  place-items: center;
+  gap: 6px; /* compact spacing already applied */
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+  transition: max-height .3s ease, padding .2s ease, margin .2s ease;
+  z-index: 12050;
+  background: transparent;
+}
+#dropdown-menu.open { max-height: 520px; padding: 16px 0 14px; }
+
+/* Keep your existing mustard button look for menu links (unchanged visuals) */
+#dropdown-menu a{
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: min(380px, calc(100% - 40px));
+  text-align: center;
+  padding: 12px 22px;
+
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: .2px;
+  text-decoration: none;
+
+  cursor: pointer;
+  user-select: none;
+
+  --_mustard: var(--mustard, #F6B600);
+  background: var(--_mustard);
+  color: #fff;
+
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.12);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.08) inset,
+    0 6px 18px rgba(0,0,0,.30);
+
+  transition:
+    transform .15s ease,
+    background .15s ease,
+    box-shadow .15s ease,
+    border-color .15s ease,
+    filter .15s ease;
+
+  opacity: 1 !important;
+  filter: none !important;
+  margin: 0 !important;
+}
+#dropdown-menu a:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.10) inset,
+    0 10px 22px rgba(0,0,0,.38);
+}
+#dropdown-menu a:active {
+  transform: translateY(-1px) scale(.99);
+  filter: brightness(0.98);
+}
+#dropdown-menu a:focus { outline: none !important; }
+#dropdown-menu a:focus-visible {
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,.65),
+    0 0 0 4px color-mix(in srgb, var(--_mustard) 70%, transparent),
+    0 10px 22px rgba(0,0,0,.38);
+}
+#dropdown-menu a.start-button {
+  font-size: 17px;
+  font-weight: 900;
+}
+
+/* =======================
+   HEADER ICONS — HAMBURGER, GLOBE, LOGO (base)
+======================= */
+
+/* If .btn ever leaks onto icons, nuke it first */
+#lang-toggle.btn,
+#menu-toggle.btn,
+.header-actions .icon.btn,
+.header-icons .icon.btn,
+button.icon.btn,
+a.icon.btn,
+.icon-btn.btn {
+  all: unset;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  color: #fff;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+/* Base icon buttons */
+#lang-toggle,
+#menu-toggle,
+.header-actions .icon,
+.header-icons .icon,
+button.icon,
+a.icon,
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  cursor: pointer;
+  color: #fff;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+
+  outline: none !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  background-clip: padding-box;
+}
+
+/* Hamburger icon bars */
+#menu-toggle .burger,
+#menu-toggle .burger::before,
+#menu-toggle .burger::after {
+  display: block;
+  width: 16px;
+  height: 2px;
+  background: #fff;
+  content: "";
+  position: relative;
+}
+#menu-toggle .burger::before { position: absolute; top: -5px; }
+#menu-toggle .burger::after  { position: absolute; top: 5px; }
+
+/* Globe SVG — outline only */
+#lang-toggle svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+#lang-toggle svg,
+#lang-toggle svg * {
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.8 !important;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* =======================
+   MAKE GLOBE + HAMBURGER "STICKY"
+   (icons fixed; lang menu anchors under globe via absolute on wrapper)
+======================= */
+#menu-toggle {
+  position: fixed;
+  top: calc(var(--safe-top) + 10px);
+  right: 12px;
+  z-index: 13000;
+}
+#lang-toggle {
+  position: fixed;
+  top: calc(var(--safe-top) + 10px);
+  right: 48px;    /* sits left of hamburger */
+  z-index: 13000;
+}
+
+/* If your build DOES NOT use header.js wraps, you can fall back to fixed placement like this:
+   Keep it commented out unless needed.
+*/
+/*
+#lang-dropdown {
+  position: fixed;
+  top: calc(var(--safe-top) + 10px + 30px);
+  right: 48px;  /* align under globe icon */
+  z-index: 12990;
+}
+*/
+
+/* The drawer stays centered full-width and sticky already via its own rules above */
+
+/* =======================
+   MOBILE TAP HIGHLIGHT & GLOBAL FOCUS NUKE (unchanged)
+======================= */
+@media (hover: none) and (pointer: coarse) {
+  #site-header,
+  #site-header * {
+    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+  }
+  #site-header :is(a,button,svg,img) {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  #site-header :is(a,button,svg,img):is(:focus,:focus-visible,:active) {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+:where(html, body, *, *::before, *::after) { -webkit-tap-highlight-color: transparent !important; }
+:where(a, button, [role="button"], [tabindex]){ outline:none!important; box-shadow:none!important; border:none!important; background-clip:padding-box; }
+:where(a, button, [role="button"], [tabindex]):is(:focus,:focus-visible,:active){ outline:none!important; box-shadow:none!important; border:none!important; }
+button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{ border:0!important; }
+a img { -webkit-touch-callout:none!important; outline:none!important; box-shadow:none!important; border:none!important; }
+
+
+/* small screens tweaks */
+
+/* =======================
+   SMALL SCREENS
+======================= */
+@media (max-width:380px){
+  :root{ --menu-btn-approx: 82px; }
+  #logo img{
+    /* Overlaps hero but stays capped */
+    height: calc(var(--header-h) * 2);
+    max-height: 160px;
+  }
+}
+
+/* Kill horizontal jiggle everywhere */
+html, body { overflow-x: clip; width: 100%; max-width: 100%; }
+
+/* Header fixed at true top without overflow */
+header#site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 10000;
+  width: 100%;
+  max-width: 100%;                /* was 100vw -> 100% */
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  /* replace padding-inline with safe-area aware padding */
+  padding-left:  max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  margin: 0;
+  overflow: visible;
+}
+
+/* Optional inner container safety */
+#site-header .inner {
+  max-width: 100%;                /* was 100vw -> 100% */
+  overflow: visible;
+}
+
+/* ===== Logo: let it overflow below the bar (no clipping) ===== */
+#site-header #logo {
+  position: absolute;
+  top: calc(var(--safe-top) - 2px);
+  left: max(5px, env(safe-area-inset-left));   /* tighter left, no overflow */
+  z-index: 10002;
+  overflow: visible !important;
+  max-width: none !important;
+}
+
+/* Keep the current logo size cap (adjust if you want tighter) */
+#logo img {
+  height: clamp(84px, calc(var(--header-h) * 2), 140px);
+  width: auto;
+  max-width: none;
+}
