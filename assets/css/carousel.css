@@ -21,29 +21,28 @@
 @media (max-width:900px){.tm-carousel__slide{grid-template-columns:1fr}.tm-carousel__media img{height:240px}}
 
 
-/* ---------- Home 3D carousel: active card neon fill ---------- */
-/* Only the FRONT card gets the neon background (diagonal motion). */
+/* ---------- Home 3D carousel: active card neon background (diagonal motion) ---------- */
 @keyframes cardNeonShiftDiagonal {
   0%   { background-position: 0% 0%; }
   50%  { background-position: 100% 100%; }
   100% { background-position: 0% 0%; }
 }
 
+/* Hide 01/02/03 numbers */
+.feature-card-3d .feature-number{ display:none !important; }
+
+/* Only the FRONT card gets the neon background, contained inside the card */
 .carousel-3d .feature-card-3d.is-active{
-  /* Diagonal moving neon, contained inside the card */
   background: linear-gradient(
     135deg,
-    rgba(255,0,255,.28) 0%,
-    rgba(120,0,255,.20) 35%,
-    rgba(0,255,255,.28) 100%
+    rgba(255,0,255,.22) 0%,
+    rgba(120,0,255,.16) 35%,
+    rgba(0,255,255,.22) 100%
   );
   background-size: 220% 220%;
-  animation: cardNeonShiftDiagonal 5.5s ease-in-out infinite;
-  border-color: rgba(255,255,255,.30);
-  box-shadow: 0 18px 60px rgba(0, 255, 255, 0.12);
+  animation: cardNeonShiftDiagonal 6.2s ease-in-out infinite;
 }
 
-/* Keep the existing fancy border glow active as well */
-.carousel-3d .feature-card-3d.is-active::before{
-  opacity: 1;
-}
+/* Keep existing border glow on the active card */
+.carousel-3d .feature-card-3d.is-active::before{ opacity: 1; }
+

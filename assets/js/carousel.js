@@ -44,76 +44,104 @@ function initSimpleCarousel(root){
 }
 
 /**
- * 3D feature carousel on Home.html (carousel-3d / feature-card-3d).
- * Fixes prev/next and applies neon background ONLY to the active (front) card.
- * Keeps diagonal gradient motion by using CSS on .feature-card-3d.is-active.
+ * 3D feature carousel on Home.html (#carousel).
+ * Uses the original template behavior (rotateY only) to preserve size + side-card 3D tilt.
+ * Adds:
+ * - working prev/next
+ * - indicators
+ * - swipe on mobile
+ * - .is-active class on the current/front card for "always-on" neon background
  */
 function initFeatureCarousel3D(){
   const carousel = document.getElementById("carousel");
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
-  const indicators = document.getElementById("indicators");
+  const indicatorsContainer = document.getElementById("indicators");
 
   if(!carousel) return;
   if(carousel.dataset.initialized === "true") return;
 
-  const cards = Array.from(carousel.querySelectorAll(".feature-card-3d"));
+  const cards = Array.from(document.querySelectorAll(".feature-card-3d"));
   if(cards.length === 0) return;
 
+  const step = 360 / cards.length; // should be 60 for 6 cards
+  let currentRotation = 0;
   let currentIndex = 0;
-  const angle = 360 / cards.length;
-  const radius = 320; // matches vendor css translateZ(320px)
 
-  // set each card position around the ring
-  cards.forEach((card, i) => {
-    card.style.transform = `rotateY(${i*angle}deg) translateZ(${radius}px)`;
-  });
-
-  function setActive(idx){
-    currentIndex = (idx + cards.length) % cards.length;
-    carousel.style.transform = `translateZ(-${radius}px) rotateY(${-currentIndex*angle}deg)`;
-
-    cards.forEach((c, i) => c.classList.toggle("is-active", i === currentIndex));
-
-    if(indicators){
-      Array.from(indicators.children).forEach((dot, i) => {
-        dot.classList.toggle("active", i === currentIndex);
-      });
-    }
-  }
-
-  // indicators
-  if(indicators){
-    indicators.innerHTML = "";
-    cards.forEach((_, i) => {
-      const dot = document.createElement("div");
-      dot.className = "indicator" + (i===0 ? " active" : "");
-      dot.addEventListener("click", () => setActive(i));
-      indicators.appendChild(dot);
+  // Create indicators
+  if(indicatorsContainer){
+    indicatorsContainer.innerHTML = "";
+    cards.forEach((_, index) => {
+      const indicator = document.createElement("div");
+      indicator.className = "indicator" + (index === 0 ? " active" : "");
+      indicator.addEventListener("click", () => goToSlide(index));
+      indicatorsContainer.appendChild(indicator);
     });
   }
+  const indicators = indicatorsContainer ? Array.from(indicatorsContainer.querySelectorAll(".indicator")) : [];
 
-  prevBtn?.addEventListener("click", () => setActive(currentIndex - 1));
-  nextBtn?.addEventListener("click", () => setActive(currentIndex + 1));
+  function setActiveIndex(idx){
+    currentIndex = (idx + cards.length) % cards.length;
+    cards.forEach((c,i)=>c.classList.toggle("is-active", i === currentIndex));
+    indicators.forEach((d,i)=>d.classList.toggle("active", i === currentIndex));
+  }
 
-  // also allow keyboard arrows when carousel visible
-  document.addEventListener("keydown", (e) => {
-    // avoid hijacking when typing
-    const tag = (document.activeElement && document.activeElement.tagName || "").toLowerCase();
-    if(tag === "input" || tag === "textarea") return;
+  function updateView(){
+    carousel.style.transform = `rotateY(${currentRotation}deg)`;
+    setActiveIndex(currentIndex);
+  }
 
-    if(e.key === "ArrowLeft") setActive(currentIndex - 1);
-    if(e.key === "ArrowRight") setActive(currentIndex + 1);
+  function goToSlide(index){
+    currentIndex = (index + cards.length) % cards.length;
+    currentRotation = -currentIndex * step; // direct jump only when clicking dots
+    updateView();
+  }
+
+  prevBtn?.addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+    currentRotation += step; // keep moving left
+    updateView();
   });
 
-  setActive(0);
+  nextBtn?.addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % cards.length;
+    currentRotation -= step; // keep moving right (no jump at wrap)
+    updateView();
+  });
+
+  // Swipe support (mobile)
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  carousel.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  carousel.addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  });
+
+  function handleSwipe(){
+    if(touchEndX < touchStartX - 50) nextBtn?.click();
+    if(touchEndX > touchStartX + 50) prevBtn?.click();
+  }
+
+  // Keyboard arrows
+  document.addEventListener("keydown", (e) => {
+    const tag = (document.activeElement && document.activeElement.tagName || "").toLowerCase();
+    if(tag === "input" || tag === "textarea") return;
+    if(e.key === "ArrowLeft") prevBtn?.click();
+    if(e.key === "ArrowRight") nextBtn?.click();
+  });
+
+  // init
+  setActiveIndex(0);
+  updateView();
   carousel.dataset.initialized = "true";
 }
 
 export function initCarousels(){
-  // Simple carousels
   qsAll("[data-carousel]").forEach(initSimpleCarousel);
-
-  // Home 3D carousel
   initFeatureCarousel3D();
 }

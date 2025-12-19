@@ -1,3 +1,35 @@
 /* pages/home.css */
 body[data-page='home'] .tm-carousel{margin-top:24px}
 .
+
+/* ---------- Title neon sweep (Home) ---------- */
+.section-title.title-neon-sweep{
+  position: relative;
+  color: #fff; /* base: white */
+}
+
+.section-title.title-neon-sweep::after{
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(135deg,
+    rgba(255,0,255,1) 0%,
+    rgba(140,0,255,1) 35%,
+    rgba(0,255,255,1) 100%
+  );
+  background-size: 220% 220%;
+  background-position: 0% 0%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  opacity: 0;
+  pointer-events: none;
+  animation: titleSweep 4s linear infinite;
+}
+
+@keyframes titleSweep{
+  0%, 49% { opacity: 0; background-position: 0% 0%; } /* white for ~2s */
+  50%     { opacity: 1; background-position: 0% 0%; }
+  100%    { opacity: 1; background-position: 100% 100%; } /* sweep for ~2s */
+}
