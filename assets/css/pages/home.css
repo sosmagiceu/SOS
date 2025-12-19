@@ -1,36 +1,52 @@
+/* pages/home.css */
+body[data-page='home'] .tm-carousel{margin-top:24px}
+.
 
-/* ---- SOS MAGIC title neon sweep (white base, neon pass every 2s) ---- */
+
+/* ---- SOS MAGIC title neon sweep ---- */
+
+/* Keep title centered in its section */
+.section-title{
+  width: 100%;
+  text-align: center;
+}
+
+/* White base text always visible */
 .section-title.neon-sweep{
   position: relative;
   display: inline-block;
-  color: #fff; /* base always visible */
-  z-index: 0;
+  color: #fff;
 }
 
+/* Neon overlay: visible only during sweep window */
 .section-title.neon-sweep::after{
   content: attr(data-text);
   position: absolute;
   inset: 0;
-  z-index: 1; /* ensure overlay sits above white text */
+  z-index: 2;
+  pointer-events: none;
+
   color: transparent;
   -webkit-text-fill-color: transparent;
+
   background: linear-gradient(90deg,
     rgba(255,0,255,1),
     rgba(0,255,255,1),
     rgba(255,0,255,1)
   );
-  background-size: 200% 100%;
+  background-size: 220% 100%;
+  background-position: 0% 50%;
+
   -webkit-background-clip: text;
   background-clip: text;
-  opacity: 0;
-  pointer-events: none;
 
-  /* 2s off (white only), 2s on (neon sweep) */
+  opacity: 0;
   animation: sosSweepCycle 4s linear infinite;
 }
 
+/* 2s white, then 2s neon sweep */
 @keyframes sosSweepCycle{
-  0%, 49% { opacity: 0; background-position: 0% 50%; }
-  50%     { opacity: 1; background-position: 0% 50%; }
-  100%    { opacity: 1; background-position: 100% 50%; }
+  0%, 49%   { opacity: 0; background-position: 0% 50%; }
+  50%       { opacity: 1; background-position: 0% 50%; }
+  100%      { opacity: 1; background-position: 100% 50%; }
 }
