@@ -4,16 +4,22 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Contact – SOS Magic</title>
+<title>Parallax Depth Experience from Tooplate website</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;800&amp;family=Space+Grotesk:wght@300;400;600;700&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&amp;family=Space+Grotesk:wght@300;400;600;700&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
 <link href="/assets/css/main.css" rel="stylesheet"/>
-<script defer="" src="/assets/js/vendor/tooplate-2144-parallax-scripts.js"></script>
-<script src="/assets/js/main.js" type="module"></script>
-</head>
-<body data-page="contact">
-<div class="site-topbar">
+<!--
+
+Tooplate 2144 Parallax Depth
+
+https://www.tooplate.com/view/2144-parallax-depth
+
+Free HTML CSS Template
+
+-->
+<script src="/assets/js/main.js" type="module"></script></head>
+<body><div class="site-topbar">
 <div class="inner">
 <div class="brand">SOS MAGIC</div>
 <nav>
@@ -28,63 +34,112 @@
 <a data-nav="story" href="/Story.html">Story</a>
 </nav>
 </div>
-</div><div class="stars" id="stars"></div>
-<div class="tm-wrapper">
-<section class="tm-section tm-hero-section" style="min-height:60vh">
-<div class="tm-section-inner">
-<div class="tm-hero-content">
-<h1 class="tm-hero-title">Contact</h1>
-<p class="tm-hero-subtitle">.</p>
-<div class="tm-button-group">
-<a class="tm-btn" href="/Home.html">Back to Home</a>
 </div>
+<!-- Stars Background -->
+<div class="stars" id="stars"></div>
+<!-- Features Section with 3D Carousel -->
+<section class="content-section features-section-bg" id="features">
+<!-- Grid Overlay -->
+<div class="features-grid-overlay">
+<div class="features-grid"></div>
+<div class="features-grid-large"></div>
 </div>
-</div>
-</section>
-
-<section class="content-section contact-section-bg" id="contact">
 <div class="container">
-<h2 class="section-title">Get In Touch</h2>
-<div class="contact-content">
-<div class="contact-form">
-<div class="form-group">
-<input class="form-input" placeholder="Your Name" required="" type="text"/>
+<h2 class="section-title">Layered Features</h2>
+<div class="features-container">
+<div class="carousel-3d" id="carousel">
+<div class="feature-card-3d" data-index="0">
+<span class="feature-number">01</span>
+<div class="feature-icon-3d">🚀</div>
+<h3 class="feature-title-3d">Speed Layers</h3>
+<p class="feature-description-3d">Multiple parallax layers moving at different speeds create realistic depth perception as you scroll through the experience.</p>
 </div>
-<div class="form-group">
-<input class="form-input" placeholder="Your Email" required="" type="email"/>
+<div class="feature-card-3d" data-index="1">
+<span class="feature-number">02</span>
+<div class="feature-icon-3d">✨</div>
+<h3 class="feature-title-3d">3D Transforms</h3>
+<p class="feature-description-3d">Elements respond to interactions with smooth 3D rotations and translations, creating an engaging visual hierarchy.</p>
 </div>
-<div class="form-group">
-<input class="form-input" placeholder="Subject" required="" type="text"/>
+<div class="feature-card-3d" data-index="2">
+<span class="feature-number">03</span>
+<div class="feature-icon-3d">🎨</div>
+<h3 class="feature-title-3d">Gradient Mastery</h3>
+<p class="feature-description-3d">Dynamic gradients and color transitions guide the eye through different depth levels, enhancing the parallax effect.</p>
 </div>
-<div class="form-group">
-<textarea class="form-input form-textarea" placeholder="Your Message" required=""></textarea>
+<div class="feature-card-3d" data-index="3">
+<span class="feature-number">04</span>
+<div class="feature-icon-3d">💫</div>
+<h3 class="feature-title-3d">Floating Elements</h3>
+<p class="feature-description-3d">Cards and orbs float independently, each with unique animation timing to create organic movement patterns.</p>
 </div>
-<button class="submit-btn" type="submit">Send Message</button>
+<div class="feature-card-3d" data-index="4">
+<span class="feature-number">05</span>
+<div class="feature-icon-3d">🌊</div>
+<h3 class="feature-title-3d">Smooth Scrolling</h3>
+<p class="feature-description-3d">Optimized performance ensures buttery-smooth scrolling even with multiple animated layers and effects.</p>
 </div>
-<div class="contact-info">
-<h3>Connect With Us</h3>
-<div class="info-item">
-<div class="info-icon">📧</div>
-<span class="info-text">hello@parallaxdepth.com</span>
-</div>
-<div class="info-item">
-<div class="info-icon">📱</div>
-<span class="info-text">+1 (555) 123-4567</span>
-</div>
-<div class="info-item">
-<div class="info-icon">📍</div>
-<span class="info-text">123 Design Street, Creative City, DC 12345</span>
-</div>
-<div class="info-item">
-<div class="info-icon">🌐</div>
-<span class="info-text">www.parallaxdepth.com</span>
+<div class="feature-card-3d" data-index="5">
+<span class="feature-number">06</span>
+<div class="feature-icon-3d">🎯</div>
+<h3 class="feature-title-3d">Interactive Focus</h3>
+<p class="feature-description-3d">Mouse-following effects and hover states add another dimension of interactivity to the parallax experience.</p>
 </div>
 </div>
+<div class="carousel-controls">
+<div class="carousel-btn" id="prevBtn">◀</div>
+<div class="carousel-btn" id="nextBtn">▶</div>
+</div>
+<div class="carousel-indicators" id="indicators"></div>
 </div>
 </div>
 <!-- Navigation -->
 </section>
+<!-- Gallery Section -->
 
+<!-- Contact Section -->
+
+<script src="/assets/js/vendor/tooplate-2144-parallax-scripts.js"></script>
+<section class="tm-section tm-content-section">
+<div class="tm-section-inner">
+<div class="tm-carousel" data-autoplay="true" data-carousel="" data-delay="6500">
+<div class="tm-carousel__track" data-carousel-track="">
+<article class="tm-carousel__slide" data-carousel-slide="">
+<div class="tm-carousel__media"><img alt="Placeholder 1" src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&amp;h=700&amp;fit=crop"/></div>
+<div><div class="tm-carousel__kicker">Chapter 01</div><h2 class="tm-carousel__title">The Method</h2>
+<p class="tm-carousel__text">Placeholder text for your method hook.</p>
+<a class="btn btn--accent" href="/Method.html">Open Method</a></div>
+</article>
+<article class="tm-carousel__slide" data-carousel-slide="">
+<div class="tm-carousel__media"><img alt="Placeholder 2" src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&amp;h=700&amp;fit=crop"/></div>
+<div><div class="tm-carousel__kicker">Chapter 02</div><h2 class="tm-carousel__title">The Collection</h2>
+<p class="tm-carousel__text">Placeholder text for collection highlights.</p>
+<a class="btn btn--accent" href="/Collection.html">View Collection</a></div>
+</article>
+<article class="tm-carousel__slide" data-carousel-slide="">
+<div class="tm-carousel__media"><img alt="Placeholder 3" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&amp;h=700&amp;fit=crop"/></div>
+<div><div class="tm-carousel__kicker">Chapter 03</div><h2 class="tm-carousel__title">Webshop</h2>
+<p class="tm-carousel__text">Placeholder text for products and checkout.</p>
+<a class="btn btn--accent" href="/Webshop.html">Go to Webshop</a></div>
+</article>
+<article class="tm-carousel__slide" data-carousel-slide="">
+<div class="tm-carousel__media"><img alt="Placeholder 4" src="https://images.unsplash.com/photo-1514565131-fce0801e5785?w=1200&amp;h=700&amp;fit=crop"/></div>
+<div><div class="tm-carousel__kicker">Chapter 04</div><h2 class="tm-carousel__title">Reviews</h2>
+<p class="tm-carousel__text">Placeholder text for social proof.</p>
+<a class="btn btn--accent" href="/Reviews.html">Read Reviews</a></div>
+</article>
+<article class="tm-carousel__slide" data-carousel-slide="">
+<div class="tm-carousel__media"><img alt="Placeholder 5" src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=1200&amp;h=700&amp;fit=crop"/></div>
+<div><div class="tm-carousel__kicker">Chapter 05</div><h2 class="tm-carousel__title">The Story</h2>
+<p class="tm-carousel__text">Placeholder text for lore.</p>
+<a class="btn btn--accent" href="/Story.html">Open Story</a></div>
+</article>
 </div>
-</body>
+<div aria-hidden="true" class="tm-carousel__controls">
+<button aria-label="Previous" class="tm-carousel__btn tm-carousel__btn--prev" data-carousel-prev="" type="button">‹</button>
+<button aria-label="Next" class="tm-carousel__btn tm-carousel__btn--next" data-carousel-next="" type="button">›</button>
+</div>
+<div class="tm-carousel__dots" data-carousel-dots=""></div>
+</div>
+</div>
+</section></body>
 </html>
