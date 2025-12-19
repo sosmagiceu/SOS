@@ -1,40 +1,44 @@
-<!-- HEADER + DRAWER -->
-<header id="site-header" role="banner">
-<!-- Left: logo (intentionally overlaps hero) -->
-<a aria-label="ABC Island Escapes" href="/" id="logo">
-<img alt="ABC Island Escapes" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block'" src="https://abcislandescapes.b-cdn.net/website%20images/icon1.png"/>
-<span class="logo-fallback" style="display:none;font-weight:700;letter-spacing:.2px">
-      ABC Island Escapes
-    </span>
-</a>
-<!-- Right: actions -->
-<div class="header-actions">
-<!-- Language selector -->
-<button aria-controls="lang-dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Change language" class="btn" id="lang-toggle">
-<svg aria-hidden="true" fill="none" height="22" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="22">
-<circle cx="12" cy="12" r="10"></circle>
-<path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"></path>
-</svg>
-</button>
-<div aria-label="Language menu" id="lang-dropdown" role="menu">
-<button class="lang-option btn" data-code="EN">EN</button>
-<button class="lang-option btn" data-code="NL">NL</button>
-<button class="lang-option btn" data-code="PAP">PAP</button>
-<button class="lang-option btn" data-code="ES">ES</button>
-<button class="lang-option btn" data-code="RU">RU</button>
+<!-- HEADER (SOS) -->
+<div class="site-topbar" id="siteTopbar">
+  <div class="inner">
+    <a class="brand" href="/Home.html" aria-label="SOS Magic Home">SOS MAGIC</a>
+
+    <div class="topbar-actions">
+      <div class="lang-wrap">
+        <button class="icon-btn lang-btn" type="button" aria-expanded="false" aria-controls="langMenu" title="Language">
+          <!-- globe icon (same style as ABC) -->
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm7.93 9h-3.2a15.7 15.7 0 0 0-1.2-5a8.03 8.03 0 0 1 4.4 5ZM12 4c.9 1.2 1.7 3.1 2.1 7H9.9C10.3 7.1 11.1 5.2 12 4ZM4.07 13h3.2a15.7 15.7 0 0 0 1.2 5a8.03 8.03 0 0 1-4.4-5ZM7.27 11H4.07a8.03 8.03 0 0 1 4.4-5a15.7 15.7 0 0 0-1.2 5Zm2.63 2h4.2c-.4 3.9-1.2 5.8-2.1 7c-.9-1.2-1.7-3.1-2.1-7Zm6.83 0h3.2a8.03 8.03 0 0 1-4.4 5a15.7 15.7 0 0 0 1.2-5Zm-1.2-2h-4.2c.4-3.9 1.2-5.8 2.1-7c.9 1.2 1.7 3.1 2.1 7ZM9.47 18a15.7 15.7 0 0 0 1.2-5h-3.2a8.03 8.03 0 0 0 2 5Zm5.06 0a8.03 8.03 0 0 0 2-5h-3.2a15.7 15.7 0 0 0 1.2 5Z"/>
+          </svg>
+        </button>
+
+        <div id="langMenu" class="lang-menu" hidden>
+          <button class="lang-option" type="button" data-code="en">English</button>
+        </div>
+      </div>
+
+      <button class="icon-btn hamburger-btn" type="button" aria-expanded="false" aria-controls="topbarDrawer" title="Menu">
+        <!-- hamburger icon -->
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
 </div>
-<!-- Hamburger -->
-<button aria-controls="dropdown-menu" aria-expanded="false" aria-label="Open menu" class="btn" id="menu-toggle">
-<span class="burger"></span>
-</button>
-</div>
-</header>
-<!-- Drawer menu -->
-<nav aria-hidden="true" id="dropdown-menu" role="navigation">
-<a class="btn" href="/" id="menu-home">Home</a>
-<a class="btn" href="/Tours.html" id="menu-games">Tours</a>
-<a class="btn" href="/passcode.html" id="menu-passcode">Passcode</a>
-<a class="btn" href="/Pricing.html" id="menu-pricing">Pricing &amp; Purchase</a>
-<a class="btn" href="/faq.html" id="menu-faq">FAQ</a>
-<a class="btn" href="/terms-and-conditions.html" id="menu-terms">Terms &amp; Contact</a>
-</nav>
+
+<div class="drawer-overlay" data-drawer-overlay hidden></div>
+
+<aside id="topbarDrawer" class="topbar-drawer" hidden>
+  <button class="drawer-close" type="button" aria-label="Close menu">×</button>
+  <nav class="drawer-nav" aria-label="Main menu">
+    <a href="/SOS.html">SOS</a>
+    <a href="/Method.html">Method</a>
+    <a href="/Collection.html">Collection</a>
+    <a href="/Webshop.html">Shop</a>
+    <a href="/FAQ.html">FAQ</a>
+    <a href="/Story.html">Story</a>
+    <a href="/Reviews.html">Reviews</a>
+    <a href="/Contact.html">Contact</a>
+  </nav>
+</aside>
