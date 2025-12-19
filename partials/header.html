@@ -1,42 +1,61 @@
-<!-- HEADER (SOS) -->
+<!-- /partials/header.html -->
 <div class="site-topbar" id="siteTopbar">
   <div class="inner">
     <a class="brand" href="/Home.html" aria-label="SOS Magic Home">SOS MAGIC</a>
 
     <div class="topbar-actions">
-      <div class="lang-wrap">
-        <button class="icon-btn lang-btn" type="button" aria-expanded="false" aria-controls="langMenu" title="Language">
-          <!-- globe icon (same style as ABC) -->
+      <!-- LANGUAGE -->
+      <div class="menu-wrap" data-menu-wrap>
+        <button
+          class="icon-btn menu-btn"
+          type="button"
+          data-menu-btn="lang"
+          aria-expanded="false"
+          aria-controls="langMenu"
+          title="Language"
+        >
           <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm7.93 9h-3.2a15.7 15.7 0 0 0-1.2-5a8.03 8.03 0 0 1 4.4 5ZM12 4c.9 1.2 1.7 3.1 2.1 7H9.9C10.3 7.1 11.1 5.2 12 4ZM4.07 13h3.2a15.7 15.7 0 0 0 1.2 5a8.03 8.03 0 0 1-4.4-5ZM7.27 11H4.07a8.03 8.03 0 0 1 4.4-5a15.7 15.7 0 0 0-1.2 5Zm2.63 2h4.2c-.4 3.9-1.2 5.8-2.1 7c-.9-1.2-1.7-3.1-2.1-7Zm6.83 0h3.2a8.03 8.03 0 0 1-4.4 5a15.7 15.7 0 0 0 1.2-5Zm-1.2-2h-4.2c.4-3.9 1.2-5.8 2.1-7c.9 1.2 1.7 3.1 2.1 7ZM9.47 18a15.7 15.7 0 0 0 1.2-5h-3.2a8.03 8.03 0 0 0 2 5Zm5.06 0a8.03 8.03 0 0 0 2-5h-3.2a15.7 15.7 0 0 0 1.2 5Z"/>
+            <path
+              fill="currentColor"
+              d="M12 2a10 10 0 1 0 10 10A10.01 10.01 0 0 0 12 2Zm7.93 9h-3.08a15.84 15.84 0 0 0-1.39-5.06A8.04 8.04 0 0 1 19.93 11ZM12 4c.88 1.2 1.63 3.1 2.05 5H9.95C10.37 7.1 11.12 5.2 12 4ZM4.07 13h3.08a15.84 15.84 0 0 0 1.39 5.06A8.04 8.04 0 0 1 4.07 13ZM7.15 11H4.07a8.04 8.04 0 0 1 4.47-5.06A15.84 15.84 0 0 0 7.15 11Zm0 2a13.86 13.86 0 0 0 1.55 5.39A7.98 7.98 0 0 1 4.07 13Zm2.8 0h4.1c-.42 1.9-1.17 3.8-2.05 5-.88-1.2-1.63-3.1-2.05-5Zm4.1-2h-4.1c.42-1.9 1.17-3.8 2.05-5 .88 1.2 1.63 3.1 2.05 5Zm1.25 7.39A13.86 13.86 0 0 0 16.85 13h3.08a7.98 7.98 0 0 1-4.63 5.39ZM16.85 11a13.86 13.86 0 0 0-1.55-5.39A7.98 7.98 0 0 1 19.93 11Z"
+            />
           </svg>
         </button>
 
-        <div id="langMenu" class="lang-menu" hidden>
-          <button class="lang-option" type="button" data-lang="en">English</button>
+        <div id="langMenu" class="menu-panel" data-menu-panel="lang" hidden>
+          <button class="menu-item" type="button">English</button>
         </div>
       </div>
 
-      <button class="icon-btn hamburger-btn" type="button" aria-expanded="false" aria-controls="topbarDrawer" title="Menu">
-        <!-- hamburger icon -->
-        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill="currentColor" d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/>
-        </svg>
-      </button>
+      <!-- HAMBURGER (now also dropdown, like globe) -->
+      <div class="menu-wrap" data-menu-wrap>
+        <button
+          class="icon-btn menu-btn"
+          type="button"
+          data-menu-btn="nav"
+          aria-expanded="false"
+          aria-controls="navMenu"
+          title="Menu"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z" />
+          </svg>
+        </button>
+
+        <div id="navMenu" class="menu-panel menu-panel--wide" data-menu-panel="nav" hidden>
+          <nav class="menu-list" aria-label="Main menu">
+            <a class="menu-link" href="/SOS.html">SOS</a>
+            <a class="menu-link" href="/Method.html">Method</a>
+            <a class="menu-link" href="/Collection.html">Collection</a>
+            <a class="menu-link" href="/Webshop.html">Webshop</a>
+            <a class="menu-link" href="/FAQ.html">FAQ</a>
+            <a class="menu-link" href="/Story.html">Story</a>
+            <a class="menu-link" href="/Reviews.html">Reviews</a>
+            <a class="menu-link" href="/Contact.html">Contact</a>
+            <a class="menu-link" href="/TOS.html">Terms</a>
+          </nav>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-<aside id="topbarDrawer" class="topbar-drawer" hidden>
-  <button class="drawer-close" type="button" aria-label="Close menu">×</button>
-  <nav class="drawer-nav" aria-label="Main menu">
-    <a href="/SOS.html">SOS</a>
-    <a href="/Method.html">Method</a>
-    <a href="/Collection.html">Collection</a>
-    <a href="/Webshop.html">Webshop</a>
-    <a href="/FAQ.html">FAQ</a>
-    <a href="/Story.html">Story</a>
-    <a href="/Reviews.html">Reviews</a>
-    <a href="/Contact.html">Contact</a>
-      <a href="/TOS.html">Terms</a>
-  </nav>
-</aside>
