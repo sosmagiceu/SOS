@@ -1,12 +1,4 @@
-:root{
-  --header-h: 84px;
-  --safe-top: env(safe-area-inset-top, 0px);
-  --mustard: #F6B600;
-  --_mustard: #F6B600;
-}
-
-/* header.css (copied/adapted from ABC Island Escapes header styles) */
-
+/* header.css (ported from ABC Island Escapes) */
 #site-header{
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -23,29 +15,6 @@
   -webkit-backdrop-filter: none;
   box-sizing: border-box;
 }
-
-/* Basic icon button styling (keeps it clean, not browser-default boxes) */
-#site-header .btn{
-  appearance: none;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(0,0,0,.25);
-  color: #fff;
-  border-radius: 12px;
-  padding: 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-#site-header .btn:hover{
-  border-color: rgba(255,255,255,.32);
-  background: rgba(0,0,0,.34);
-}
-#site-header .btn:active{ transform: translateY(1px); }
-
 
 /* Logo in the header, pinned top-left but nudged down */
 #logo {
@@ -105,11 +74,57 @@
 #menu-toggle .burger::after{
   display:block; width:16px; height:2px; background:#fff; content:""; position:relative;
 }
-#menu-toggle .burger::before{ position:absolute; top:-5px }
-#menu-toggle .burger::after{ position:absolute; top:5px }
+#menu-toggle .burger::before{ positi
 
 
-/* language dropdown */
+/* =======================
+   HAMBURGER / DRAWER MENU
+======================= */
+#dropdown-menu{
+  position: fixed;
+  top: calc(var(--header-h,56px) + var(--safe-top,0px) + 10px);
+  right: 12px;
+  left: auto;
+  z-index: 20000;
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  border-radius: 16px;
+  background: rgba(0,0,0,.65);
+  border: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  max-height: min(70vh, 520px);
+  overflow: auto;
+}
+#dropdown-menu.open{ display: flex; }
+#dropdown-menu .btn{
+  display:flex;
+  justify-content:flex-start;
+  padding:10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  color:#fff;
+  text-decoration:none;
+  font-weight: 700;
+}
+#dropdown-menu .btn:hover{
+  background: rgba(255,255,255,.12);
+}
+/* Make sure header buttons stay clickable */
+#site-header, #header-floater{ z-index: 20001; }
+
+
+
+#site-header .btn{
+  background: rgba(0,0,0,.35) !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+  color: #fff !important;
+}
+#site-header .btn:hover{ background: rgba(255,255,255,.08) !important; }
+
 
 /* =======================
    LANGUAGE DROPDOWN
@@ -150,7 +165,7 @@
   user-select: none;
 
   --_mustard: var(--mustard, #F6B600);
-  background: rgba(255,255,255,.18);
+  background: var(--_mustard);
   color: #fff;
 
   border-radius: 10px;       /* slightly tighter radius */
@@ -185,7 +200,7 @@
 #lang-dropdown .lang-option:focus-visible {
   box-shadow:
     0 0 0 2px rgba(255,255,255,.65),
-    0 0 0 4px rgba(255,255,255,.22),
+    0 0 0 4px color-mix(in srgb, var(--_mustard) 70%, transparent),
     0 8px 18px rgba(0,0,0,.34);
 }
 
@@ -229,7 +244,7 @@
   user-select: none;
 
   --_mustard: var(--mustard, #F6B600);
-  background: rgba(255,255,255,.22);
+  background: var(--_mustard);
   color: #fff;
 
   border-radius: 12px;
@@ -264,7 +279,7 @@
 #dropdown-menu a:focus-visible {
   box-shadow:
     0 0 0 2px rgba(255,255,255,.65),
-    0 0 0 4px rgba(255,255,255,.22),
+    0 0 0 4px color-mix(in srgb, var(--_mustard) 70%, transparent),
     0 10px 22px rgba(0,0,0,.38);
 }
 #dropdown-menu a.start-button {
@@ -331,7 +346,7 @@ a.icon,
   display: block;
   width: 16px;
   height: 2px;
-  background: #fff;
+  background: rgba(0,0,0,.55);
   content: "";
   position: relative;
 }
@@ -407,75 +422,3 @@ a.icon,
 button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{ border:0!important; }
 a img { -webkit-touch-callout:none!important; outline:none!important; box-shadow:none!important; border:none!important; }
 
-
-/* small screens tweaks */
-
-/* =======================
-   SMALL SCREENS
-======================= */
-@media (max-width:380px){
-  :root{ --menu-btn-approx: 82px; }
-  #logo img{
-    /* Overlaps hero but stays capped */
-    height: calc(var(--header-h) * 2);
-    max-height: 160px;
-  }
-}
-
-/* Kill horizontal jiggle everywhere */
-html, body { overflow-x: clip; width: 100%; max-width: 100%; }
-
-/* Header fixed at true top without overflow */
-header#site-header {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 10000;
-  width: 100%;
-  max-width: 100%;                /* was 100vw -> 100% */
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  gap: .75rem;
-  /* replace padding-inline with safe-area aware padding */
-  padding-left:  max(12px, env(safe-area-inset-left));
-  padding-right: max(12px, env(safe-area-inset-right));
-  margin: 0;
-  overflow: visible;
-}
-
-/* Optional inner container safety */
-#site-header .inner {
-  max-width: 100%;                /* was 100vw -> 100% */
-  overflow: visible;
-}
-
-/* ===== Logo: let it overflow below the bar (no clipping) ===== */
-#site-header #logo {
-  position: absolute;
-  top: calc(var(--safe-top) - 2px);
-  left: max(5px, env(safe-area-inset-left));   /* tighter left, no overflow */
-  z-index: 10002;
-  overflow: visible !important;
-  max-width: none !important;
-}
-
-/* Keep the current logo size cap (adjust if you want tighter) */
-#logo img {
-  height: clamp(84px, calc(var(--header-h) * 2), 140px);
-  width: auto;
-  max-width: none;
-}
-
-
-/* Neutral (no mustard) menu + language options */
-#lang-dropdown .lang-option,
-#dropdown-menu a{
-  background: rgba(0,0,0,.35) !important;
-  border: 1px solid rgba(255,255,255,.16) !important;
-  color: #fff !important;
-}
-#lang-dropdown .lang-option:hover,
-#dropdown-menu a:hover{
-  border-color: rgba(255,255,255,.32) !important;
-  background: rgba(0,0,0,.48) !important;
-}
