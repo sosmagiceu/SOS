@@ -12,14 +12,16 @@
           data-menu-btn="lang"
           aria-expanded="false"
           aria-controls="langMenu"
-          title="Language"
+          aria-label="Language"
         >
-          <!-- simple outline globe (match hamburger style) -->
-          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none">
-            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M3 12h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M12 3c2.6 2.7 2.6 15.3 0 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M12 3c-2.6 2.7-2.6 15.3 0 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <!-- Clean outline globe icon (white lines) -->
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M3.6 12h16.8"></path>
+              <path d="M12 3c3 3.2 3 14.8 0 18"></path>
+              <path d="M12 3c-3 3.2-3 14.8 0 18"></path>
+            </g>
           </svg>
         </button>
 
@@ -28,7 +30,7 @@
         </div>
       </div>
 
-      <!-- MENU -->
+      <!-- HAMBURGER -->
       <div class="menu-wrap" data-menu-wrap>
         <button
           class="icon-btn menu-btn"
@@ -36,10 +38,10 @@
           data-menu-btn="nav"
           aria-expanded="false"
           aria-controls="navMenu"
-          title="Menu"
+          aria-label="Menu"
         >
           <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="currentColor" d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/>
+            <path fill="currentColor" d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z" />
           </svg>
         </button>
 

@@ -7,14 +7,14 @@
   top: 0; left: 0; right: 0;
   z-index: 9999;
   padding: 18px 20px;
-  pointer-events: none; /* background clickable except header */
+  pointer-events: none; /* background stays interactive */
 }
 
 .site-topbar .inner{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  pointer-events: auto;
+  pointer-events: auto; /* header clickable */
 }
 
 .brand{
@@ -36,6 +36,7 @@
   position: relative;
 }
 
+/* ---------- Buttons ---------- */
 .icon-btn{
   width: 44px;
   height: 44px;
@@ -47,7 +48,10 @@
   place-items: center;
   cursor: pointer;
   transition: transform .15s ease, border-color .2s ease;
-  overflow: visible;
+  overflow: hidden;
+
+  position: relative;
+  isolation: isolate; /* neon behind icon */
 }
 
 .icon-btn:hover{
@@ -55,32 +59,61 @@
   border-color: rgba(255,255,255,.28);
 }
 
-/* Neon hover PER BUTTON/LINK (behind content) */
-.icon-btn,
-.menu-item,
-.menu-link{
-  position: relative;
-  isolation: isolate;   /* keeps glow behind */
-  overflow: visible;
+/* ---------- Animated neon (per button/item/link) ---------- */
+@keyframes neonShift {
+  0%   { background-position:   0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position:   0% 50%; }
 }
 
+/* One layer that becomes visible on hover, BEHIND content */
+.icon-btn::before,
+.menu-item::before,
+.menu-link::before{
+  content: "";
+  position: absolute;
+  inset: 1px; /* keeps it neatly inside the border */
+  border-radius: inherit;
+  background: linear-gradient(90deg,
+    rgba(255,0,255,.85),
+    rgba(140,0,255,.85),
+    rgba(0,255,255,.85)
+  );
+  background-size: 200% 200%;
+  opacity: 0;
+  transition: opacity .2s ease;
+  animation: neonShift 1.35s linear infinite;
+  z-index: -1; /* behind text/icons */
+  pointer-events: none;
+  filter: saturate(1.25);
+}
+
+/* optional soft glow halo behind (still per element) */
 .icon-btn::after,
 .menu-item::after,
 .menu-link::after{
   content: "";
   position: absolute;
-  inset: -6px;
+  inset: -8px;
   border-radius: inherit;
   background: linear-gradient(90deg,
-    rgba(255,0,255,0),
-    rgba(255,0,255,.85),
-    rgba(0,255,255,.85)
+    rgba(255,0,255,.0),
+    rgba(255,0,255,.55),
+    rgba(0,255,255,.55)
   );
-  filter: blur(10px);
+  background-size: 200% 200%;
   opacity: 0;
   transition: opacity .2s ease;
-  z-index: -1;
+  animation: neonShift 1.35s linear infinite;
+  z-index: -2;
   pointer-events: none;
+  filter: blur(14px);
+}
+
+.icon-btn:hover::before,
+.menu-item:hover::before,
+.menu-link:hover::before{
+  opacity: 1;
 }
 
 .icon-btn:hover::after,
@@ -89,18 +122,20 @@
   opacity: 1;
 }
 
-/* Dropdown panels (no full-panel neon) */
+/* ---------- Panels (NO outer border box) ---------- */
 .menu-panel{
   position: absolute;
   top: calc(100% + 10px);
   right: 0;
+
+  /* no outer border/box: just spacing */
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+
   min-width: 170px;
-  padding: 10px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.16);
-  background: rgba(0,0,0,.55);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 18px 50px rgba(0,0,0,.45);
 }
 
 .menu-panel--wide{
@@ -116,6 +151,10 @@
   background: rgba(0,0,0,.15);
   color: rgba(255,255,255,.92);
   cursor: pointer;
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
 }
 
 .menu-list{
@@ -132,6 +171,10 @@
   background: rgba(0,0,0,.15);
   color: rgba(255,255,255,.92);
   text-decoration: none;
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
 }
 
 .menu-link:hover,
