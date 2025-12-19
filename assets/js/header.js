@@ -1,23 +1,21 @@
 // /assets/js/header.js
+// Loads /partials/header.html into #header-mount (if present) and wires dropdown menus.
 
 (async function initHeader() {
-  // If you're injecting the header partial elsewhere, keep this safe.
-  // If header is already present, no need to fetch.
-  if (!document.getElementById("siteTopbar") && document.getElementById("header-mount")) {
+  // Inject partial if the mount exists and the header isn't already present
+  const mount = document.getElementById("header-mount");
+  if (mount && !document.getElementById("siteTopbar")) {
     try {
       const res = await fetch("/partials/header.html", { cache: "no-store" });
-      const html = await res.text();
-      document.getElementById("header-mount").innerHTML = html;
-    } catch (e) {
-      // If fetch fails, we don't brick the page.
-    }
+      if (res.ok) mount.innerHTML = await res.text();
+    } catch (_) {}
   }
 
   const topbar = document.getElementById("siteTopbar");
   if (!topbar) return;
 
-  const buttons = topbar.querySelectorAll("[data-menu-btn]");
-  const panels = topbar.querySelectorAll("[data-menu-panel]");
+  const buttons = Array.from(topbar.querySelectorAll("[data-menu-btn]"));
+  const panels  = Array.from(topbar.querySelectorAll("[data-menu-panel]"));
 
   function closeAll(exceptKey = null) {
     panels.forEach((p) => {
@@ -37,24 +35,24 @@
     const panel = topbar.querySelector(`[data-menu-panel="${key}"]`);
     if (!btn || !panel) return;
 
-    const isOpen = !panel.hidden;
-    closeAll(isOpen ? null : key);
+    const willOpen = panel.hidden; // current state
+    closeAll(willOpen ? key : null);
 
-    panel.hidden = isOpen;
-    btn.setAttribute("aria-expanded", String(!isOpen));
+    panel.hidden = !willOpen;
+    btn.setAttribute("aria-expanded", String(willOpen));
   }
 
   buttons.forEach((btn) => {
     btn.addEventListener("click", (e) => {
+      e.preventDefault();
       e.stopPropagation();
       toggle(btn.getAttribute("data-menu-btn"));
     });
   });
 
-  // close when clicking outside (same feel as globe)
+  // Close when clicking outside the topbar
   document.addEventListener("click", (e) => {
-    const clickedInside = topbar.contains(e.target);
-    if (!clickedInside) closeAll();
+    if (!topbar.contains(e.target)) closeAll();
   });
 
   // Esc closes
@@ -62,7 +60,7 @@
     if (e.key === "Escape") closeAll();
   });
 
-  // Clicking a nav link closes nav menu
+  // Clicking nav link closes nav panel
   topbar.querySelectorAll('[data-menu-panel="nav"] a').forEach((a) => {
     a.addEventListener("click", () => closeAll());
   });
