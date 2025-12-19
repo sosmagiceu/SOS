@@ -1,26 +1,31 @@
-/* pages/home.css */
-body[data-page='home'] .tm-carousel{margin-top:24px}
-.
-
 
 /* ---- SOS MAGIC title neon sweep (white base, neon pass every 2s) ---- */
 .section-title.neon-sweep{
   position: relative;
   display: inline-block;
-  color: #fff; /* always visible */
+  color: #fff; /* base always visible */
+  z-index: 0;
 }
 
 .section-title.neon-sweep::after{
   content: attr(data-text);
   position: absolute;
   inset: 0;
+  z-index: 1; /* ensure overlay sits above white text */
   color: transparent;
-  background: linear-gradient(90deg, rgba(255,0,255,1), rgba(0,255,255,1), rgba(255,0,255,1));
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(90deg,
+    rgba(255,0,255,1),
+    rgba(0,255,255,1),
+    rgba(255,0,255,1)
+  );
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   opacity: 0;
   pointer-events: none;
+
+  /* 2s off (white only), 2s on (neon sweep) */
   animation: sosSweepCycle 4s linear infinite;
 }
 
