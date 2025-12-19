@@ -1,147 +1,69 @@
 // /assets/js/header.js
-// Loads /partials/header.html into #header-mount on every page,
-// then wires: globe dropdown + hamburger drawer. One header. One braincell.
 
-(function () {
-  const PARTIAL_URL = "/partials/header.html";
-
-  function qs(sel, root = document) { return root.querySelector(sel); }
-
-  function ensureMount() {
-    let mount = qs("#header-mount");
-    if (!mount) {
-      mount = document.createElement("div");
-      mount.id = "header-mount";
-      document.body.insertAdjacentElement("afterbegin", mount);
+(async function initHeader() {
+  // If you're injecting the header partial elsewhere, keep this safe.
+  // If header is already present, no need to fetch.
+  if (!document.getElementById("siteTopbar") && document.getElementById("header-mount")) {
+    try {
+      const res = await fetch("/partials/header.html", { cache: "no-store" });
+      const html = await res.text();
+      document.getElementById("header-mount").innerHTML = html;
+    } catch (e) {
+      // If fetch fails, we don't brick the page.
     }
-    return mount;
   }
 
-  async function injectHeader() {
-    const mount = ensureMount();
-    // If header already injected, don't do it twice.
-    if (mount.dataset.loaded === "true") return mount;
+  const topbar = document.getElementById("siteTopbar");
+  if (!topbar) return;
 
-    const res = await fetch(PARTIAL_URL, { cache: "no-store" });
-    const html = await res.text();
-    mount.innerHTML = html;
-    mount.dataset.loaded = "true";
-    return mount;
-  }
+  const buttons = topbar.querySelectorAll("[data-menu-btn]");
+  const panels = topbar.querySelectorAll("[data-menu-panel]");
 
-  function setExpanded(btn, expanded) {
-    if (!btn) return;
-    btn.setAttribute("aria-expanded", expanded ? "true" : "false");
-  }
-
-  function initHeaderUI(root = document) {
-    const drawer = qs("#topbarDrawer", root);    const hamBtn = qs(".hamburger-btn", root);
-    const closeBtn = qs(".drawer-close", root);
-
-    const langBtn = qs(".lang-btn", root);
-    const langMenu = qs("#langMenu", root);
-
-    // Hard reset states (prevents "always open" caused by random CSS)
-    if (drawer) drawer.hidden = true;    if (langMenu) langMenu.hidden = true;
-    setExpanded(hamBtn, false);
-    setExpanded(langBtn, false);
-
-    function openDrawer() {
-      if (!drawer) return;
-      drawer.hidden = false;      setExpanded(hamBtn, true);
-      document.body.classList.add("drawer-open");
-    }
-    function closeDrawer() {
-      if (!drawer) return;
-      drawer.hidden = true;      setExpanded(hamBtn, false);
-      document.body.classList.remove("drawer-open");
-    }
-    function toggleDrawer() { (drawer && drawer.hidden) ? openDrawer() : closeDrawer(); }
-
-    function openLang() {
-      if (!langMenu) return;
-      langMenu.hidden = false;
-      setExpanded(langBtn, true);
-    }
-    function closeLang() {
-      if (!langMenu) return;
-      langMenu.hidden = true;
-      setExpanded(langBtn, false);
-    }
-    function toggleLang() { (langMenu && langMenu.hidden) ? openLang() : closeLang(); }
-
-    hamBtn?.addEventListener("click", (e) => {
-      e.preventDefault();
-      closeLang();
-      toggleDrawer();
+  function closeAll(exceptKey = null) {
+    panels.forEach((p) => {
+      const key = p.getAttribute("data-menu-panel");
+      if (exceptKey && key === exceptKey) return;
+      p.hidden = true;
     });
+    buttons.forEach((b) => {
+      const key = b.getAttribute("data-menu-btn");
+      if (exceptKey && key === exceptKey) return;
+      b.setAttribute("aria-expanded", "false");
+    });
+  }
 
-    closeBtn?.addEventListener("click", (e) => { e.preventDefault(); closeDrawer(); });
-    langBtn?.addEventListener("click", (e) => {
-      e.preventDefault();
+  function toggle(key) {
+    const btn = topbar.querySelector(`[data-menu-btn="${key}"]`);
+    const panel = topbar.querySelector(`[data-menu-panel="${key}"]`);
+    if (!btn || !panel) return;
+
+    const isOpen = !panel.hidden;
+    closeAll(isOpen ? null : key);
+
+    panel.hidden = isOpen;
+    btn.setAttribute("aria-expanded", String(!isOpen));
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
       e.stopPropagation();
-      closeDrawer();
-      toggleLang();
+      toggle(btn.getAttribute("data-menu-btn"));
     });
+  });
 
-    // Close on ESC
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") { closeDrawer(); closeLang(); }
-    });
+  // close when clicking outside (same feel as globe)
+  document.addEventListener("click", (e) => {
+    const clickedInside = topbar.contains(e.target);
+    if (!clickedInside) closeAll();
+  });
 
-    // Close language menu on outside click
-    document.addEventListener("click", (e) => {
-      const t = e.target;
-      if (langBtn && langMenu) {
-        const inLang = langBtn.contains(t) || langMenu.contains(t);
-        if (!inLang) closeLang();
-      }
-    }, { passive: true });
+  // Esc closes
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeAll();
+  });
 
-    // Close drawer on outside click (no dim overlay, behaves like the globe)
-    document.addEventListener("click", (e) => {
-      const t = e.target;
-      if (hamBtn && drawer) {
-        const inDrawer = hamBtn.contains(t) || drawer.contains(t);
-        if (!inDrawer) closeDrawer();
-      }
-    }, { passive: true });
-
-
-    // Language selection hook (doesn't translate content magically, because reality)
-    langMenu?.addEventListener("click", (e) => {
-      const btn = e.target.closest(".lang-option");
-      if (!btn) return;
-      const code = (btn.dataset.lang || "en").toLowerCase();
-      try { localStorage.setItem("lang", code); } catch {}
-      // visual active state
-      langMenu.querySelectorAll(".lang-option").forEach(b => b.classList.toggle("is-active", b === btn));
-      closeLang();
-      // broadcast for any page-specific scripts
-      try { window.dispatchEvent(new CustomEvent("sos:lang", { detail: { code } })); } catch {}
-    });
-
-    // Restore active language button state
-    try {
-      const saved = (localStorage.getItem("lang") || "en").toLowerCase();
-      const active = langMenu?.querySelector(`.lang-option[data-lang="${saved}"]`);
-      if (active) active.classList.add("is-active");
-    } catch {}
-  }
-
-  async function boot() {
-    try {
-      const mount = await injectHeader();
-      initHeaderUI(mount);
-    } catch (err) {
-      // If header can't load, site still renders. Humans love broken nav.
-      console.warn("Header inject failed:", err);
-    }
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot, { once: true });
-  } else {
-    boot();
-  }
+  // Clicking a nav link closes nav menu
+  topbar.querySelectorAll('[data-menu-panel="nav"] a').forEach((a) => {
+    a.addEventListener("click", () => closeAll());
+  });
 })();
