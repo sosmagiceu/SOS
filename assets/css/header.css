@@ -1,195 +1,130 @@
-/* /assets/css/header.css (SOS) */
-/* One header stylesheet. If you want another one, adopt a cactus. */
+/* /assets/css/header.css */
 
-:root{
-  --primary: #00d9ff;
-  --secondary: #ff00ea;
-  --glow: #00ffd5;
-
-  --header-h: 64px;
-  --header-radius: 28px;
-  --header-bg: transparent; /* less "mystery fog", more readable */
-  --header-border: transparent;
-  --header-blur: 0px;
-}
-
-/* Make native hidden actually hidden even if other CSS tries to be clever */
-[hidden]{ display:none !important; }
+[hidden] { display: none !important; }
 
 .site-topbar{
   position: fixed;
-  top: 12px;
-  left: 12px;
-  right: 12px;
-  z-index: 5000;
-  border-radius: var(--header-radius);
-  background: var(--header-bg);
-  border: 1px solid var(--header-border);
-  backdrop-filter: blur(var(--header-blur));
-  -webkit-backdrop-filter: blur(var(--header-blur));
+  top: 0; left: 0; right: 0;
+  z-index: 9999;
+  padding: 18px 20px;
+  pointer-events: none; /* allows background to be interactive except buttons */
 }
 
 .site-topbar .inner{
-  height: var(--header-h);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: auto; /* re-enable for header content */
 }
 
-.site-topbar .brand{
-  color: rgba(255,255,255,.92);
-  text-decoration:none;
-  font-weight: 800;
-  letter-spacing: .12em;
-  font-family: Orbitron, system-ui, sans-serif;
-  font-size: 13px;
-  white-space: nowrap;
+.brand{
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-decoration: none;
+  color: #fff;
+  opacity: .9;
 }
 
 .topbar-actions{
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
   gap: 10px;
 }
 
-.icon-btn{
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  display:grid;
-  place-items:center;
-  cursor:pointer;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.14);
-  color: rgba(255,255,255,.92);
-}
-
-.icon-btn:hover{ background: rgba(255,255,255,.10); }
-
-.lang-wrap{ position: relative; }
-
-.lang-menu{
-  position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
-  min-width: 170px;
-  padding: 8px;
-  border-radius: 16px;
-  background: rgba(0,0,0,.86);
-  border: 1px solid rgba(255,255,255,.14);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  display:flex;
-  flex-direction:column;
-  gap: 6px;
-  z-index: 6000;
-}
-
-.lang-option{
-  width: 100%;
-  text-align:left;
-  padding: 10px 12px;
-  border-radius: 12px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.12);
-  color: rgba(255,255,255,.95);
-  font-weight: 700;
-  cursor:pointer;
-}
-
-.lang-option:hover{ background: rgba(255,255,255,.12); }
-.lang-option.is-active{ border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.10); }
-
-/* Drawer */
-/* removed overlay */
-
-.topbar-drawer{
-  position: fixed;
-  top: 12px;
-  right: 12px;
-  width: min(340px, calc(100vw - 24px));
-  max-height: calc(100vh - 24px);
-  overflow:auto;
-  z-index: 7000;
-  border-radius: 22px;
-  background: rgba(0,0,0,.86);
-  border: 1px solid rgba(255,255,255,.14);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  padding: 14px;
-}
-
-.drawer-close{
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(255,255,255,.06);
-  color: rgba(255,255,255,.92);
-  cursor:pointer;
-  font-size: 24px;
-  line-height: 1;
-}
-
-.drawer-close:hover{ background: rgba(255,255,255,.10); }
-
-.drawer-nav{
-  margin-top: 10px;
-  display:flex;
-  flex-direction:column;
-  gap: 6px;
-}
-
-.drawer-nav a{
-  text-decoration:none;
-  color: rgba(255,255,255,.92);
-  padding: 12px 12px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.04);
-  font-weight: 700;
-}
-
-.drawer-nav a:hover{ background: rgba(255,255,255,.08); }
-
-/* optional: stop page scroll when drawer open */
-body.drawer-open{ overflow:hidden; }
-
-/* Gradient hover like the 3D feature cards */
-.icon-btn,
-.lang-option,
-.drawer-nav a{
+.menu-wrap{
   position: relative;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.12);
+}
+
+.icon-btn{
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(0,0,0,.00); /* invisible */
+  color: rgba(255,255,255,.9);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform .15s ease;
+}
+
+.icon-btn:hover{
+  transform: translateY(-1px);
+}
+
+/* Neon hover effect (match your carousel vibe) */
+.icon-btn,
+.menu-item,
+.menu-link{
+  position: relative;
   overflow: hidden;
 }
 
 .icon-btn::before,
-.lang-option::before,
-.drawer-nav a::before{
+.menu-item::before,
+.menu-link::before{
   content: "";
   position: absolute;
-  top: -2px; left: -2px; right: -2px; bottom: -2px;
-  background: linear-gradient(45deg, var(--secondary), var(--primary), var(--glow), var(--secondary));
-  background-size: 300% 300%;
-  border-radius: inherit;
+  inset: -2px;
+  background: linear-gradient(90deg, rgba(255,0,255,.0), rgba(255,0,255,.85), rgba(0,255,255,.85));
   opacity: 0;
-  z-index: -1;
-  transition: opacity .35s ease;
-  animation: gradient-border 3s linear infinite;
-}
-
-.icon-btn:hover,
-.lang-option:hover,
-.drawer-nav a:hover{
-  background: rgba(0,0,0,.25);
+  transition: opacity .2s ease;
+  filter: blur(8px);
+  pointer-events: none;
 }
 
 .icon-btn:hover::before,
-.lang-option:hover::before,
-.drawer-nav a:hover::before{
+.menu-item:hover::before,
+.menu-link:hover::before{
   opacity: 1;
 }
 
+.menu-panel{
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 170px;
+  padding: 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 50px rgba(0,0,0,.45);
+}
+
+.menu-panel--wide{
+  min-width: 230px;
+}
+
+.menu-item{
+  width: 100%;
+  text-align: left;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.15);
+  color: rgba(255,255,255,.92);
+  cursor: pointer;
+}
+
+.menu-list{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-link{
+  display: block;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.15);
+  color: rgba(255,255,255,.92);
+  text-decoration: none;
+}
+
+.menu-link:hover,
+.menu-item:hover{
+  border-color: rgba(255,255,255,.22);
+}
