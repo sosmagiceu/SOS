@@ -38,33 +38,45 @@ body {
 	overflow-x: hidden;
 	font-weight: 300;
 	letter-spacing: 0.02em;
-
-	/* important: background lives on ::before so it never affects layout/scroll */
 	position: relative;
 }
 
-/* Global fixed background layer (does NOT change page height) */
+/* Global fixed background layer (never scrolls with content) */
 body::before {
 	content: "";
 	position: fixed;
-	inset: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 	z-index: -1;
+	pointer-events: none;
 
 	background-color: var(--dark);
 	background-image: url("https://sosmagic.b-cdn.net/Achterground%20enzo/Achtergrond%20.png");
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
-
-	/* performance + avoids weird flicker */
-	transform: translateZ(0);
-	will-change: transform;
 }
 
-/* Mobile crop tweak so it "feels like desktop" (same focal area) */
+/* Mobile fixes:
+   1) Stop "100vh" creating extra scroll space (use svh)
+   2) Reduce padding so carousel sits centered without a big dead area
+   3) Slightly bias crop so it feels like desktop composition */
 @media (max-width: 768px) {
 	body::before {
-		/* slightly up from center, not all the way top */
 		background-position: center 20%;
+	}
+
+	/* This is the real fix for the "too much space under carousel" */
+	.content-section {
+		min-height: 100svh;
+		padding-top: 72px;
+		padding-bottom: 24px;
+	}
+
+	/* In case the features section has extra bottom slack */
+	.features-section-bg {
+		min-height: 100svh;
 	}
 }
