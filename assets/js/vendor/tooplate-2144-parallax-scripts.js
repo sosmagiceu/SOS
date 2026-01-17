@@ -8,19 +8,7 @@ https://www.tooplate.com/view/2144-parallax-depth
 
 */
 
-// Generate stars
-const starsContainer = document.getElementById('stars');
-const numStars = 100;
-
-for (let i = 0; i < numStars; i++) {
-   const star = document.createElement('div');
-   star.className = 'star';
-   star.style.left = Math.random() * 100 + '%';
-   star.style.top = Math.random() * 100 + '%';
-   star.style.animationDelay = Math.random() * 3 + 's';
-   star.style.animationDuration = (Math.random() * 3 + 2) + 's';
-   starsContainer.appendChild(star);
-}
+// Stars/twinkle background removed (site uses a consistent static background now)
 
 // Parallax scrolling effect
 const layers = document.querySelectorAll('.parallax-layer');

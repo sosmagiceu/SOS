@@ -80,35 +80,7 @@
 	}
 }
 
-.stars {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	pointer-events: none;
-}
-
-.star {
-	position: absolute;
-	width: 2px;
-	height: 2px;
-	background: white;
-	border-radius: 50%;
-	animation: twinkle 3s infinite;
-}
-
-@keyframes twinkle {
-
-	0%,
-	100% {
-		opacity: 0;
-	}
-
-	50% {
-		opacity: 1;
-	}
-}
+/* Stars/twinkle background removed (site uses a consistent static background now) */
 
 .parallax-layer {
 	position: absolute;
@@ -244,3 +216,6 @@
 		left: calc(100% + 100px);
 	}
 }
+
+/* force-disable template overlays for consistent background */
+.grid-overlay, .glow-orb { display: none !important; }

@@ -1,40 +1,23 @@
 /* parallax bundle: sections.css */
 
-/* Content Sections */
 .content-section {
-	position: relative;
-	min-height: 100vh;
-	padding: 100px 5%;
-	background: var(--dark);
-	z-index: 20;
-	overflow: hidden;
+  position: relative;
+  min-height: 100vh;
+  padding: 100px 5%;
+  background: transparent;
+  z-index: 20;
+  overflow: hidden;
 }
 
 .section-gradient {
-	background: linear-gradient(
-		180deg,
-		var(--dark) 0%,
-		#1a1a2e 50%,
-		var(--dark) 100%
-	);
+  background: transparent;
 }
 
-/* Gallery Section Specific Gradient */
 .gallery-section.section-gradient {
-	background: linear-gradient(
-		180deg,
-		var(--dark) 0%,
-		#2a2a3e 50%,
-		var(--dark) 100%
-	);
+  background: transparent;
 }
 
-/* Features Section Background */
 .features-section-bg {
-	position: relative;
-	background: linear-gradient(
-		135deg,
-		#1a1a2e 0%,
-		#0a0a0f 100%
-	);
+  position: relative;
+  background: transparent;
 }
