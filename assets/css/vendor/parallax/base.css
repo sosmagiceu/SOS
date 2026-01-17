@@ -27,9 +27,21 @@ https://www.tooplate.com/view/2144-parallax-depth
 	--font-body: 'Inter', sans-serif;
 }
 
+html,
+body {
+	min-height: 100%;
+}
+
 body {
 	font-family: var(--font-body);
-	background: var(--dark) url("https://sosmagic.b-cdn.net/Achterground%20enzo/Achtergrond%20.png") center center / cover no-repeat fixed;
+	/* Use a single consistent, non-stretched background across all pages */
+	background-color: var(--dark);
+	background-image: url("https://sosmagic.b-cdn.net/Achterground%20enzo/Achtergrond%20.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	/* Avoid background-attachment: fixed (causes weird scaling/positioning in some browsers) */
+	background-attachment: scroll;
 	overflow-x: hidden;
 
 	font-weight: 300;

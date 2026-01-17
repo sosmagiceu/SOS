@@ -227,8 +227,13 @@
 }
 
 .brand-logo{
-  height: 1em;
+	/* Make logo actually visible (was microscopic) */
+	height: 4em;
   width: auto;
   display: block;
   opacity: .9;
+}
+
+@media (max-width: 520px){
+	.brand-logo{ height: 3.2em; }
 }
