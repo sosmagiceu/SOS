@@ -1,13 +1,70 @@
 // /assets/js/header.js
 
 (async function initHeader() {
+  const mount = document.getElementById("header-mount");
+
+  // Inject mobile/tablet background video (once)
+  function ensureMobileBgVideo() {
+    // Mobile/tablet only
+    if (!window.matchMedia("(max-width: 1024px)").matches) return;
+
+    // If already exists, do nothing
+    if (document.querySelector(".bg-video-layer")) return;
+
+    const layer = document.createElement("div");
+    layer.className = "bg-video-layer";
+    layer.innerHTML = `
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="https://sosmagic.b-cdn.net/Achterground%20enzo/Bubbels_.webm" type="video/webm">
+      </video>
+    `;
+
+    // Put it as early as possible inside <body> so it sits behind everything
+    document.body.prepend(layer);
+
+    // iOS/Safari sometimes needs an explicit play() call even when muted
+    const vid = layer.querySelector("video");
+    if (vid) {
+      const tryPlay = () => {
+        const p = vid.play();
+        if (p && typeof p.catch === "function") p.catch(() => {});
+      };
+      tryPlay();
+      document.addEventListener("touchstart", tryPlay, { once: true, passive: true });
+    }
+  }
+
+  ensureMobileBgVideo();
+
+  // Helper: inject a minimal header so the brand/logo always shows.
+  function injectFallbackHeader() {
+    if (!mount || document.getElementById("siteTopbar")) return;
+    mount.innerHTML = `
+      <div class="site-topbar" id="siteTopbar">
+        <div class="inner">
+          <a class="brand" href="/Home.html" aria-label="SOS Magic Home">
+            <img class="brand-logo" src="https://sosmagic.b-cdn.net/Achterground%20enzo/Logo%20.png" alt="" loading="eager" decoding="async">
+          </a>
+        </div>
+      </div>
+    `;
+  }
+
   // If header is injected via mount, fetch it. If already present, do nothing.
-  if (!document.getElementById("siteTopbar") && document.getElementById("header-mount")) {
+  if (!document.getElementById("siteTopbar") && mount) {
     try {
       const res = await fetch("/partials/header.html", { cache: "no-store" });
       const html = await res.text();
-      document.getElementById("header-mount").innerHTML = html;
-    } catch (e) {}
+
+      // If fetch returns nothing (or not the expected header), fallback.
+      if (html && html.includes("siteTopbar")) {
+        mount.innerHTML = html;
+      } else {
+        injectFallbackHeader();
+      }
+    } catch (e) {
+      injectFallbackHeader();
+    }
   }
 
   const topbar = document.getElementById("siteTopbar");
@@ -24,6 +81,7 @@
       const key = p.getAttribute("data-menu-panel");
       if (exceptKey && key === exceptKey) return;
       p.hidden = true;
+      p.setAttribute("aria-hidden", "true");
     });
     buttons.forEach((b) => {
       const key = b.getAttribute("data-menu-btn");
@@ -32,65 +90,51 @@
     });
   }
 
-  function toggle(key) {
+  function openMenu(key) {
+    closeAll(key);
     const btn = topbar.querySelector(`[data-menu-btn="${key}"]`);
     const panel = topbar.querySelector(`[data-menu-panel="${key}"]`);
     if (!btn || !panel) return;
 
-    const isOpen = !panel.hidden;
-    closeAll(isOpen ? null : key);
-
-    panel.hidden = isOpen;
-    btn.setAttribute("aria-expanded", String(!isOpen));
+    panel.hidden = false;
+    panel.setAttribute("aria-hidden", "false");
+    btn.setAttribute("aria-expanded", "true");
   }
 
-  // Button click toggles
+  function scheduleClose(wrap) {
+    clearTimeout(closeTimers.get(wrap));
+    const t = setTimeout(() => {
+      closeAll();
+    }, 250);
+    closeTimers.set(wrap, t);
+  }
+
+  // Click toggles
   buttons.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
-      toggle(btn.getAttribute("data-menu-btn"));
+      const key = btn.getAttribute("data-menu-btn");
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      if (expanded) closeAll();
+      else openMenu(key);
     });
   });
 
-  // Close when clicking outside
-  document.addEventListener("click", (e) => {
-    if (!topbar.contains(e.target)) closeAll();
+  // Hover intent (desktop)
+  wraps.forEach((wrap) => {
+    const btn = wrap.querySelector("[data-menu-btn]");
+    if (!btn) return;
+    const key = btn.getAttribute("data-menu-btn");
+
+    wrap.addEventListener("mouseenter", () => openMenu(key));
+    wrap.addEventListener("mouseleave", () => scheduleClose(wrap));
   });
 
-  // Esc closes
+  // Click outside closes
+  document.addEventListener("click", () => closeAll());
+
+  // ESC closes
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeAll();
-  });
-
-  // Auto-close when no longer hovered (per wrap)
-  wraps.forEach((wrap) => {
-    const clear = () => {
-      const t = closeTimers.get(wrap);
-      if (t) {
-        clearTimeout(t);
-        closeTimers.delete(wrap);
-      }
-    };
-
-    wrap.addEventListener("pointerenter", clear);
-
-    wrap.addEventListener("pointerleave", () => {
-      clear();
-
-      // Small delay prevents flicker when moving between button and panel edges
-      const timer = setTimeout(() => {
-        // Close only if neither the wrap is hovered nor a button inside is focused
-        const active = document.activeElement;
-        const focusedInside = active && wrap.contains(active);
-        if (!wrap.matches(":hover") && !focusedInside) closeAll();
-      }, 140);
-
-      closeTimers.set(wrap, timer);
-    });
-  });
-
-  // Clicking a nav link closes nav menu
-  topbar.querySelectorAll('[data-menu-panel="nav"] a').forEach((a) => {
-    a.addEventListener("click", () => closeAll());
   });
 })();
