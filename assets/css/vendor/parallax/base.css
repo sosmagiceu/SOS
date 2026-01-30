@@ -41,12 +41,12 @@ body {
 	position: relative;
 }
 
-/* Desktop image background stays as-is */
+/* PNG background stays ALWAYS as fallback */
 body::before {
 	content: "";
 	position: fixed;
 	inset: 0;
-	z-index: -1;
+	z-index: -2;
 	pointer-events: none;
 
 	background-color: var(--dark);
@@ -60,21 +60,13 @@ body::before {
 	will-change: transform;
 }
 
-/* Mobile/tablet: we use a VIDEO layer instead, so disable the image layer */
-@media (max-width: 1024px) {
-	body::before {
-		background-image: none;
-	}
-}
-
-/* Background video layer (injected by header.js on mobile/tablet only) */
+/* Video layer (only exists on mobile/tablet via JS) */
 .bg-video-layer {
 	position: fixed;
 	inset: 0;
-	z-index: -2;
+	z-index: -1; /* above PNG fallback, below content */
 	pointer-events: none;
 	overflow: hidden;
-	background: var(--dark);
 }
 
 .bg-video-layer video {
