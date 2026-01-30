@@ -1,85 +1,104 @@
 /* buttons.css */
 .btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  padding:10px 14px;border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:10px 14px;
+  border-radius:999px;
   border:1px solid rgba(255,255,255,.18);
   background:rgba(255,255,255,.08);
-  color:var(--text);text-decoration:none;font-weight:700;
+  color:var(--text);
+  text-decoration:none;
+  font-weight:700;
 }
 .btn:hover{background:rgba(255,255,255,.12)}
 .btn--accent{background:var(--glow);color:#0a0a0a;border-color:rgba(0,0,0,.25)}
 
-/* Guide Me button (matches reference: transparent, neon border, glow) */
+/* =========================================================
+   GUIDE ME BUTTON – smaller footprint, thicker border
+   ========================================================= */
 .guide-btn{
-  /* center it inside the card */
-  display: inline-flex;
+  /* center reliably inside 3D cards */
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
   align-items: center;
   justify-content: center;
-  margin: 18px auto 0;     /* <- centers under text */
-  align-self: center;
+  margin: 18px 0 0;
 
-  /* shape */
-  width: 220px;
-  height: 56px;
-  border-radius: 18px;
-  padding: 0 28px;
+  /* 25% smaller overall footprint */
+  width: 165px;   /* was 220px */
+  height: 42px;   /* was 56px */
+  border-radius: 14px; /* scaled with size */
+  padding: 0 20px;
 
-  /* text */
+  /* text unchanged */
   color: rgba(255,255,255,.95);
   text-decoration: none;
   font-family: var(--font-heading);
   font-weight: 600;
   letter-spacing: .12em;
+  text-align: center;
+  white-space: nowrap;
 
-  /* mostly transparent interior (NOT filled neon) */
+  /* same interior vibe */
   background: linear-gradient(
     90deg,
-    rgba(0,217,255,.14),
-    rgba(255,0,234,.14)
+    rgba(0,217,255,.12),
+    rgba(255,0,234,.12)
   );
-  box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
 
-  position: relative;
   isolation: isolate;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* neon gradient border */
+/* Border thickness +25% (from 2px -> 2.5px) */
 .guide-btn::before{
   content:"";
   position:absolute;
   inset:0;
   border-radius:inherit;
-  padding: 2px; /* border thickness */
-  background: linear-gradient(90deg, rgba(0,217,255,1), rgba(255,0,234,1));
+  padding: 2.5px;
+  background: linear-gradient(
+    90deg,
+    rgba(0,217,255,1),
+    rgba(255,0,234,1)
+  );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  z-index: -1;
+  z-index:-1;
 }
 
-/* outer glow */
+/* Glow can stay as-is (you said it’s fine) */
 .guide-btn::after{
   content:"";
   position:absolute;
   inset:-14px;
   border-radius:inherit;
-  background: linear-gradient(90deg, rgba(0,217,255,.55), rgba(255,0,234,.55));
+  background: linear-gradient(
+    90deg,
+    rgba(0,217,255,.55),
+    rgba(255,0,234,.55)
+  );
   filter: blur(18px);
-  opacity: .55;
-  z-index: -2;
+  opacity:.55;
+  z-index:-2;
 }
 
 .guide-btn:hover{
   background: linear-gradient(
     90deg,
-    rgba(0,217,255,.18),
-    rgba(255,0,234,.18)
+    rgba(0,217,255,.16),
+    rgba(255,0,234,.16)
   );
 }
 
 .guide-btn:active{
-  transform: translateY(1px);
+  transform: translateX(-50%) translateY(1px);
 }
