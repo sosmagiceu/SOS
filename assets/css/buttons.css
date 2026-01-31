@@ -16,10 +16,10 @@
 .btn--accent{background:var(--glow);color:#0a0a0a;border-color:rgba(0,0,0,.25)}
 
 /* =========================================================
-   GUIDE ME BUTTON – smaller footprint, thicker border
+   GUIDE ME BUTTON – desktop baseline
    ========================================================= */
 .guide-btn{
-  /* center reliably inside 3D cards */
+  /* reliable centering inside 3D cards */
   position: relative;
   left: 50%;
   transform: translateX(-50%);
@@ -28,13 +28,13 @@
   justify-content: center;
   margin: 18px 0 0;
 
-  /* 25% smaller overall footprint */
-  width: 165px;   /* was 220px */
-  height: 42px;   /* was 56px */
-  border-radius: 14px; /* scaled with size */
+  /* DESKTOP SIZE */
+  width: 165px;
+  height: 42px;
+  border-radius: 14px;
   padding: 0 20px;
 
-  /* text unchanged */
+  /* text */
   color: rgba(255,255,255,.95);
   text-decoration: none;
   font-family: var(--font-heading);
@@ -43,19 +43,15 @@
   text-align: center;
   white-space: nowrap;
 
-  /* same interior vibe */
-  background: linear-gradient(
-    90deg,
-    rgba(0,217,255,.12),
-    rgba(255,0,234,.12)
-  );
+  /* SOLID BLACK INTERIOR (requested) */
+  background: #000;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
 
   isolation: isolate;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Border thickness +25% (from 2px -> 2.5px) */
+/* Neon gradient border (thick) */
 .guide-btn::before{
   content:"";
   position:absolute;
@@ -75,7 +71,7 @@
   z-index:-1;
 }
 
-/* Glow can stay as-is (you said it’s fine) */
+/* Glow (unchanged) */
 .guide-btn::after{
   content:"";
   position:absolute;
@@ -92,13 +88,23 @@
 }
 
 .guide-btn:hover{
-  background: linear-gradient(
-    90deg,
-    rgba(0,217,255,.16),
-    rgba(255,0,234,.16)
-  );
+  background:#050505;
 }
 
 .guide-btn:active{
   transform: translateX(-50%) translateY(1px);
+}
+
+/* =========================================================
+   MOBILE ONLY – shrink by ~40%
+   ========================================================= */
+@media (max-width: 768px){
+  .guide-btn{
+    width: 100px;   /* ~40% smaller */
+    height: 26px;
+    border-radius: 10px;
+    padding: 0 12px;
+    font-size: 0.7em; /* text scales naturally */
+    letter-spacing: .1em;
+  }
 }
