@@ -79,3 +79,59 @@ body[data-page='home'] .tm-carousel{
 .section-title.neon-sweep::after{
   display:none !important;
 }
+
+
+/* =========================================================
+   HOME 3D CAROUSEL TYPOGRAPHY + 3-ZONE LAYOUT
+   ========================================================= */
+body[data-page="home"] .feature-title-3d{
+  font-family: "Cormorant SC", serif;
+  text-align: center;
+}
+
+body[data-page="home"] .feature-description-3d{
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+}
+
+body[data-page="home"] .guide-btn{
+  font-family: "Cormorant SC", serif;
+}
+
+/* Split card into top/middle/bottom thirds */
+body[data-page="home"] .feature-card-3d{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+/* Each section occupies roughly a third, centered */
+body[data-page="home"] .feature-title-3d{
+  flex: 1 1 33%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+body[data-page="home"] .feature-description-3d{
+  flex: 1 1 33%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+body[data-page="home"] .guide-btn{
+  flex: 1 1 33%;
+  align-self: center;
+  /* Override template centering hacks: center via flex instead */
+  position: static;
+  left: auto;
+  transform: none;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

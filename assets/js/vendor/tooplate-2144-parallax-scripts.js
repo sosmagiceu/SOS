@@ -2,7 +2,7 @@
 
 /*
 
-Tooplate 2144 Parallax Depth
+Tooplate 2144 SOS Magic
 
 https://www.tooplate.com/view/2144-parallax-depth
 
@@ -80,16 +80,21 @@ rectangles.forEach(rect => {
 });
 
 // 3D Carousel Controls
+if (!window.__sos3dCarouselInit) {
+  window.__sos3dCarouselInit = true;
+
 const carousel = document.getElementById('carousel');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 const indicatorsContainer = document.getElementById('indicators');
-const featureCards = document.querySelectorAll('.feature-card-3d');
+const featureCards = carousel ? carousel.querySelectorAll('.feature-card-3d') : document.querySelectorAll('.feature-card-3d');
 
 let currentRotation = 0;
 let currentIndex = 0;
 
 // Create indicators
+if (indicatorsContainer) indicatorsContainer.innerHTML = '';
+
 featureCards.forEach((_, index) => {
    const indicator = document.createElement('div');
    indicator.className = 'indicator';
@@ -234,3 +239,4 @@ style.textContent = `
             }
         `;
 document.head.appendChild(style);
+}
