@@ -123,29 +123,26 @@ body[data-page="home"] .feature-description-3d{
   margin: 0;
 }
 
-/* Bottom zone: keep ORIGINAL button styling/shape, ONLY fix centering + vertical position */
+/* Bottom zone: keep ORIGINAL neon styling, fix centering + size only */
 body[data-page="home"] .guide-btn{
   flex: 0 0 auto;
   margin-top: auto;
-
-  /* lower it (smaller = closer to bottom) */
   margin-bottom: 8px;
 
-  /* hard-center the button itself */
+  /* center the button itself */
   margin-left: auto;
   margin-right: auto;
-  margin-inline: auto;
 
-  /* stop template offsets from messing with centering */
-  position: static !important;
-  left: auto !important;
-  right: auto !important;
-  transform: none !important;
+  /* IMPORTANT: neon border/glow usually needs relative positioning */
+  position: relative !important;
 
-  /* center the text inside without changing border/shape */
+  /* center label inside */
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   text-align: center !important;
-  line-height: 1 !important;
+
+  /* 100% bigger text */
+  font-size: 200% !important;
+  line-height: 1.1 !important;
 }
