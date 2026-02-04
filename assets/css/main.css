@@ -1,16 +1,5 @@
 /* main.css */
-@import url("./vendor/parallax/base.css");
-@import url("./vendor/parallax/scroll.css");
-@import url("./vendor/parallax/logo.css");
-@import url("./vendor/parallax/hero-parallax.css");
-@import url("./vendor/parallax/hero-content.css");
-@import url("./vendor/parallax/sections.css");
-@import url("./vendor/parallax/carousel-3d.css");
-@import url("./vendor/parallax/gallery.css");
-@import url("./vendor/parallax/about.css");
-@import url("./vendor/parallax/contact.css");
-@import url("./vendor/parallax/footer.css");
-@import url("./vendor/parallax/responsive.css");
+@import url("./vendor/parallax-clean.css");
 
 /* our overrides + multi-page utilities */
 @import url("./buttons.css");
