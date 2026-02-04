@@ -98,8 +98,6 @@ body[data-page="home"] .feature-card-3d{
   display: flex;
   flex-direction: column;
   text-align: center;
-
-  /* deterministic centering */
   align-items: center;
 }
 
@@ -129,14 +127,13 @@ body[data-page="home"] .guide-btn{
   margin-top: auto;
   margin-bottom: 8px;
 
-  /* center the element itself */
-  align-self: center;
-  margin-left: auto;
-  margin-right: auto;
+  /* ✅ TRUE visual centering (fixes “drifting right”) */
+  position: relative !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
 
   /* keep glow/border pseudo elements anchored correctly */
-  position: relative !important;
-  isolation: isolate; /* prevents weird blending/offset stacking */
+  isolation: isolate;
 
   /* center label */
   display: inline-flex !important;
@@ -144,14 +141,13 @@ body[data-page="home"] .guide-btn{
   justify-content: center !important;
   text-align: center !important;
 
-  /* ~20% smaller than your current clamp */
-  font-size: clamp(0.92rem, 1.75vw, 1.10rem) !important;
+  /* 10% smaller than previous clamp */
+  font-size: clamp(0.83rem, 1.58vw, 0.99rem) !important;
   line-height: 1.1 !important;
   white-space: nowrap;
 }
 
-/* IMPORTANT: if the neon border is built with ::before/::after,
-   make sure those layers are centered on the button (not offset) */
+/* Make sure pseudo-elements don’t add their own weird offsets */
 body[data-page="home"] .guide-btn::before,
 body[data-page="home"] .guide-btn::after{
   left: 0 !important;
