@@ -10,51 +10,36 @@
 
     const layer = document.createElement("div");
     layer.className = "bg-video-layer";
-    layer.innerHTML = `
-      <video autoplay muted loop playsinline preload="auto">
-        <source src="https://sosmagic.b-cdn.net/Achterground%20enzo/Bubbels_.mp4" type="video/mp4">
-      </video>
-    `;
+
+    const video = document.createElement("video");
+    video.className = "bg-video";
+    video.autoplay = true;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+
+    const source = document.createElement("source");
+    source.src = "https://sosmagic.b-cdn.net/videos/homebg.mp4";
+    source.type = "video/mp4";
+
+    video.appendChild(source);
+    layer.appendChild(video);
 
     document.body.prepend(layer);
-
-    const video = layer.querySelector("video");
-    if (!video) return;
-
-    const removeLayer = () => {
-      if (layer.parentNode) layer.parentNode.removeChild(layer);
-    };
-
-    video.addEventListener("error", removeLayer, { once: true });
-    video.addEventListener("stalled", removeLayer, { once: true });
-
-    // Force play attempt (Android sometimes needs it)
-    const tryPlay = () => {
-      const p = video.play();
-      if (p && typeof p.catch === "function") p.catch(() => {});
-    };
-
-    tryPlay();
-    document.addEventListener("touchstart", tryPlay, { once: true, passive: true });
   }
 
   ensureMobileBgVideo();
 
-  /* ---------- HEADER LOADING ---------- */
+  /* ---------- INJECT HEADER ---------- */
   function injectFallbackHeader() {
-    if (!mount || document.getElementById("siteTopbar")) return;
     mount.innerHTML = `
-      <div class="site-topbar" id="siteTopbar">
-        <div class="inner">
-          <a class="brand" href="/Home.html" aria-label="SOS Magic Home">
-            <img class="brand-logo"
-                 src="https://sosmagic.b-cdn.net/Achterground%20enzo/Logo%20.png"
-                 alt=""
-                 loading="eager"
-                 decoding="async">
+      <header id="siteTopbar" class="topbar">
+        <div class="topbar-inner">
+          <a class="brand" href="/Home.html" aria-label="Home">
+            <span class="brand-text">SOS MAGIC</span>
           </a>
         </div>
-      </div>
+      </header>
     `;
   }
 
@@ -124,10 +109,31 @@
     const btn = wrap.querySelector("[data-menu-btn]");
     if (!btn) return;
     const key = btn.getAttribute("data-menu-btn");
-    wrap.addEventListener("mouseenter", () => openMenu(key));
-    wrap.addEventListener("mouseleave", () => scheduleClose(wrap));
+    const panel = topbar.querySelector(`[data-menu-panel="${key}"]`);
+
+    // Desktop hover: keep menu open while hovering button OR panel.
+    // Panels are often absolutely positioned outside the wrap's box, so
+    // relying on wrap mouseleave will close the menu the moment you move into the panel.
+    const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    if (canHover) {
+      wrap.addEventListener("mouseenter", () => {
+        clearTimeout(closeTimers.get(wrap));
+        openMenu(key);
+      });
+      wrap.addEventListener("mouseleave", () => scheduleClose(wrap));
+
+      if (panel) {
+        panel.addEventListener("mouseenter", () => {
+          clearTimeout(closeTimers.get(wrap));
+          openMenu(key);
+        });
+        panel.addEventListener("mouseleave", () => scheduleClose(wrap));
+      }
+    }
   });
 
+  // Close if you click outside (desktop) / tap outside (mobile)
   document.addEventListener("click", () => closeAll());
   document.addEventListener("keydown", e => {
     if (e.key === "Escape") closeAll();
