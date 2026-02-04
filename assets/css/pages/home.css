@@ -123,15 +123,22 @@ body[data-page="home"] .feature-description-3d{
   margin: 0;
 }
 
+/* ✅ BUTTON: keep original neon styling, ONLY center it */
 body[data-page="home"] .guide-btn{
   flex: 1 1 33%;
   align-self: center;
-  /* Override template centering hacks: center via flex instead */
-  position: static;
-  left: auto;
-  transform: none;
-  margin: 0;
-  display: inline-flex;
+
+  /* DO NOT override template button styling */
+  position: initial;
+  left: initial;
+  transform: initial;
+
+  /* Center the button without changing its look */
+  margin-left: auto;
+  margin-right: auto;
+
+  /* Put it in the lower third and vertically centered there */
+  display: flex;
   align-items: center;
   justify-content: center;
 }
