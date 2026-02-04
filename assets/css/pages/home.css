@@ -102,43 +102,43 @@ body[data-page="home"] .guide-btn{
 body[data-page="home"] .feature-card-3d{
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   text-align: center;
 }
 
-/* Each section occupies roughly a third, centered */
+/* Top third */
 body[data-page="home"] .feature-title-3d{
-  flex: 1 1 33%;
+  flex: 1 1 0;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0;
 }
 
+/* Middle third */
 body[data-page="home"] .feature-description-3d{
-  flex: 1 1 33%;
+  flex: 1 1 0;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0;
 }
 
-/* ✅ BUTTON: keep original neon styling, ONLY center it */
+/* Bottom zone: keep ORIGINAL button styling/size, only center it */
 body[data-page="home"] .guide-btn{
-  flex: 1 1 33%;
-  align-self: center;
+  /* IMPORTANT: do NOT make the button itself take 1/3 height */
+  flex: 0 0 auto;
 
-  /* DO NOT override template button styling */
-  position: initial;
-  left: initial;
-  transform: initial;
+  /* push it into the bottom area */
+  margin-top: auto;
 
-  /* Center the button without changing its look */
+  /* center horizontally without touching neon styles */
   margin-left: auto;
   margin-right: auto;
 
-  /* Put it in the lower third and vertically centered there */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* small breathing room from the bottom (tweak if needed) */
+  margin-bottom: 18px;
+
+  /* do NOT override template border/background/padding/radius */
+  display: inline-block;
+  text-align: center;
 }
