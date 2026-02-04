@@ -103,6 +103,9 @@ body[data-page="home"] .feature-card-3d{
   display: flex;
   flex-direction: column;
   text-align: center;
+
+  /* Deterministic horizontal centering */
+  align-items: center;
 }
 
 /* Top third */
@@ -112,6 +115,7 @@ body[data-page="home"] .feature-title-3d{
   align-items: center;
   justify-content: center;
   margin: 0;
+  width: 100%;
 }
 
 /* Middle third */
@@ -121,28 +125,27 @@ body[data-page="home"] .feature-description-3d{
   align-items: center;
   justify-content: center;
   margin: 0;
+  width: 100%;
 }
 
-/* Bottom zone: keep ORIGINAL neon styling, fix centering + size only */
+/* Bottom zone: keep ORIGINAL neon styling, make text a bit bigger but responsive */
 body[data-page="home"] .guide-btn{
   flex: 0 0 auto;
   margin-top: auto;
   margin-bottom: 8px;
+  align-self: center;
 
-  /* center the button itself */
-  margin-left: auto;
-  margin-right: auto;
-
-  /* IMPORTANT: neon border/glow usually needs relative positioning */
+  /* keep neon border/glow working */
   position: relative !important;
 
-  /* center label inside */
+  /* center label */
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   text-align: center !important;
 
-  /* 100% bigger text */
-  font-size: 200% !important;
+  /* Responsive “slightly bigger than original”, but never overflow */
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem) !important;
   line-height: 1.1 !important;
+  white-space: nowrap;
 }
