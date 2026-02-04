@@ -1,0 +1,221 @@
+/* parallax bundle: hero-parallax.css */
+
+/* Hero Section with Multiple Parallax Layers */
+.hero-container {
+	position: relative;
+	height: 100vh;
+	overflow: hidden;
+	background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0f 100%);
+}
+
+/* Large Diagonal Grid Overlay */
+.grid-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 2;
+}
+
+.grid-diagonal-1 {
+	position: absolute;
+	top: -50%;
+	left: -50%;
+	width: 200%;
+	height: 200%;
+	background-image:
+		repeating-linear-gradient(45deg,
+			transparent,
+			transparent 180px,
+			rgba(0, 217, 255, 0.08) 180px,
+			rgba(0, 217, 255, 0.08) 183px),
+		repeating-linear-gradient(-45deg,
+			transparent,
+			transparent 180px,
+			rgba(255, 0, 234, 0.08) 180px,
+			rgba(255, 0, 234, 0.08) 183px);
+	animation: grid-slide-1 40s linear infinite;
+}
+
+@keyframes grid-slide-1 {
+	0% {
+		transform: translate(0, 0);
+	}
+
+	100% {
+		transform: translate(183px, 183px);
+	}
+}
+
+.grid-diagonal-2 {
+	position: absolute;
+	top: -50%;
+	left: -50%;
+	width: 200%;
+	height: 200%;
+	background-image:
+		repeating-linear-gradient(45deg,
+			transparent,
+			transparent 250px,
+			rgba(0, 255, 204, 0.05) 250px,
+			rgba(0, 255, 204, 0.05) 254px),
+		repeating-linear-gradient(-45deg,
+			transparent,
+			transparent 250px,
+			rgba(0, 255, 204, 0.05) 250px,
+			rgba(0, 255, 204, 0.05) 254px);
+	animation: grid-slide-2 60s linear infinite reverse;
+	opacity: 0.8;
+}
+
+@keyframes grid-slide-2 {
+	0% {
+		transform: translate(0, 0);
+	}
+
+	100% {
+		transform: translate(254px, 254px);
+	}
+}
+
+/* Stars/twinkle background removed (site uses a consistent static background now) */
+
+.parallax-layer {
+	position: absolute;
+	width: 110%;
+	height: 100%;
+	left: -5%;
+}
+
+/* Background Layer - Slowest */
+.layer-bg {
+	background: linear-gradient(180deg, transparent 0%, rgba(0, 217, 255, 0.1) 50%, transparent 100%);
+	transform: translateZ(-3px) scale(4);
+}
+
+/* Mid Layer Mountains */
+.layer-mountains {
+	bottom: -50vh;
+	width: 120%;
+	height: 80vh;
+	left: -10%;
+	background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+	clip-path: polygon(0 40%, 20% 25%, 40% 35%, 60% 20%, 80% 30%, 100% 15%, 100% 100%, 0 100%);
+	transform: translateZ(-2px) scale(3);
+}
+
+/* Floating Elements Layer */
+.layer-float {
+	transform: translateZ(-1px) scale(2);
+}
+
+.floating-card {
+	position: absolute;
+	width: 300px;
+	height: 200px;
+	background: rgba(255, 255, 255, 0.05);
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 20px;
+	padding: 30px;
+	transition: all 0.3s ease;
+	opacity: 0;
+	animation: fadeInCard 0.8s ease forwards;
+}
+
+@keyframes fadeInCard {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.floating-card:hover {
+	transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+	background: rgba(255, 255, 255, 0.1);
+	box-shadow: 0 20px 40px rgba(0, 217, 255, 0.3);
+}
+
+.card-1 {
+	top: 30vh;
+	left: 10%;
+	animation: fadeInCard 0.8s ease forwards, float1 8s infinite ease-in-out;
+	animation-delay: 0s, 0.8s;
+}
+
+.card-2 {
+	top: 60vh;
+	right: 15%;
+	animation: fadeInCard 0.8s ease 0.2s forwards, float2 10s infinite ease-in-out;
+	animation-delay: 0.2s, 1s;
+}
+
+@keyframes float1 {
+
+	0%,
+	100% {
+		transform: translateY(0) rotate(0deg);
+	}
+
+	50% {
+		transform: translateY(-30px) rotate(3deg);
+	}
+}
+
+@keyframes float2 {
+
+	0%,
+	100% {
+		transform: translateY(0) rotate(0deg);
+	}
+
+	50% {
+		transform: translateY(-40px) rotate(-3deg);
+	}
+}
+
+/* Foreground Layer - Fastest */
+.layer-fg {
+	transform: translateZ(0) scale(1);
+	pointer-events: none;
+}
+
+.glowing-orb {
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+	filter: blur(20px);
+	animation: orb-float 15s infinite linear;
+}
+
+.orb-1 {
+	top: 20vh;
+	animation-delay: 0s;
+}
+
+.orb-2 {
+	top: 50vh;
+	animation-delay: 5s;
+}
+
+@keyframes orb-float {
+	0% {
+		left: -100px;
+	}
+
+	100% {
+		left: calc(100% + 100px);
+	}
+}
+
+/* force-disable template overlays for consistent background */
+.grid-overlay, .glow-orb { display: none !important; }
