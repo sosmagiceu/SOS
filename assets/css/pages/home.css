@@ -88,7 +88,7 @@ body[data-page="home"] .feature-card-3d{
 
 /* ---------- TITLE (zone 1) ---------- */
 body[data-page="home"] .feature-title-3d{
-  flex: 0 0 18%;
+  flex: 0 0 10%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,7 +100,7 @@ body[data-page="home"] .feature-title-3d{
 
 /* ---------- IMAGE (zone 2) ---------- */
 body[data-page="home"] .carousel-card-image{
-  flex: 0 0 42%;
+  flex: 0 0 40%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,7 +112,7 @@ body[data-page="home"] .carousel-card-image{
 
 /* ---------- TEXT (zone 3) ---------- */
 body[data-page="home"] .feature-description-3d{
-  flex: 0 0 22%;
+  flex: 0 0 20%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -124,7 +124,7 @@ body[data-page="home"] .feature-description-3d{
 
 /* ---------- BUTTON (zone 4) ---------- */
 body[data-page="home"] .guide-btn{
-  flex: 0 0 18%;
+  flex: 0 0 30%;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
