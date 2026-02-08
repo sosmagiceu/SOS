@@ -12,8 +12,64 @@ body[data-page='home'] .tm-carousel{
   text-align: center;
 }
 
-/* Base title: always visible */
-.section-title .sos-title{
+
+/* ============================= */
+/* TITLE SWAP: TEXT <-> LOGO     */
+/* ============================= */
+
+/* Stack logo + text in same spot (no layout shift) */
+.section-title .title-swap{
+  display: inline-grid;
+  place-items: center;
+  position: relative;
+}
+
+/* Overlay both elements */
+.section-title .title-swap > *{
+  grid-area: 1 / 1;
+}
+
+/* Text styling stays on the text span */
+.section-title .sos-title--text{
+  position: relative;
+  display: inline-block;
+  color: #ffffff;
+  z-index: 1;
+  animation: titleFade 6s ease-in-out infinite;
+}
+
+/* Logo swap */
+.section-title .sos-title-logo{
+  width: clamp(46px, 7vw, 74px);
+  height: auto;
+  opacity: 0;
+  transform-origin: center;
+  animation: logoFade 6s ease-in-out infinite, heartBeat 1.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(255,0,255,.25)) drop-shadow(0 0 10px rgba(0,255,255,.25));
+}
+
+/* Fade timing: show text first, then logo */
+@keyframes titleFade{
+  0%, 35%   { opacity: 1; }
+  45%, 90%  { opacity: 0; }
+  100%      { opacity: 1; }
+}
+@keyframes logoFade{
+  0%, 40%   { opacity: 0; }
+  50%, 85%  { opacity: 1; }
+  95%, 100% { opacity: 0; }
+}
+
+/* Heart-like pulse */
+@keyframes heartBeat{
+  0%, 100% { transform: scale(1); }
+  14%      { transform: scale(1.10); }
+  28%      { transform: scale(1.00); }
+  42%      { transform: scale(1.08); }
+  70%      { transform: scale(1.00); }
+}
+
+/* Base title: always visible */.section-title .sos-title--text{
   position: relative;
   display: inline-block;
   color: #ffffff;
@@ -21,8 +77,8 @@ body[data-page='home'] .tm-carousel{
 }
 
 /* Neon scanner band */
-.section-title .sos-title::after{
-  content: "SOS MAGIC";
+.section-title .sos-title--text::after{
+  content: "Presents";
   position: absolute;
   inset: 0;
   pointer-events: none;

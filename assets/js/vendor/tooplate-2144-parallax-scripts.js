@@ -68,6 +68,16 @@ const nextBtn = document.getElementById('nextBtn');
 const indicatorsContainer = document.getElementById('indicators');
 const featureCards = carousel ? carousel.querySelectorAll('.feature-card-3d') : document.querySelectorAll('.feature-card-3d');
 
+// STOP_CARD_CLICK: Only the button should navigate (do not make the whole card clickable)
+featureCards.forEach(card => {
+   card.addEventListener('click', (e) => {
+      // Allow clicks on the actual button only
+      if (e.target && e.target.closest && e.target.closest('.guide-btn')) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+   }, true); // capture phase: blocks any old "card click opens link" handlers
+});
+
 let currentRotation = 0;
 let currentIndex = 0;
 

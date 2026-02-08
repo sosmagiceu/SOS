@@ -237,3 +237,9 @@
 @media (max-width: 520px){
 	.brand-logo{ height: 3.2em; }
 }
+
+
+/* Home icon button (replaces logo) */
+.home-btn svg{
+  display:block;
+}
