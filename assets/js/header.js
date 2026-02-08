@@ -5,7 +5,10 @@
 
   /* ---------- MOBILE/TABLET BACKGROUND VIDEO ---------- */
   function ensureMobileBgVideo() {
-    if (!window.matchMedia("(max-width: 1024px)").matches) return;
+    // Alleen echte touch devices (mobile + tablet)
+    if (!window.matchMedia("(pointer: coarse)").matches) return;
+
+    // Niet dubbel injecteren
     if (document.querySelector(".bg-video-layer")) return;
 
     const layer = document.createElement("div");
@@ -14,18 +17,27 @@
     const video = document.createElement("video");
     video.className = "bg-video";
     video.autoplay = true;
-    video.muted = true;
+    video.muted = true;        // verplicht voor autoplay op iOS
     video.loop = true;
-    video.playsInline = true;
+    video.playsInline = true; // essentieel voor iOS
+    video.setAttribute("webkit-playsinline", "");
 
     const source = document.createElement("source");
-    source.src = "https://sosmagic.b-cdn.net/videos/homebg.mp4";
+    source.src = "https://sosmagic.b-cdn.net/Achterground%20enzo/Bubbels_.mp4";
     source.type = "video/mp4";
 
     video.appendChild(source);
     layer.appendChild(video);
 
     document.body.prepend(layer);
+
+    // iOS fallback: force play
+    video.addEventListener("loadeddata", () => {
+      const p = video.play();
+      if (p && typeof p.catch === "function") {
+        p.catch(() => {});
+      }
+    });
   }
 
   ensureMobileBgVideo();
@@ -111,9 +123,6 @@
     const key = btn.getAttribute("data-menu-btn");
     const panel = topbar.querySelector(`[data-menu-panel="${key}"]`);
 
-    // Desktop hover: keep menu open while hovering button OR panel.
-    // Panels are often absolutely positioned outside the wrap's box, so
-    // relying on wrap mouseleave will close the menu the moment you move into the panel.
     const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
     if (canHover) {
@@ -133,7 +142,6 @@
     }
   });
 
-  // Close if you click outside (desktop) / tap outside (mobile)
   document.addEventListener("click", () => closeAll());
   document.addEventListener("keydown", e => {
     if (e.key === "Escape") closeAll();
