@@ -129,7 +129,7 @@ body[data-page="home"] .guide-btn{
   margin-top: auto;
 
   /* lower it (smaller = closer to bottom) */
-  margin-bottom: 8px;
+  margin-bottom: 2px;
 
   /* hard-center the button itself */
   margin-left: auto;
