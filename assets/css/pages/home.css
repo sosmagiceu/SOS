@@ -122,35 +122,33 @@ body[data-page="home"] .feature-description-3d{
   line-height: 1.4;
 }
 
-/* ---------- BUTTON ZONE (zone 4) ---------- */
+/* ---------- BUTTON (content, not stretched) ---------- */
 body[data-page="home"] .guide-btn{
-  /* IMPORTANT: this is now treated as content, not as the zone itself */
   align-self: center;
 
   font-family: "Cormorant SC", serif;
 
-  /* keep original button shape */
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
 
-  /* visual spacing */
-  margin-top: 6px;
-  margin-bottom: 12px;
+  /* lift the button slightly */
+  margin-top: 4px;
+  margin-bottom: 8px;
 
-  /* kill all previous positioning hacks */
   position: static !important;
   left: auto !important;
   right: auto !important;
   transform: none !important;
 }
 
-/* Reserve vertical space for the button + carousel controls */
+/* Reserve space under the button for carousel controls */
 body[data-page="home"] .feature-card-3d > .guide-btn{
   flex: 0 0 auto;
 }
 
+/* ↓ THIS is the key tweak: less dead space, button moves up ~20% */
 body[data-page="home"] .feature-card-3d::after{
   content: "";
-  flex: 0 0 12%;
+  flex: 0 0 8%;
 }
