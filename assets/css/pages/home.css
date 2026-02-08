@@ -76,7 +76,7 @@ body[data-page='home'] .tm-carousel{
 
 
 /* =========================================================
-   HOME 3D CAROUSEL – IMAGE-LED LAYOUT (UPDATED)
+   HOME 3D CAROUSEL — FIXED 4-ZONE LAYOUT (STABLE)
    ========================================================= */
 
 /* Card base */
@@ -84,49 +84,58 @@ body[data-page="home"] .feature-card-3d{
   display: flex;
   flex-direction: column;
   text-align: center;
-  height: 100%;
 }
 
-/* ---------- TITLE ---------- */
+/* ---------- TITLE (zone 1) ---------- */
 body[data-page="home"] .feature-title-3d{
+  flex: 0 0 18%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   font-family: "Cormorant SC", serif;
-  text-align: center;
-  margin: 12px 12px 6px;
+  margin: 0;
   line-height: 1.1;
 }
 
-/* ---------- IMAGE (60%) ---------- */
+/* ---------- IMAGE (zone 2) ---------- */
 body[data-page="home"] .carousel-card-image{
-  flex: 0 0 60%;
-  max-height: 60%;
+  flex: 0 0 42%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 100%;
   object-fit: contain;
   margin: 0 auto;
 }
 
-/* ---------- TEXT ---------- */
+/* ---------- TEXT (zone 3) ---------- */
 body[data-page="home"] .feature-description-3d{
+  flex: 0 0 22%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   font-family: "Montserrat", sans-serif;
-  text-align: center;
-  margin: 6px 14px 4px;
+  margin: 0;
   line-height: 1.4;
 }
 
-/* ---------- BUTTON ---------- */
+/* ---------- BUTTON (zone 4) ---------- */
 body[data-page="home"] .guide-btn{
+  flex: 0 0 18%;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
   font-family: "Cormorant SC", serif;
 
-  /* push to bottom, keep centered */
-  margin: auto auto 6px;
+  margin: 0 auto;
 
-  /* reset all old positioning garbage */
+  /* kill all previous positioning hacks */
   position: static !important;
   left: auto !important;
   right: auto !important;
   transform: none !important;
-
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
 }
