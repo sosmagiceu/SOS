@@ -76,6 +76,18 @@ featureCards.forEach(card => {
       e.preventDefault();
       e.stopImmediatePropagation();
    }, true); // capture phase: blocks any old "card click opens link" handlers
+
+   // Touch devices: prevent synthetic "tap" click from triggering card-level handlers
+   const blockIfNotButton = (ev) => {
+      if (ev.target && ev.target.closest && ev.target.closest('.guide-btn')) return;
+      ev.preventDefault();
+      ev.stopImmediatePropagation();
+   };
+   card.addEventListener('touchstart', blockIfNotButton, { capture: true, passive: false });
+   card.addEventListener('touchend', blockIfNotButton, { capture: true, passive: false });
+   card.addEventListener('pointerdown', blockIfNotButton, { capture: true, passive: false });
+   card.addEventListener('pointerup', blockIfNotButton, { capture: true, passive: false });
+
 });
 
 let currentRotation = 0;

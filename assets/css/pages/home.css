@@ -17,60 +17,69 @@ body[data-page='home'] .tm-carousel{
 /* TITLE SWAP: TEXT <-> LOGO     */
 /* ============================= */
 
-/* Stack logo + text in same spot (no layout shift) */
+/* Keep layout stable: size is based on the text only */
 .section-title .title-swap{
-  display: inline-grid;
-  place-items: center;
   position: relative;
+  display: inline-block;
+  line-height: 1;
 }
 
-/* Overlay both elements */
-.section-title .title-swap > *{
-  grid-area: 1 / 1;
-}
-
-/* Text styling stays on the text span */
+/* Text layer */
 .section-title .sos-title--text{
   position: relative;
   display: inline-block;
   color: #ffffff;
   z-index: 1;
-  /* Starts hidden because we start on the logo */
+
+  /* start hidden because we start on the logo */
   opacity: 0;
-  animation: titleFade 9s ease-in-out infinite;
+  animation: titleFade 12s ease-in-out infinite;
+
+  /* nudge the text down visually without moving layout */
+  transform: translateY(6px);
 }
 
-/* Logo swap */
-.section-title .sos-title-logo{
-  /* ~60% bigger */
-  width: clamp(74px, 11vw, 120px);
-  height: auto;
-  opacity: 1;
+/* Logo wrapper (doesn't affect layout) */
+.section-title .sos-title-logo-wrap{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   transform-origin: center;
-  /* Logo is visible longer than the text */
-  animation: logoFade 9s ease-in-out infinite, heartBeat 1.6s ease-in-out infinite;
+  opacity: 1;
+
+  /* Logo stays visible longer than the text */
+  animation: logoFade 12s ease-in-out infinite, heartBeat 1.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Logo image (bigger, but doesn't change layout) */
+.section-title .sos-title-logo{
+  width: clamp(120px, 18vw, 220px);
+  height: auto;
+  display: block;
   filter: drop-shadow(0 0 10px rgba(255,0,255,.25)) drop-shadow(0 0 10px rgba(0,255,255,.25));
 }
 
 /* Fade timing: start on LOGO. Logo stays up ~2x longer than the text. */
 @keyframes logoFade{
-  0%, 60%   { opacity: 1; }
-  70%, 90%  { opacity: 0; }
+  0%, 70%   { opacity: 1; }
+  78%, 95%  { opacity: 0; }
   100%      { opacity: 1; }
 }
 @keyframes titleFade{
-  0%, 60%   { opacity: 0; }
-  70%, 90%  { opacity: 1; }
+  0%, 70%   { opacity: 0; }
+  78%, 95%  { opacity: 1; }
   100%      { opacity: 0; }
 }
 
 /* Heart-like pulse */
 @keyframes heartBeat{
-  0%, 100% { transform: scale(1); }
-  14%      { transform: scale(1.10); }
-  28%      { transform: scale(1.00); }
-  42%      { transform: scale(1.08); }
-  70%      { transform: scale(1.00); }
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  14%      { transform: translate(-50%, -50%) scale(1.12); }
+  28%      { transform: translate(-50%, -50%) scale(1.00); }
+  42%      { transform: translate(-50%, -50%) scale(1.09); }
+  70%      { transform: translate(-50%, -50%) scale(1.00); }
 }
 
 /* Base title: always visible */.section-title .sos-title--text{
@@ -82,7 +91,7 @@ body[data-page='home'] .tm-carousel{
 
 /* Neon scanner band */
 .section-title .sos-title--text::after{
-  content: "Presents";
+  content: "Presents...";
   position: absolute;
   inset: 0;
   pointer-events: none;
