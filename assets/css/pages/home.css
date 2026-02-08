@@ -122,20 +122,35 @@ body[data-page="home"] .feature-description-3d{
   line-height: 1.4;
 }
 
-/* ---------- BUTTON (zone 4) ---------- */
+/* ---------- BUTTON ZONE (zone 4) ---------- */
 body[data-page="home"] .guide-btn{
-  flex: 0 0 30%;
+  /* IMPORTANT: this is now treated as content, not as the zone itself */
+  align-self: center;
+
+  font-family: "Cormorant SC", serif;
+
+  /* keep original button shape */
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
 
-  font-family: "Cormorant SC", serif;
-
-  margin: 0 auto;
+  /* visual spacing */
+  margin-top: 6px;
+  margin-bottom: 12px;
 
   /* kill all previous positioning hacks */
   position: static !important;
   left: auto !important;
   right: auto !important;
   transform: none !important;
+}
+
+/* Reserve vertical space for the button + carousel controls */
+body[data-page="home"] .feature-card-3d > .guide-btn{
+  flex: 0 0 auto;
+}
+
+body[data-page="home"] .feature-card-3d::after{
+  content: "";
+  flex: 0 0 12%;
 }
