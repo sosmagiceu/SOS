@@ -27,7 +27,6 @@ body[data-page='home'] .tm-carousel{
   inset: 0;
   pointer-events: none;
 
-  /* Narrow moving band */
   background: linear-gradient(
     90deg,
     rgba(255,0,255,0) 0%,
@@ -51,11 +50,6 @@ body[data-page='home'] .tm-carousel{
   animation: sosNeonSweep 5s linear infinite;
 }
 
-/* Timing:
-   0–2s  : idle (white)
-   2–3s  : sweep left → right
-   3–5s  : idle
-*/
 @keyframes sosNeonSweep{
   0%, 39%{
     opacity: 0;
@@ -82,70 +76,57 @@ body[data-page='home'] .tm-carousel{
 
 
 /* =========================================================
-   HOME 3D CAROUSEL TYPOGRAPHY + 3-ZONE LAYOUT
+   HOME 3D CAROUSEL – IMAGE-LED LAYOUT (UPDATED)
    ========================================================= */
-body[data-page="home"] .feature-title-3d{
-  font-family: "Cormorant SC", serif;
-  text-align: center;
-}
 
-body[data-page="home"] .feature-description-3d{
-  font-family: "Montserrat", sans-serif;
-  text-align: center;
-}
-
-body[data-page="home"] .guide-btn{
-  font-family: "Cormorant SC", serif;
-}
-
-/* Split card into top/middle/bottom thirds */
+/* Card base */
 body[data-page="home"] .feature-card-3d{
   display: flex;
   flex-direction: column;
   text-align: center;
+  height: 100%;
 }
 
-/* Top third */
+/* ---------- TITLE ---------- */
 body[data-page="home"] .feature-title-3d{
-  flex: 1 1 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
+  font-family: "Cormorant SC", serif;
+  text-align: center;
+  margin: 12px 12px 6px;
+  line-height: 1.1;
 }
 
-/* Middle third */
+/* ---------- IMAGE (60%) ---------- */
+body[data-page="home"] .carousel-card-image{
+  flex: 0 0 60%;
+  max-height: 60%;
+  width: 100%;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+/* ---------- TEXT ---------- */
 body[data-page="home"] .feature-description-3d{
-  flex: 1 1 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+  margin: 6px 14px 4px;
+  line-height: 1.4;
 }
 
-/* Bottom zone: keep ORIGINAL button styling/shape, ONLY fix centering + vertical position */
+/* ---------- BUTTON ---------- */
 body[data-page="home"] .guide-btn{
-  flex: 0 0 auto;
-  margin-top: auto;
+  font-family: "Cormorant SC", serif;
 
-  /* lower it (smaller = closer to bottom) */
-  margin-bottom: 2px;
+  /* push to bottom, keep centered */
+  margin: auto auto 6px;
 
-  /* hard-center the button itself */
-  margin-left: auto;
-  margin-right: auto;
-  margin-inline: auto;
-
-  /* stop template offsets from messing with centering */
+  /* reset all old positioning garbage */
   position: static !important;
   left: auto !important;
   right: auto !important;
   transform: none !important;
 
-  /* center the text inside without changing border/shape */
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   text-align: center !important;
-  line-height: 1 !important;
 }
