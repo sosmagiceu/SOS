@@ -1,51 +1,43 @@
-// JavaScript Document
-
-/*
-
-Tooplate 2144 SOS Magic
-
-https://www.tooplate.com/view/2144-parallax-depth
-
-*/
-
-// Stars/twinkle background removed (site uses a consistent static background now)
 
 // Parallax scrolling effect
 const layers = document.querySelectorAll('.parallax-layer');
 const heroContent = document.querySelector('.hero-content');
 
 window.addEventListener('scroll', () => {
-   const scrolled = window.pageYOffset;
+   const scrollTop = window.pageYOffset;
 
-   // Move hero content
-   if (heroContent && scrolled < window.innerHeight) {
-      heroContent.style.transform = `translate(-50%, calc(-50% + ${scrolled * 0.3}px))`;
-      heroContent.style.opacity = 1 - (scrolled / 800);
-   }
+   layers.forEach(layer => {
+      const speed = layer.getAttribute('data-speed') || 0.5;
+      const yPos = -(scrollTop * speed);
+      layer.style.transform = `translate3d(0, ${yPos}px, 0)`;
+   });
 
-   // Apply different speeds to each layer in hero section only
-   if (scrolled < window.innerHeight) {
-      layers.forEach((layer, index) => {
-         const speed = (index + 1) * 0.2;
-         layer.style.transform = `translateY(${scrolled * speed}px)`;
-      });
+   if (heroContent) {
+      heroContent.style.transform = `translateY(${scrollTop * 0.3}px)`;
+      heroContent.style.opacity = 1 - scrollTop / 500;
    }
 });
 
+// Feature cards hover effect
+document.querySelectorAll('.feature-card').forEach(card => {
+   card.addEventListener('mouseenter', () => {
+      card.style.transform = 'translateY(-10px)';
+   });
 
-// Mouse follower removed (not used on SOS Magic)
+   card.addEventListener('mouseleave', () => {
+      card.style.transform = 'translateY(0)';
+   });
+});
 
-// Interactive hover effects for rectangles
-const rectangles = document.querySelectorAll('.rect');
-
-rectangles.forEach(rect => {
+// 3D Tilt effect on cards
+document.querySelectorAll('.feature-card-3d').forEach(rect => {
    rect.addEventListener('mousemove', (e) => {
-      const boundingRect = rect.getBoundingClientRect();
-      const x = e.clientX - boundingRect.left;
-      const y = e.clientY - boundingRect.top;
+      const rectBounds = rect.getBoundingClientRect();
+      const x = e.clientX - rectBounds.left;
+      const y = e.clientY - rectBounds.top;
 
-      const centerX = boundingRect.width / 2;
-      const centerY = boundingRect.height / 2;
+      const centerX = rectBounds.width / 2;
+      const centerY = rectBounds.height / 2;
 
       const rotateX = (y - centerY) / 15;
       const rotateY = (centerX - x) / 15;
@@ -58,88 +50,109 @@ rectangles.forEach(rect => {
    });
 });
 
-// 3D Carousel Controls
+// 3D Carousel Controls (Home page)
 if (!window.__sos3dCarouselInit) {
   window.__sos3dCarouselInit = true;
 
-const carousel = document.getElementById('carousel');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-const indicatorsContainer = document.getElementById('indicators');
-const featureCards = carousel ? carousel.querySelectorAll('.feature-card-3d') : document.querySelectorAll('.feature-card-3d');
+  const carousel = document.getElementById('carousel');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const indicatorsContainer = document.getElementById('indicators');
 
-let currentRotation = 0;
-let currentIndex = 0;
+  // Only initialize on pages that actually have the carousel
+  if (carousel && prevBtn && nextBtn && indicatorsContainer) {
+    const featureCards = carousel.querySelectorAll('.feature-card-3d');
+    const step = featureCards.length ? (360 / featureCards.length) : 60;
 
-// Create indicators
-if (indicatorsContainer) indicatorsContainer.innerHTML = '';
+    let currentRotation = 0;
+    let currentIndex = 0;
 
-featureCards.forEach((_, index) => {
-   const indicator = document.createElement('div');
-   indicator.className = 'indicator';
-   if (index === 0) indicator.classList.add('active');
-   indicator.addEventListener('click', () => goToSlide(index));
-   indicatorsContainer.appendChild(indicator);
-});
+    // Build indicators
+    indicatorsContainer.innerHTML = '';
+    featureCards.forEach((_, index) => {
+      const indicator = document.createElement('div');
+      indicator.className = 'indicator';
+      if (index === 0) indicator.classList.add('active');
 
-const indicators = document.querySelectorAll('.indicator');
+      indicator.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        goToSlide(index);
+      });
 
-// Update view - always use 3D rotation
-function updateView() {
-   carousel.style.transform = `rotateY(${currentRotation}deg)`;
-   updateIndicators();
-}
+      indicatorsContainer.appendChild(indicator);
+    });
 
-// Update indicators
-function updateIndicators() {
-   indicators.forEach((indicator, index) => {
-      indicator.classList.toggle('active', index === currentIndex);
-   });
-}
+    const indicators = indicatorsContainer.querySelectorAll('.indicator');
 
-// Go to specific slide
-function goToSlide(index) {
-   currentIndex = index;
-   currentRotation = -index * 60;
-   updateView();
-}
+    function updateIndicators() {
+      indicators.forEach((indicator, index) => {
+        indicator.classList.toggle('active', index === currentIndex);
+      });
+    }
 
-// Previous button
-prevBtn.addEventListener('click', () => {
-   currentIndex = (currentIndex - 1 + featureCards.length) % featureCards.length;
-   currentRotation += 60;
-   updateView();
-});
+    function updateView() {
+      carousel.style.transform = `rotateY(${currentRotation}deg)`;
+      updateIndicators();
+    }
 
-// Next button
-nextBtn.addEventListener('click', () => {
-   currentIndex = (currentIndex + 1) % featureCards.length;
-   currentRotation -= 60;
-   updateView();
-});
+    function goToSlide(index) {
+      currentIndex = index;
+      currentRotation = -index * step;
+      updateView();
+    }
 
-// Touch support for mobile
-let touchStartX = 0;
-let touchEndX = 0;
+    function prev() {
+      currentIndex = (currentIndex - 1 + featureCards.length) % featureCards.length;
+      currentRotation += step;
+      updateView();
+    }
 
-carousel.addEventListener('touchstart', (e) => {
-   touchStartX = e.changedTouches[0].screenX;
-});
+    function next() {
+      currentIndex = (currentIndex + 1) % featureCards.length;
+      currentRotation -= step;
+      updateView();
+    }
 
-carousel.addEventListener('touchend', (e) => {
-   touchEndX = e.changedTouches[0].screenX;
-   handleSwipe();
-});
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      prev();
+    });
 
-function handleSwipe() {
-   if (touchEndX < touchStartX - 50) {
-      // Swipe left - next
-      nextBtn.click();
-   }
-   if (touchEndX > touchStartX + 50) {
-      // Swipe right - previous
-      prevBtn.click();
-   }
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      next();
+    });
+
+    // Touch swipe support (mobile)
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carousel.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+
+      if (touchEndX < touchStartX - 50) next();
+      if (touchEndX > touchStartX + 50) prev();
+    }, { passive: true });
+
+    // Prevent accidental navigation when users click the card area
+    featureCards.forEach((card) => {
+      card.addEventListener('click', (e) => {
+        if (!e.target.closest('.guide-btn')) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      });
+    });
+
+    updateView();
+  }
 }
 
 // Smooth scroll for anchor links
@@ -165,7 +178,7 @@ const observerOptions = {
 const observer = new IntersectionObserver((entries) => {
    entries.forEach(entry => {
       if (entry.isIntersecting) {
-         entry.target.style.opacity = '1';
+         entry.target.style.opacity = 1;
          entry.target.style.transform = 'translateY(0)';
       }
    });
@@ -173,7 +186,7 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe feature cards and gallery items
 document.querySelectorAll('.gallery-item').forEach(item => {
-   item.style.opacity = '0';
+   item.style.opacity = 0;
    item.style.transform = 'translateY(30px)';
    item.style.transition = 'all 0.6s ease';
    observer.observe(item);
@@ -190,7 +203,7 @@ if (submitBtn) {
       ripple.style.position = 'absolute';
       ripple.style.width = '10px';
       ripple.style.height = '10px';
-      ripple.style.background = 'rgba(255, 255, 255, 0.5)';
+      ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
       ripple.style.borderRadius = '50%';
       ripple.style.transform = 'translate(-50%, -50%)';
       ripple.style.pointerEvents = 'none';
@@ -218,54 +231,3 @@ style.textContent = `
             }
         `;
 document.head.appendChild(style);
-}
-  nextBtn?.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    next();
-  });
-
-  prevBtn?.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    prev();
-  });
-
-  /* --- Touch swipe support (mobile) --- */
-  let startX = 0;
-
-  cards.forEach((card) => {
-    card.addEventListener(
-      "touchstart",
-      (e) => {
-        startX = e.touches[0].clientX;
-      },
-      { passive: true }
-    );
-
-    card.addEventListener(
-      "touchend",
-      (e) => {
-        const endX = e.changedTouches[0].clientX;
-        const diff = startX - endX;
-
-        if (Math.abs(diff) > 50) {
-          diff > 0 ? next() : prev();
-        }
-      },
-      { passive: true }
-    );
-  });
-
-  /* --- Prevent whole card acting like a link --- */
-  cards.forEach((card) => {
-    card.addEventListener("click", (e) => {
-      if (!e.target.closest(".guide-btn")) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    });
-  });
-
-  updateCarousel();
-});
