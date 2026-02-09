@@ -1,87 +1,47 @@
-/* pages/home.css */
+/* =========================================================
+   HOME PAGE STYLES
+   ========================================================= */
 
-body[data-page='home'] .tm-carousel{
-  margin-top:24px;
-}
-
-/* ============================= */
-/* SOS MAGIC TITLE NEON SWEEP    */
-/* ============================= */
-
-.section-title{
+.section-title {
+  position: relative;
   text-align: center;
+  margin-bottom: 40px;
+  font-family: "Cormorant SC", serif;
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 400;
 }
 
-/* ============================= */
-/* TITLE SWAP: TEXT <-> LOGO     */
-/* ============================= */
-
-/* Keep layout stable: size is based on the text only */
-.section-title .title-swap{
+.title-swap{
   position: relative;
   display: inline-block;
-  line-height: 1;
+  min-height: 1.2em;
 }
 
-/* Text layer */
+/* Text (animated fade) */
 .section-title .sos-title--text{
-  position: relative;
   display: inline-block;
-  color: #ffffff;
-  z-index: 1;
-
-  /* start hidden because we start on the logo */
-  opacity: 0;
+  opacity: 1;
   animation: titleFade 12s ease-in-out infinite;
-
-  /* nudge the text down visually without moving layout */
-  transform: translateY(6px);
 }
 
-/* Logo wrapper (doesn't affect layout) */
+/* Logo wrapper */
 .section-title .sos-title-logo-wrap{
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  transform-origin: center;
-  opacity: 1;
-
-  /* Logo stays visible longer than the text */
+  opacity: 0;
   animation: logoFade 12s ease-in-out infinite, heartBeat 1.6s ease-in-out infinite;
   pointer-events: none;
 }
 
-/* Logo image (bigger, but doesn't change layout) */
+/* Logo image */
 .section-title .sos-title-logo{
   width: clamp(120px, 18vw, 220px);
   height: auto;
-  display: block;
-  filter: drop-shadow(0 0 10px rgba(255,0,255,.25)) drop-shadow(0 0 10px rgba(0,255,255,.25));
 }
 
-/* Fade timing: start on LOGO. Logo stays up ~2x longer than the text. */
-@keyframes logoFade{
-  0%, 70%   { opacity: 1; }
-  78%, 95%  { opacity: 0; }
-  100%      { opacity: 1; }
-}
-@keyframes titleFade{
-  0%, 70%   { opacity: 0; }
-  78%, 95%  { opacity: 1; }
-  100%      { opacity: 0; }
-}
-
-/* Heart-like pulse */
-@keyframes heartBeat{
-  0%, 100% { transform: translate(-50%, -50%) scale(1); }
-  14%      { transform: translate(-50%, -50%) scale(1.12); }
-  28%      { transform: translate(-50%, -50%) scale(1.00); }
-  42%      { transform: translate(-50%, -50%) scale(1.09); }
-  70%      { transform: translate(-50%, -50%) scale(1.00); }
-}
-
-/* Neon scanner band (KEEP THIS: you want the sweep) */
+/* Scanner band effect on text */
 .section-title .sos-title--text::after{
   content: "Presents...";
   position: absolute;
@@ -93,46 +53,40 @@ body[data-page='home'] .tm-carousel{
     rgba(255,0,255,0) 0%,
     rgba(255,0,255,0) 40%,
     rgba(255,0,255,1) 47%,
-    rgba(0,255,255,1) 53%,
-    rgba(0,255,255,0) 60%,
-    rgba(0,255,255,0) 100%
+    rgba(0,255,255,1) 50%,
+    rgba(255,255,0,1) 53%,
+    rgba(255,0,255,0) 60%,
+    rgba(255,0,255,0) 100%
   );
-  background-size: 260% 100%;
-  background-position: -120% 50%;
 
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  background-size: 200% 100%;
   -webkit-background-clip: text;
-  background-clip: text;
+  -webkit-text-fill-color: transparent;
 
-  opacity: 0;
-  z-index: 2;
-
-  animation: sosNeonSweep 5s linear infinite;
+  animation: scanBand 2.2s linear infinite;
 }
 
-@keyframes sosNeonSweep{
-  0%, 39%{
-    opacity: 0;
-    background-position: -120% 50%;
-  }
-  40%{
-    opacity: 1;
-    background-position: -120% 50%;
-  }
-  60%{
-    opacity: 1;
-    background-position: 120% 50%;
-  }
-  61%, 100%{
-    opacity: 0;
-    background-position: 120% 50%;
-  }
+/* Animations */
+@keyframes titleFade{
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
-/* Kill any old broken sweep attempts */
-.section-title.neon-sweep::after{
-  display:none !important;
+@keyframes logoFade{
+  0%, 45% { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+  50%, 95% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+}
+
+@keyframes heartBeat{
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.05); }
+}
+
+@keyframes scanBand{
+  0% { background-position: 200% 0; }
+  100% { background-position: 0% 0; }
 }
 
 /* =========================================================
@@ -144,11 +98,7 @@ body[data-page="home"] .feature-card-3d{
   display: flex;
   flex-direction: column;
   text-align: center;
-
-  /* FIX: this was killing the carousel completely */
   pointer-events: auto;
-
-  /* helps swipe feel less janky on mobile */
   touch-action: pan-y;
 }
 
@@ -156,13 +106,9 @@ body[data-page="home"] .feature-card-3d{
 body[data-page="home"] .feature-title-3d{
   flex: 0 0 10%;
   display: flex;
-
-  /* move title higher in its zone */
   align-items: flex-start;
   justify-content: center;
-
   padding-top: 0px;
-
   font-family: "Cormorant SC", serif;
   margin: 0;
   line-height: 1.1;
@@ -174,7 +120,6 @@ body[data-page="home"] .carousel-card-image{
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 100%;
   object-fit: contain;
   margin: 0 auto;
@@ -186,16 +131,14 @@ body[data-page="home"] .feature-description-3d{
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-family: "Montserrat", sans-serif;
   margin: 0;
   line-height: 1.4;
 }
 
-/* ---------- BUTTON (content, not stretched) ---------- */
+/* ---------- BUTTON ---------- */
 body[data-page="home"] .guide-btn{
   align-self: center;
-
   font-family: "Cormorant SC", serif;
 
   display: inline-flex !important;
@@ -210,203 +153,6 @@ body[data-page="home"] .guide-btn{
   right: auto !important;
   transform: none !important;
 
-  /* click stays on the actual button */
-  pointer-events: auto;
-}
-
-/* Reserve space under the button for carousel controls */
-body[data-page="home"] .feature-card-3d > .guide-btn{
-  flex: 0 0 auto;
-}
-
-/* Space for carousel controls */
-body[data-page="home"] .feature-card-3d::after{
-  content: "";
-  flex: 0 0 8%;
-}
-  /* nudge the text down visually without moving layout */
-  transform: translateY(6px);
-}
-
-/* Logo wrapper (doesn't affect layout) */
-.section-title .sos-title-logo-wrap{
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  transform-origin: center;
-  opacity: 1;
-
-  /* Logo stays visible longer than the text */
-  animation: logoFade 12s ease-in-out infinite, heartBeat 1.6s ease-in-out infinite;
-  pointer-events: none;
-}
-
-/* Logo image (bigger, but doesn't change layout) */
-.section-title .sos-title-logo{
-  width: clamp(120px, 18vw, 220px);
-  height: auto;
-  display: block;
-  filter: drop-shadow(0 0 10px rgba(255,0,255,.25)) drop-shadow(0 0 10px rgba(0,255,255,.25));
-}
-
-/* Fade timing: start on LOGO. Logo stays up ~2x longer than the text. */
-@keyframes logoFade{
-  0%, 70%   { opacity: 1; }
-  78%, 95%  { opacity: 0; }
-  100%      { opacity: 1; }
-}
-@keyframes titleFade{
-  0%, 70%   { opacity: 0; }
-  78%, 95%  { opacity: 1; }
-  100%      { opacity: 0; }
-}
-
-/* Heart-like pulse */
-@keyframes heartBeat{
-  0%, 100% { transform: translate(-50%, -50%) scale(1); }
-  14%      { transform: translate(-50%, -50%) scale(1.12); }
-  28%      { transform: translate(-50%, -50%) scale(1.00); }
-  42%      { transform: translate(-50%, -50%) scale(1.09); }
-  70%      { transform: translate(-50%, -50%) scale(1.00); }
-}
-
-/* Base title: always visible */.section-title .sos-title--text{
-  position: relative;
-  display: inline-block;
-  color: #ffffff;
-  z-index: 1;
-}
-
-/* Neon scanner band */
-.section-title .sos-title--text::after{
-  content: "Presents...";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-
-  background: linear-gradient(
-    90deg,
-    rgba(255,0,255,0) 0%,
-    rgba(255,0,255,0) 40%,
-    rgba(255,0,255,1) 47%,
-    rgba(0,255,255,1) 53%,
-    rgba(0,255,255,0) 60%,
-    rgba(0,255,255,0) 100%
-  );
-  background-size: 260% 100%;
-  background-position: -120% 50%;
-
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-
-  opacity: 0;
-  z-index: 2;
-
-  animation: sosNeonSweep 5s linear infinite;
-}
-
-@keyframes sosNeonSweep{
-  0%, 39%{
-    opacity: 0;
-    background-position: -120% 50%;
-  }
-  40%{
-    opacity: 1;
-    background-position: -120% 50%;
-  }
-  60%{
-    opacity: 1;
-    background-position: 120% 50%;
-  }
-  61%, 100%{
-    opacity: 0;
-    background-position: 120% 50%;
-  }
-}
-
-/* Kill any old broken sweep attempts */
-.section-title.neon-sweep::after{
-  display:none !important;
-}
-
-
-/* =========================================================
-   HOME 3D CAROUSEL — FIXED 4-ZONE LAYOUT (STABLE)
-   ========================================================= */
-
-/* Card base */
-body[data-page="home"] .feature-card-3d{
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  /* Only the button should be clickable. This prevents the whole card acting like a link. */
-  pointer-events: none;
-}
-
-
-
-/* ---------- TITLE (zone 1) ---------- */
-body[data-page="home"] .feature-title-3d{
-  flex: 0 0 10%;
-  display: flex;
-
-  /* move title higher in its zone */
-  align-items: flex-start;
-  justify-content: center;
-
-  padding-top: 0px;
-
-  font-family: "Cormorant SC", serif;
-  margin: 0;
-  line-height: 1.1;
-}
-
-/* ---------- IMAGE (zone 2) ---------- */
-body[data-page="home"] .carousel-card-image{
-  flex: 0 0 40%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-  object-fit: contain;
-  margin: 0 auto;
-}
-
-/* ---------- TEXT (zone 3) ---------- */
-body[data-page="home"] .feature-description-3d{
-  flex: 0 0 20%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-family: "Montserrat", sans-serif;
-  margin: 0;
-  line-height: 1.4;
-}
-
-/* ---------- BUTTON (content, not stretched) ---------- */
-body[data-page="home"] .guide-btn{
-  align-self: center;
-
-  font-family: "Cormorant SC", serif;
-
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  margin-top: 4px;
-  margin-bottom: 8px;
-
-  position: static !important;
-  left: auto !important;
-  right: auto !important;
-  transform: none !important;
-
-  /* re-enable click on the actual button */
   pointer-events: auto;
 }
 
