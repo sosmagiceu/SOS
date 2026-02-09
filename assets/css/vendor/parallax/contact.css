@@ -1,56 +1,23 @@
 /* parallax bundle: contact.css */
 
-/* Parallax Background for Contact Section */
+/* Contact section background */
 .contact-section-bg {
 	position: relative;
 	background: linear-gradient(45deg, #0a0a0f 0%, #1a1a2e 100%);
 }
 
-.contact-section-bg::before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-image:
-		linear-gradient(rgba(0, 217, 255, 0.03) 2px, transparent 2px),
-		linear-gradient(90deg, rgba(0, 217, 255, 0.03) 2px, transparent 2px);
-	background-size: 120px 120px;
-	background-position: -1px -1px;
-	animation: grid-slide 40s linear infinite;
-	pointer-events: none;
-}
+/* === IMPORTANT FIX ===
+   This file used to style .section-title globally (including Home),
+   which created the cyan/purple divider above the carousel.
+   Everything below is now scoped to the Contact page only.
+*/
 
-@keyframes grid-slide {
-	0% {
-		transform: translate(0, 0);
-	}
-
-	100% {
-		transform: translate(120px, 120px);
-	}
-}
-
-.contact-section-bg::after {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: linear-gradient(135deg,
-			rgba(255, 0, 234, 0.04) 0%,
-			rgba(0, 255, 204, 0.03) 100%);
-	pointer-events: none;
-}
-
-.container {
+body[data-page="contact"] .container {
 	max-width: 1200px;
 	margin: 0 auto;
 }
 
-.section-title {
+body[data-page="contact"] .section-title {
 	font-family: var(--font-display);
 	font-size: clamp(2rem, 5vw, 3.5rem);
 	font-weight: 700;
@@ -62,7 +29,7 @@
 	letter-spacing: 0.05em;
 }
 
-.section-title::after {
+body[data-page="contact"] .section-title::after {
 	content: '';
 	position: absolute;
 	bottom: -10px;
@@ -74,130 +41,112 @@
 }
 
 /* Contact Section */
-.contact-content {
+body[data-page="contact"] .contact-content {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 50px;
 	margin: 50px 0;
 }
 
-.contact-form {
+body[data-page="contact"] .contact-form {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
 }
 
-.form-group {
-	position: relative;
+body[data-page="contact"] .form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
 }
 
-.form-input {
-	width: 100%;
-	padding: 15px 20px;
-	background: rgba(255, 255, 255, 0.05);
-	border: 2px solid rgba(255, 255, 255, 0.1);
-	border-radius: 10px;
-	color: var(--light);
-	font-size: 1rem;
-	transition: all 0.3s ease;
-}
-
-.form-input:focus {
-	outline: none;
-	border-color: var(--primary);
-	background: rgba(255, 255, 255, 0.08);
-	box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
-}
-
-.form-input::placeholder {
-	color: rgba(255, 255, 255, 0.3);
-}
-
-.form-textarea {
-	min-height: 150px;
-	resize: vertical;
-	font-family: inherit;
-}
-
-.submit-btn {
-	padding: 15px 40px;
-	background: linear-gradient(135deg, var(--primary), var(--secondary));
-	border: none;
-	border-radius: 50px;
-	color: var(--light);
-	font-size: 1.1rem;
-	font-weight: bold;
-	cursor: pointer;
-	position: relative;
-	overflow: hidden;
-	transition: all 0.3s ease;
-}
-
-.submit-btn::before {
-	content: '';
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 0;
-	height: 0;
-	background: rgba(255, 255, 255, 0.3);
-	border-radius: 50%;
-	transform: translate(-50%, -50%);
-	transition: width 0.6s ease, height 0.6s ease;
-}
-
-.submit-btn:hover::before {
-	width: 300px;
-	height: 300px;
-}
-
-.submit-btn:hover {
-	transform: translateY(-3px);
-	box-shadow: 0 10px 30px rgba(0, 217, 255, 0.5);
-}
-
-.contact-info {
-	padding: 40px;
-	background: rgba(255, 255, 255, 0.03);
-	border-radius: 20px;
-	backdrop-filter: blur(10px);
-	border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.contact-info h3 {
+body[data-page="contact"] .form-group label {
 	font-family: var(--font-heading);
-	color: var(--primary);
-	margin-bottom: 30px;
-	font-size: 1.6rem;
+	color: var(--light);
 	font-weight: 600;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
+	letter-spacing: 0.03em;
 }
 
-.info-item {
-	display: flex;
-	align-items: center;
-	margin-bottom: 20px;
-	color: rgba(255, 255, 255, 0.85);
+body[data-page="contact"] .form-group input,
+body[data-page="contact"] .form-group textarea {
+	padding: 14px 16px;
+	border-radius: 12px;
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	background: rgba(0, 0, 0, 0.35);
+	color: var(--light);
+	font-family: var(--font-body);
+	outline: none;
+}
+
+body[data-page="contact"] .form-group input:focus,
+body[data-page="contact"] .form-group textarea:focus {
+	border-color: rgba(0, 217, 255, 0.6);
+	box-shadow: 0 0 0 2px rgba(0, 217, 255, 0.15);
+}
+
+body[data-page="contact"] .submit-btn {
+	position: relative;
+	border: none;
+	border-radius: 14px;
+	padding: 14px 18px;
 	font-family: var(--font-heading);
-	font-weight: 400;
-	letter-spacing: 0.02em;
-}
-
-.info-icon {
-	width: 40px;
-	height: 40px;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	cursor: pointer;
+	color: #0a0a0f;
 	background: linear-gradient(135deg, var(--primary), var(--secondary));
-	border-radius: 10px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-right: 15px;
-	font-size: 18px;
-	flex-shrink: 0;
+	box-shadow: 0 12px 30px rgba(0, 217, 255, 0.25);
+	overflow: hidden;
 }
 
-.info-text {
-	word-break: break-word;
-	line-height: 1.4;
+body[data-page="contact"] .submit-btn::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(135deg, var(--secondary), var(--primary));
+	opacity: 0;
+	transition: opacity 0.25s ease;
+}
+
+body[data-page="contact"] .submit-btn:hover::before {
+	opacity: 1;
+}
+
+body[data-page="contact"] .submit-btn span,
+body[data-page="contact"] .submit-btn {
+	z-index: 1;
+}
+
+/* Contact details block */
+body[data-page="contact"] .contact-details {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+}
+
+body[data-page="contact"] .detail-card {
+	padding: 18px;
+	border-radius: 16px;
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	background: rgba(0, 0, 0, 0.25);
+	backdrop-filter: blur(12px);
+}
+
+body[data-page="contact"] .detail-card h3 {
+	font-family: var(--font-heading);
+	color: var(--light);
+	margin-bottom: 6px;
+}
+
+body[data-page="contact"] .detail-card p {
+	color: rgba(255, 255, 255, 0.85);
+	line-height: 1.55;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+	body[data-page="contact"] .contact-content {
+		grid-template-columns: 1fr;
+	}
 }
