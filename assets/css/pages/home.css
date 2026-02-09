@@ -2,13 +2,21 @@
    HOME PAGE STYLES
    ========================================================= */
 
+/* Restore the title styling that used to (wrongly) come from contact.css */
 .section-title {
   position: relative;
   text-align: center;
   margin-bottom: 40px;
+
+  /* restore font style/size/color */
   font-family: "Cormorant SC", serif;
   font-size: clamp(28px, 4vw, 46px);
-  font-weight: 400;
+  font-weight: 600;
+  color: rgba(255,255,255,0.92);
+  letter-spacing: 0.02em;
+  text-shadow:
+    0 0 10px rgba(0,255,255,0.18),
+    0 0 16px rgba(255,0,255,0.14);
 }
 
 .title-swap{
@@ -17,38 +25,44 @@
   min-height: 1.2em;
 }
 
-/* Text (animated fade) */
+/* =========================================================
+   Presents <-> Logo swap
+   Requirement:
+   - Start with logo (2s)
+   - Then Presents... (1s)
+   - Loop
+   Total loop = 3s
+   ========================================================= */
+
 .section-title .sos-title--text{
   display: inline-block;
-  opacity: 1;
-  animation: titleFade 12s ease-in-out infinite;
+  opacity: 0; /* start hidden because logo starts */
+  animation: presentsFade 3s ease-in-out infinite;
 }
 
-/* Logo wrapper */
 .section-title .sos-title-logo-wrap{
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  opacity: 0;
-  animation: logoFade 12s ease-in-out infinite, heartBeat 1.6s ease-in-out infinite;
+  opacity: 1; /* start visible */
   pointer-events: none;
+  animation: logoSwapFade 3s ease-in-out infinite, heartBeat 1.6s ease-in-out infinite;
 }
 
-/* Logo image */
+/* Logo image: 15% smaller */
 .section-title .sos-title-logo{
-  width: clamp(120px, 18vw, 220px);
+  width: clamp(102px, 15.3vw, 187px); /* ~15% smaller than 120/18vw/220 */
   height: auto;
 }
 
-/* Scanner band effect on text */
+/* Presents text scan band (cyan -> neon purple) */
 .section-title .sos-title--text::after{
   content: "Presents...";
   position: absolute;
   inset: 0;
   pointer-events: none;
 
-  /* cyan -> neon purple (no extra colors) */
   background: linear-gradient(
     90deg,
     rgba(0,255,255,0) 0%,
@@ -66,26 +80,28 @@
   animation: scanBand 2.2s linear infinite;
 }
 
-/* Animations */
-@keyframes titleFade{
-  0%, 45% { opacity: 1; }
-  50%, 95% { opacity: 0; }
-  100% { opacity: 1; }
+/* 0–2s: logo visible, text hidden
+   2–3s: text visible, logo hidden */
+@keyframes logoSwapFade{
+  0%, 60%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  66%       { opacity: 0; transform: translate(-50%, -50%) scale(0.98); }
+  100%      { opacity: 0; transform: translate(-50%, -50%) scale(0.98); }
 }
 
-@keyframes logoFade{
-  0%, 45% { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
-  50%, 95% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+@keyframes presentsFade{
+  0%, 60%   { opacity: 0; }
+  66%       { opacity: 1; }
+  96%       { opacity: 1; }
+  100%      { opacity: 0; }
 }
 
 @keyframes heartBeat{
   0%, 100% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-50%, -50%) scale(1.05); }
+  50%      { transform: translate(-50%, -50%) scale(1.05); }
 }
 
 @keyframes scanBand{
-  0% { background-position: 200% 0; }
+  0%   { background-position: 200% 0; }
   100% { background-position: 0% 0; }
 }
 
