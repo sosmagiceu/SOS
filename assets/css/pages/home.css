@@ -10,7 +10,7 @@
 
   /* restore font style/size/color */
   font-family: "Cormorant SC", serif;
-  font-size: clamp(28px, 4vw, 46px);
+  font-size: clamp(42px, 6vw, 69px);
   font-weight: 600;
   color: rgba(255,255,255,0.92);
   letter-spacing: 0.02em;
@@ -34,20 +34,28 @@
    Total loop = 3s
    ========================================================= */
 
-.section-title .sos-title--text{
-  display: inline-block;
-  opacity: 0; /* start hidden because logo starts */
-  animation: presentsFade 3s ease-in-out infinite;
+/* Logo visible ~3s, text visible ~1.5s */
+
+@keyframes logoSwapFade{
+  0%, 66% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  72% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
 }
 
-.section-title .sos-title-logo-wrap{
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 1; /* start visible */
-  pointer-events: none;
-  animation: logoSwapFade 3s ease-in-out infinite, heartBeat 1.6s ease-in-out infinite;
+@keyframes presentsFade{
+  0%, 66% { opacity: 0; }
+  72%     { opacity: 1; }
+  95%     { opacity: 1; }
+  100%    { opacity: 0; }
 }
 
 /* Logo image: 15% smaller */
