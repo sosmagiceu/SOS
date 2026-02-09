@@ -1,53 +1,60 @@
-
 // Parallax scrolling effect
 const layers = document.querySelectorAll('.parallax-layer');
 const heroContent = document.querySelector('.hero-content');
 
 window.addEventListener('scroll', () => {
-   const scrollTop = window.pageYOffset;
+  const scrollTop = window.pageYOffset;
 
-   layers.forEach(layer => {
-      const speed = layer.getAttribute('data-speed') || 0.5;
-      const yPos = -(scrollTop * speed);
-      layer.style.transform = `translate3d(0, ${yPos}px, 0)`;
-   });
+  layers.forEach(layer => {
+    const speed = layer.getAttribute('data-speed') || 0.5;
+    const yPos = -(scrollTop * speed);
+    layer.style.transform = `translate3d(0, ${yPos}px, 0)`;
+  });
 
-   if (heroContent) {
-      heroContent.style.transform = `translateY(${scrollTop * 0.3}px)`;
-      heroContent.style.opacity = 1 - scrollTop / 500;
-   }
+  if (heroContent) {
+    heroContent.style.transform = `translateY(${scrollTop * 0.3}px)`;
+    heroContent.style.opacity = 1 - scrollTop / 500;
+  }
 });
 
-// Feature cards hover effect
+// Feature cards hover effect (non-3D cards)
 document.querySelectorAll('.feature-card').forEach(card => {
-   card.addEventListener('mouseenter', () => {
-      card.style.transform = 'translateY(-10px)';
-   });
+  card.addEventListener('mouseenter', () => {
+    card.style.transform = 'translateY(-10px)';
+  });
 
-   card.addEventListener('mouseleave', () => {
-      card.style.transform = 'translateY(0)';
-   });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'translateY(0)';
+  });
 });
 
-// 3D Tilt effect on cards
+/*
+  3D Tilt effect on cards
+  IMPORTANT: DO NOT apply tilt to carousel cards, because carousel positioning relies on transform.
+  If we write element.style.transform here, we overwrite the carousel transforms and things go sideways.
+*/
 document.querySelectorAll('.feature-card-3d').forEach(rect => {
-   rect.addEventListener('mousemove', (e) => {
-      const rectBounds = rect.getBoundingClientRect();
-      const x = e.clientX - rectBounds.left;
-      const y = e.clientY - rectBounds.top;
+  // Skip any 3D cards that live inside the carousel
+  if (rect.closest('.carousel-3d')) return;
 
-      const centerX = rectBounds.width / 2;
-      const centerY = rectBounds.height / 2;
+  rect.addEventListener('mousemove', (e) => {
+    const rectBounds = rect.getBoundingClientRect();
+    const x = e.clientX - rectBounds.left;
+    const y = e.clientY - rectBounds.top;
 
-      const rotateX = (y - centerY) / 15;
-      const rotateY = (centerX - x) / 15;
+    const centerX = rectBounds.width / 2;
+    const centerY = rectBounds.height / 2;
 
-      rect.style.transform = `perspective(500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-   });
+    const rotateX = (y - centerY) / 15;
+    const rotateY = (centerX - x) / 15;
 
-   rect.addEventListener('mouseleave', () => {
-      rect.style.transform = '';
-   });
+    rect.style.transform =
+      `perspective(500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+  });
+
+  rect.addEventListener('mouseleave', () => {
+    rect.style.transform = '';
+  });
 });
 
 // 3D Carousel Controls (Home page)
@@ -157,77 +164,77 @@ if (!window.__sos3dCarouselInit) {
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-   anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-         target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-         });
-      }
-   });
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
 });
 
 // Intersection Observer for fade-in animations
 const observerOptions = {
-   threshold: 0.1,
-   rootMargin: '0px 0px -50px 0px'
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
-   entries.forEach(entry => {
-      if (entry.isIntersecting) {
-         entry.target.style.opacity = 1;
-         entry.target.style.transform = 'translateY(0)';
-      }
-   });
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = 1;
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
 }, observerOptions);
 
-// Observe feature cards and gallery items
+// Observe gallery items
 document.querySelectorAll('.gallery-item').forEach(item => {
-   item.style.opacity = 0;
-   item.style.transform = 'translateY(30px)';
-   item.style.transition = 'all 0.6s ease';
-   observer.observe(item);
+  item.style.opacity = 0;
+  item.style.transform = 'translateY(30px)';
+  item.style.transition = 'all 0.6s ease';
+  observer.observe(item);
 });
 
 // Form submission effect
 const submitBtn = document.querySelector('.submit-btn');
 if (submitBtn) {
-   submitBtn.addEventListener('click', (e) => {
-      e.preventDefault();
+  submitBtn.addEventListener('click', (e) => {
+    e.preventDefault();
 
-      // Create ripple effect
-      const ripple = document.createElement('span');
-      ripple.style.position = 'absolute';
-      ripple.style.width = '10px';
-      ripple.style.height = '10px';
-      ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
-      ripple.style.borderRadius = '50%';
-      ripple.style.transform = 'translate(-50%, -50%)';
-      ripple.style.pointerEvents = 'none';
-      ripple.style.animation = 'ripple 0.6s ease-out';
+    // Create ripple effect
+    const ripple = document.createElement('span');
+    ripple.style.position = 'absolute';
+    ripple.style.width = '10px';
+    ripple.style.height = '10px';
+    ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+    ripple.style.borderRadius = '50%';
+    ripple.style.transform = 'translate(-50%, -50%)';
+    ripple.style.pointerEvents = 'none';
+    ripple.style.animation = 'ripple 0.6s ease-out';
 
-      const rect = submitBtn.getBoundingClientRect();
-      ripple.style.left = (e.clientX - rect.left) + 'px';
-      ripple.style.top = (e.clientY - rect.top) + 'px';
+    const rect = submitBtn.getBoundingClientRect();
+    ripple.style.left = (e.clientX - rect.left) + 'px';
+    ripple.style.top = (e.clientY - rect.top) + 'px';
 
-      submitBtn.appendChild(ripple);
+    submitBtn.appendChild(ripple);
 
-      setTimeout(() => ripple.remove(), 600);
-   });
+    setTimeout(() => ripple.remove(), 600);
+  });
 }
 
 // Add ripple animation
 const style = document.createElement('style');
 style.textContent = `
-            @keyframes ripple {
-                to {
-                    width: 300px;
-                    height: 300px;
-                    opacity: 0;
-                }
-            }
-        `;
+  @keyframes ripple {
+    to {
+      width: 300px;
+      height: 300px;
+      opacity: 0;
+    }
+  }
+`;
 document.head.appendChild(style);
