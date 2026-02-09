@@ -48,14 +48,14 @@
   inset: 0;
   pointer-events: none;
 
+  /* cyan -> neon purple (no extra colors) */
   background: linear-gradient(
     90deg,
-    rgba(255,0,255,0) 0%,
-    rgba(255,0,255,0) 40%,
-    rgba(255,0,255,1) 47%,
-    rgba(0,255,255,1) 50%,
-    rgba(255,255,0,1) 53%,
-    rgba(255,0,255,0) 60%,
+    rgba(0,255,255,0) 0%,
+    rgba(0,255,255,0) 42%,
+    rgba(0,255,255,1) 48%,
+    rgba(255,0,255,1) 52%,
+    rgba(255,0,255,0) 58%,
     rgba(255,0,255,0) 100%
   );
 
