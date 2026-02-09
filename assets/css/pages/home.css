@@ -2,15 +2,14 @@
    HOME PAGE STYLES
    ========================================================= */
 
-/* Restore the title styling that used to (wrongly) come from contact.css */
+/* Title styling (was accidentally coming from contact.css before) */
 .section-title {
   position: relative;
   text-align: center;
   margin-bottom: 40px;
 
-  /* restore font style/size/color */
   font-family: "Cormorant SC", serif;
-  font-size: clamp(42px, 6vw, 69px);
+  font-size: clamp(42px, 6vw, 69px); /* 50% bigger */
   font-weight: 600;
   color: rgba(255,255,255,0.92);
   letter-spacing: 0.02em;
@@ -27,35 +26,28 @@
 
 /* =========================================================
    Presents <-> Logo swap
-   Requirement:
-   - Start with logo (2s)
-   - Then Presents... (1s)
+   Requirement NOW:
+   - Start with logo (~3s)
+   - Then Presents... (~1.5s)
    - Loop
-   Total loop = 3s
+   Total loop = 4.5s
    ========================================================= */
 
-/* Logo visible ~3s, text visible ~1.5s */
-
-@keyframes logoSwapFade{
-  0%, 66% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  72% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.98);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.98);
-  }
+.section-title .sos-title--text{
+  display: inline-block;
+  position: relative;
+  opacity: 0; /* start hidden because logo starts */
+  animation: presentsFade 4.5s ease-in-out infinite;
 }
 
-@keyframes presentsFade{
-  0%, 66% { opacity: 0; }
-  72%     { opacity: 1; }
-  95%     { opacity: 1; }
-  100%    { opacity: 0; }
+.section-title .sos-title-logo-wrap{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1; /* start visible */
+  pointer-events: none;
+  animation: logoSwapFade 4.5s ease-in-out infinite, heartBeat 1.6s ease-in-out infinite;
 }
 
 /* Logo image: 15% smaller */
@@ -88,19 +80,30 @@
   animation: scanBand 2.2s linear infinite;
 }
 
-/* 0–2s: logo visible, text hidden
-   2–3s: text visible, logo hidden */
+/* Timing:
+   0%–66%  : logo visible (≈3.0s of 4.5s)
+   66%–100%: presents visible (≈1.5s of 4.5s)
+   Small crossfade window around 66–72% */
 @keyframes logoSwapFade{
-  0%, 60%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  66%       { opacity: 0; transform: translate(-50%, -50%) scale(0.98); }
-  100%      { opacity: 0; transform: translate(-50%, -50%) scale(0.98); }
+  0%, 66% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  72% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
 }
 
 @keyframes presentsFade{
-  0%, 60%   { opacity: 0; }
-  66%       { opacity: 1; }
-  96%       { opacity: 1; }
-  100%      { opacity: 0; }
+  0%, 66% { opacity: 0; }
+  72%     { opacity: 1; }
+  95%     { opacity: 1; }
+  100%    { opacity: 0; }
 }
 
 @keyframes heartBeat{
