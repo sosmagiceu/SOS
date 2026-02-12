@@ -1,35 +1,337 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>TOS – SOS Magic</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;800&amp;family=Space+Grotesk:wght@300;400;600;700&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
-<link href="/assets/css/main.css" rel="stylesheet">
-<link href="/assets/css/header.css" rel="stylesheet"/>
-<script defer="" src="/assets/js/vendor/tooplate-2144-parallax-scripts.js"></script>
-<script defer src="/assets/js/header.js"></script>
-<script defer src="/assets/js/footer.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service – SOS Magic</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="stylesheet" href="/assets/css/header.css" />
+
+  <script defer src="/assets/js/header.js"></script>
+
+  <style>
+    :root{
+      --legal-border: linear-gradient(90deg, rgba(0,255,255,.85), rgba(255,0,255,.85));
+      --legal-cyan: rgba(0,255,255,.85);
+      --legal-magenta: rgba(255,0,255,.85);
+      --legal-bg: rgba(0,0,0,.42);
+      --legal-bg2: rgba(0,0,0,.30);
+      --legal-text: rgba(255,255,255,.86);
+      --legal-muted: rgba(255,255,255,.70);
+    }
+
+    /* Page shell */
+    body[data-page="tos"]{
+      color: var(--legal-text);
+    }
+    .legal-page{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 110px 18px 70px; /* room for header */
+    }
+
+    /* Big title card (like the reference screenshot) */
+    .legal-hero{
+      position: relative;
+      border-radius: 22px;
+      padding: 22px 22px 18px;
+      background: var(--legal-bg);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      overflow: hidden;
+    }
+    .legal-hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      padding: 2px;
+      border-radius: 22px;
+      background: var(--legal-border);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      pointer-events:none;
+    }
+
+    .legal-title{
+      margin: 0 0 10px;
+      font-family: "Cormorant SC", serif;
+      font-weight: 700;
+      font-size: clamp(28px, 3.5vw, 44px);
+      line-height: 1.1;
+
+      /* gradient title like footer divider */
+      background: var(--legal-border);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .legal-effective{
+      margin: 0;
+      font-family: "Montserrat", sans-serif;
+      font-size: 14px;
+      color: var(--legal-muted);
+    }
+
+    /* Content cards */
+    .legal-stack{
+      margin-top: 18px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .legal-card{
+      position: relative;
+      border-radius: 22px;
+      padding: 18px 18px 16px;
+      background: var(--legal-bg2);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+      box-shadow: 0 10px 26px rgba(0,0,0,.28);
+    }
+    .legal-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      padding: 2px;
+      border-radius: 22px;
+      background: var(--legal-border);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      pointer-events:none;
+      opacity: .95;
+    }
+
+    .legal-h2{
+      margin: 0 0 10px;
+      font-family: "Cormorant SC", serif;
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: .01em;
+      color: #fff;
+    }
+    .legal-h3{
+      margin: 14px 0 8px;
+      font-family: "Cormorant SC", serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: rgba(255,255,255,.92);
+    }
+    .legal-p, .legal-li{
+      font-family: "Montserrat", sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--legal-text);
+      margin: 0 0 10px;
+    }
+    .legal-ul{
+      margin: 0 0 10px 18px;
+      padding: 0;
+    }
+    .legal-li{ margin: 0 0 6px; }
+    .legal-muted{ color: var(--legal-muted); }
+    .legal-divider{
+      height: 2px;
+      border-radius: 2px;
+      background: var(--legal-border);
+      margin: 14px 0 6px;
+      opacity: .8;
+    }
+
+    /* Links */
+    .legal-card a{
+      color: rgba(255,255,255,.92);
+      text-decoration: underline;
+      text-decoration-color: rgba(0,255,255,.55);
+      text-underline-offset: 2px;
+    }
+    .legal-card a:hover{
+      text-decoration-color: rgba(255,0,255,.75);
+    }
+
+    @media (max-width: 700px){
+      .legal-page{ padding-top: 96px; }
+      .legal-h2{ font-size: 24px; }
+      .legal-card{ padding: 16px 14px 14px; }
+    }
+  </style>
 </head>
+
 <body data-page="tos">
-<div id="header-mount"></div>
-<div class="tm-wrapper">
-<section class="tm-section tm-hero-section" style="min-height:60vh">
-<div class="tm-section-inner">
-<div class="tm-hero-content">
-<p class="tm-hero-subtitle">.</p>
-<div class="tm-button-group">
+  <div id="header-mount"></div>
 
-</div>
-</div>
-</div>
-</section>
+  <main class="legal-page">
+    <section class="legal-hero" aria-label="Terms of Service">
+      <h1 class="legal-title">Terms of Service, Privacy Policy, and Cookie Policy</h1>
+      <p class="legal-effective"><strong>Effective Date:</strong> February 15, 2026</p>
+    </section>
 
-</div>
-  <div id="footer-mount"></div>
+    <div class="legal-stack">
 
+      <!-- TERMS & CONDITIONS -->
+      <section class="legal-card" aria-label="Terms & Conditions">
+        <h2 class="legal-h2">Terms &amp; Conditions</h2>
+
+        <p class="legal-p">
+          By purchasing from Van der Velde Beheer B.V. (the “Seller”), you (the “Buyer”) agree to these Terms &amp; Conditions.
+          Please read them carefully. If you do not agree, do not use this Website or make a purchase.
+        </p>
+
+        <div class="legal-divider"></div>
+
+        <h3 class="legal-h3">1. Definitions</h3>
+        <p class="legal-p"><strong>“Seller”</strong> means Van der Velde Beheer B.V., a company registered in the Netherlands under KVK number 24327349, VAT NL810301076B01.</p>
+        <p class="legal-p"><strong>“Buyer”</strong> means any individual or legal entity purchasing from the Seller.</p>
+        <p class="legal-p"><strong>“Products”</strong> means physical (including printed products) and digital goods/services offered on the website sosmagic.eu (the “Website”).</p>
+
+        <h3 class="legal-h3">2. Intellectual Property</h3>
+        <p class="legal-p">All Website content, including but not limited to: unique printed product designs, texts, graphics, logos, images, and video materials, is the exclusive intellectual property of the respective rights holders.</p>
+        <p class="legal-p">The Seller is an official authorized reseller of the products and utilizes all related intellectual property materials based on existing agreements with the rights holders.</p>
+        <p class="legal-p">The purchase of a Product does not transfer any intellectual property rights to the Buyer. Any commercial use, reproduction, full or partial copying, publication in open sources, or creation of derivative works based on the Website materials or the Product itself is strictly prohibited without the express prior written consent of the respective rights holders.</p>
+
+        <h3 class="legal-h3">3. Prices, Payments &amp; Taxes</h3>
+        <p class="legal-p"><strong>Inclusive Pricing:</strong> All prices listed on the Website are final and include all applicable taxes, VAT (BTW), and import duties.</p>
+        <p class="legal-p"><strong>Payment of Taxes and Duties:</strong> The Seller utilizes specialized distribution and dropshipping partners; all relevant taxes and customs duties are processed and remitted by the service providers. The Buyer is not responsible for any additional tax or customs payments upon receipt.</p>
+        <p class="legal-p"><strong>Payment Processing:</strong> Payments are accepted through authorized gateways.</p>
+        <p class="legal-p"><strong>Fraud Prevention:</strong> The Seller may cancel an order or suspend access in cases of suspected fraud or chargeback risk.</p>
+
+        <h3 class="legal-h3">4. Shipping and Main Packaging</h3>
+        <p class="legal-p"><strong>Brown Shipping Box:</strong> Intended exclusively for protecting the product from deformation during transit. Damage, contamination, or deformation of the brown shipping box is not grounds for claims, returns, or compensation if the contents remain intact.</p>
+        <p class="legal-p"><strong>Main (Black) Packaging:</strong> The branded black box is also an element of packaging. In case of its damage during transportation, the Buyer may receive a compensation of 10 EUR.</p>
+        <p class="legal-p"><strong>Compensation Condition:</strong> To receive the payment, the Buyer is required to provide a video recording of the opening of the brown shipping box, documenting the moment the damage to the black box is discovered. The Seller recommends opening the package upon receipt in the presence of the courier or postal employee.</p>
+
+        <h3 class="legal-h3">5. Returns, Refunds &amp; Product Integrity</h3>
+        <p class="legal-p"><strong>Familiarization with the Product:</strong> All visual characteristics and properties of the Product are presented on the Website. The Buyer is required to study them before making a purchase.</p>
+        <p class="legal-p"><strong>“Sealed Product” Rule:</strong> Printed products are not subject to return after the internal protective packaging (film) has been opened. The right of withdrawal (14 days for the EU) applies only if the product remains fully sealed and unused.</p>
+        <p class="legal-p"><strong>Exception — Manufacturing Defect:</strong> The return of an opened product is possible exclusively in the presence of an obvious manufacturing defect (e.g., printing errors, missing elements).</p>
+        <p class="legal-p"><strong>Natural Wear and Tear:</strong> Normal wear, fading, or mechanical damage occurring during use are not considered defects.</p>
+
+        <p class="legal-p"><strong>Return Procedure:</strong></p>
+        <ul class="legal-ul">
+          <li class="legal-li">All return shipping costs are borne by the Buyer, unless the return is due to a confirmed manufacturing defect.</li>
+          <li class="legal-li">Returns must be sent using a trackable shipping service (with a tracking number).</li>
+          <li class="legal-li">The risk of damage to the product during return shipment lies with the Buyer. Refunds are issued only after the Seller receives the Product and confirms its integrity.</li>
+        </ul>
+
+        <p class="legal-p"><strong>Bonus Items:</strong> The flashlight and pouch are free gifts and are not included in the primary cost of the Product. A malfunction of a bonus item is not grounds for returning the primary Product. Replacement of a bonus item is at the Seller's discretion, and the Buyer pays for the shipping of the replacement bonus item.</p>
+
+        <h3 class="legal-h3">6. Digital Products</h3>
+        <p class="legal-p"><strong>Refunds:</strong> Digital products are non-refundable once access for downloading or streaming has begun.</p>
+        <p class="legal-p"><strong>Immediate Access:</strong> By requesting immediate access, the Buyer confirms the loss of their right of withdrawal once access to the content has started.</p>
+
+        <h3 class="legal-h3">7. Limitation of Liability</h3>
+        <p class="legal-p">To the maximum extent permitted by law, the Seller's total liability for any claim is limited to the amount actually paid by the Buyer for the specific order.</p>
+        <p class="legal-p">The Seller is not liable for any indirect losses, lost profits, or moral damages.</p>
+
+        <h3 class="legal-h3">8. Force Majeure</h3>
+        <p class="legal-p">The Seller is released from liability for delays or non-performance caused by circumstances beyond its control: natural disasters, wars, transport service strikes, failures in payment systems, or actions of government authorities.</p>
+
+        <h3 class="legal-h3">9. Data Protection (GDPR)</h3>
+        <p class="legal-p">Data processing is carried out in accordance with Dutch law and the GDPR. Data is used only for order fulfillment and customer support.</p>
+
+        <h3 class="legal-h3">10. Governing Law &amp; Jurisdiction</h3>
+        <p class="legal-p">These Terms are governed by the laws of the Netherlands.</p>
+        <p class="legal-p">All disputes are subject to consideration in the competent courts of the Netherlands.</p>
+
+        <h3 class="legal-h3">11. Contact Information</h3>
+        <p class="legal-p"><strong>Company:</strong> Van der Velde Beheer B.V.</p>
+        <p class="legal-p"><strong>Registration Number (KVK):</strong> 24327349</p>
+        <p class="legal-p"><strong>VAT Number (BTW):</strong> NL810301076B01</p>
+        <p class="legal-p"><strong>Website:</strong> sosmagic.eu</p>
+        <p class="legal-p"><strong>Support:</strong> support@sosmagic.eu</p>
+      </section>
+
+      <!-- PRIVACY POLICY & COOKIE POLICY -->
+      <section class="legal-card" aria-label="Privacy Policy and Cookie Policy">
+        <h2 class="legal-h2">Privacy Policy &amp; Cookie Policy</h2>
+        <p class="legal-p legal-muted">
+          This Privacy Policy explains how Van der Velde Beheer B.V., registered in the Netherlands (Noord Spuidijk 2, 3247LB Dirksland, KvK 24327349, VAT NL810301076B01),
+          collects, uses and protects personal data of users of the website sosmagic.com, in accordance with the GDPR and applicable data protection laws.
+        </p>
+        <p class="legal-p">By accessing the website and using our services, you confirm that you have read and understood this Privacy Policy.</p>
+
+        <div class="legal-divider"></div>
+
+        <h3 class="legal-h3">1. Personal data we collect</h3>
+        <p class="legal-p">We may collect the following categories of personal data:</p>
+        <ul class="legal-ul">
+          <li class="legal-li"><strong>Identification and contact data:</strong> Name, email address, phone number.</li>
+          <li class="legal-li"><strong>Order and delivery data:</strong> Shipping address (for physical products), information about purchased products and order status.</li>
+          <li class="legal-li"><strong>Payment data:</strong> Payments are processed by authorized payment service providers. We do not collect or store any credit card or banking information.</li>
+          <li class="legal-li"><strong>Technical data:</strong> IP address, device type, browser type, operating system, and cookies.</li>
+          <li class="legal-li"><strong>Marketing data:</strong> Data you provide when subscribing to newsletters or marketing communications.</li>
+        </ul>
+
+        <h3 class="legal-h3">2. Purposes and legal basis of processing</h3>
+        <p class="legal-p">We process personal data for the following purposes:</p>
+        <ul class="legal-ul">
+          <li class="legal-li">To perform and manage contracts with users (order processing and access to products).</li>
+          <li class="legal-li">To provide customer support and respond to inquiries.</li>
+          <li class="legal-li">To comply with legal and regulatory obligations (including tax and accounting).</li>
+          <li class="legal-li">To send marketing communications, where consent has been given.</li>
+          <li class="legal-li">To ensure security, prevent fraud and maintain the proper functioning of the website (legitimate interest).</li>
+        </ul>
+
+        <h3 class="legal-h3">3. Data sharing with third parties</h3>
+        <p class="legal-p">We may share personal data only with:</p>
+        <ul class="legal-ul">
+          <li class="legal-li">Authorized payment systems — for payment processing.</li>
+          <li class="legal-li">Delivery partners — for shipping physical products.</li>
+          <li class="legal-li">IT service providers — including hosting, email and analytics services.</li>
+          <li class="legal-li">Accounting and legal advisors — where required by law.</li>
+        </ul>
+        <p class="legal-p">All third parties process personal data in accordance with applicable data protection laws and contractual obligations.</p>
+
+        <h3 class="legal-h3">4. International data transfers</h3>
+        <p class="legal-p">Personal data may be transferred to countries outside the European Union, including to locations where our service providers operate.</p>
+        <p class="legal-p">In such cases, we rely on appropriate safeguards under the GDPR, including Standard Contractual Clauses (SCCs) or other legally recognised transfer mechanisms.</p>
+
+        <h3 class="legal-h3">5. Data retention</h3>
+        <p class="legal-p">We retain personal data only for as long as necessary for the purposes described:</p>
+        <ul class="legal-ul">
+          <li class="legal-li">Order and accounting data: up to 10 years, in accordance with EU tax legislation.</li>
+          <li class="legal-li">Marketing data: until consent is withdrawn.</li>
+          <li class="legal-li">Technical data: up to 12 months.</li>
+        </ul>
+
+        <h3 class="legal-h3">6. Your rights</h3>
+        <p class="legal-p">Under the GDPR, you have the right to:</p>
+        <ul class="legal-ul">
+          <li class="legal-li">Access your personal data.</li>
+          <li class="legal-li">Rectify inaccurate or incomplete data.</li>
+          <li class="legal-li">Request deletion of your data.</li>
+          <li class="legal-li">Restrict or object to processing.</li>
+          <li class="legal-li">Withdraw consent at any time.</li>
+          <li class="legal-li">Lodge a complaint with a competent data protection authority.</li>
+        </ul>
+        <p class="legal-p">Requests may be sent to: <a href="mailto:support@sosmagic.eu">support@sosmagic.eu</a></p>
+
+        <h3 class="legal-h3">7. Cookies</h3>
+        <p class="legal-p">We use cookies to ensure the proper functioning of our website and to improve user experience.</p>
+        <p class="legal-p">Essential cookies are necessary for the operation of the website and cannot be disabled.</p>
+        <p class="legal-p">Non-essential cookies (analytics and marketing cookies) are used only with your consent and can be managed through the cookie banner.</p>
+        <p class="legal-p">You may also withdraw your consent at any time by adjusting your browser settings.</p>
+
+        <h3 class="legal-h3">8. Data security</h3>
+        <p class="legal-p">We implement appropriate technical and organisational security measures, including encryption, access controls and monitoring, to protect personal data against unauthorised access, loss, misuse or alteration.</p>
+
+        <h3 class="legal-h3">9. Contact</h3>
+        <p class="legal-p">For questions regarding this Privacy Policy or the processing of personal data, please contact us at: <a href="mailto:support@sosmagic.eu">support@sosmagic.eu</a></p>
+
+        <h3 class="legal-h3">10. Changes to this Privacy Policy</h3>
+        <p class="legal-p">We may update this Privacy Policy from time to time to reflect legal or operational changes. The updated version will be published on the website and becomes effective upon publication.</p>
+      </section>
+
+      <p class="legal-effective legal-muted" style="text-align:center; margin-top: 6px;">
+        Van der Velde Beheer B.V. • Noord Spuidijk 2, 3247LB Dirksland • KvK 24327349 • BTW NL810301076B01
+      </p>
+    </div>
+  </main>
 </body>
 </html>
