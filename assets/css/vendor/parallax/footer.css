@@ -104,3 +104,45 @@
 	color: var(--secondary);
 	text-shadow: 0 0 10px rgba(255, 0, 234, 0.5);
 }
+
+
+/* Company info grid */
+.footer-info-grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 10px 24px;
+  align-items: start;
+  justify-items: center;
+  margin: 0 auto;
+  max-width: 1100px;
+}
+
+.footer-info-item{
+  color: rgba(255,255,255,0.78);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.footer-info-item strong{
+  color: rgba(255,255,255,0.92);
+  font-weight: 600;
+}
+
+.footer-info-item a{
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.footer-info-item a:hover{
+  color: var(--secondary);
+  text-shadow: 0 0 10px rgba(255, 0, 234, 0.35);
+}
+
+@media (max-width: 900px){
+  .footer-info-grid{
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
