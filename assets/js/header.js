@@ -146,4 +146,38 @@
   document.addEventListener("keydown", e => {
     if (e.key === "Escape") closeAll();
   });
+
+  /* ---------- CLEANUP: STRAY TOP-LEFT FILENAME LABEL ---------- */
+  function cleanupStrayFilenameLabel() {
+    try {
+      const file = (window.location && window.location.pathname)
+        ? window.location.pathname.split("/").pop()
+        : "";
+      if (!file || !/\.html$/i.test(file)) return;
+
+      // Remove any elements whose ONLY visible text equals the filename
+      document.querySelectorAll("body *").forEach(el => {
+        if (el.children && el.children.length) return;
+        const txt = (el.textContent || "").trim();
+        if (txt === file) el.remove();
+      });
+
+      // Remove any direct text nodes under body that match the filename
+      Array.from(document.body.childNodes).forEach(n => {
+        if (n.nodeType === Node.TEXT_NODE && (n.textContent || "").trim() === file) {
+          n.textContent = "";
+        }
+      });
+    } catch (e) {
+      // do nothing
+    }
+  }
+
+  // Run after header injection and after DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", cleanupStrayFilenameLabel);
+  } else {
+    cleanupStrayFilenameLabel();
+  }
+
 })();

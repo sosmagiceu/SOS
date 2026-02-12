@@ -146,3 +146,54 @@
     gap: 10px;
   }
 }
+
+
+/* =========================================================
+   SOS MAGIC: MINIMAL LEGAL FOOTER OVERRIDES
+   ========================================================= */
+.footer{
+  padding: 16px 5% 12px !important;
+  background: rgba(0,0,0,0.12) !important;
+  border-top: 1px solid rgba(255,255,255,0.08) !important;
+}
+.footer-content{
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.footer-info-grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px 14px;
+  font-size: 12px;
+  line-height: 1.25;
+  color: rgba(255,255,255,0.78);
+}
+.footer-info-item strong{
+  font-weight: 600;
+  color: rgba(255,255,255,0.88);
+}
+.footer-info-item a{
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+}
+.footer-info-item a:hover{
+  text-decoration: underline;
+}
+.footer-divider{
+  display: none !important;
+}
+.footer-copyright{
+  margin-top: 8px !important;
+  font-size: 11px !important;
+  line-height: 1.2 !important;
+  opacity: 0.65 !important;
+  text-align: center;
+}
+
+@media (max-width: 900px){
+  .footer-info-grid{
+    grid-template-columns: 1fr;
+    gap: 6px;
+    text-align: center;
+  }
+}
