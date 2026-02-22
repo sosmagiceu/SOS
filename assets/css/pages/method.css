@@ -16,7 +16,7 @@
   width: min(92vw, 680px);
 }
 
-/* 25% bigger (kept as requested) */
+/* 25% bigger (kept) */
 .method-kicker{
   margin: 0 0 6px;
   font-family: "Montserrat", sans-serif;
@@ -27,17 +27,18 @@
   color: rgba(0,255,255,0.85);
 }
 
-/* Title reduced ~10% from previous */
+/* Title: purple and ~10% smaller than previous oversized version */
 .method-title{
   font-family: "Cormorant SC", serif;
   font-weight: 700;
-  font-size: clamp(28px, 6.7vw, 45px); /* was 32–50 */
+  font-size: clamp(28px, 6.7vw, 45px);
   line-height: 1.06;
   margin: 0 0 6px;
   color: rgba(180,0,255,0.95);
   text-shadow: 0 0 14px rgba(255,0,255,0.35);
 }
 
+/* 25% bigger (kept) */
 .method-text{
   font-family: "Montserrat", sans-serif;
   font-size: clamp(16px, 4vw, 20px);
@@ -52,12 +53,11 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: -8px;
+  margin-top: -8px; /* closer to text */
 }
 
-/* Fix potential stray inline text gap */
+/* Correct aspect ratio: 2160 x 2934 → 120 / 163 */
 .video-shell{
-  position: relative;
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.12);
@@ -67,8 +67,6 @@
   aspect-ratio: 120 / 163;
   width: min(92vw, 320px);
   max-height: calc(100svh - 240px);
-
-  font-size: 0; /* prevents stray text node gap */
 }
 
 .method-player{
