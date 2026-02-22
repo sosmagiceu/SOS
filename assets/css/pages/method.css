@@ -1,26 +1,26 @@
-/* Prevent side-scroll without breaking background rendering */
+/* Method page layout (Home fonts: Cormorant SC + Montserrat) */
+
+/* Prevent side-scroll without breaking background */
 body[data-page="method"],
 body[data-page="method"] .method-page,
 body[data-page="method"] .method-section{
   overflow-x: clip;
 }
 
-/* Method page layout (Home fonts: Cormorant SC + Montserrat) */
-
 /* Page container */
 .method-page{
   position: relative;
 }
 
-/* Each section is a screen */
+/* Each section */
 .method-section{
   min-height: 100svh;
   box-sizing: border-box;
-  padding: 110px 18px 18px; /* room for header */
+  padding: 110px 18px 18px;
   display: grid;
-  gap: 10px;               /* keep tight; no giant gaps */
+  gap: 10px;
   justify-items: center;
-  align-content: start;    /* prevents vertical centering */
+  align-content: start;
 }
 
 @media (max-width: 520px){
@@ -34,6 +34,7 @@ body[data-page="method"] .method-section{
   width: min(92vw, 680px);
 }
 
+/* THE S.O.S. MAGIC METHOD → ALL CAPS, Montserrat */
 .method-kicker{
   margin: 0 0 6px;
   font-family: "Montserrat", sans-serif;
@@ -44,6 +45,7 @@ body[data-page="method"] .method-section{
   color: rgba(0,255,255,0.85);
 }
 
+/* Your Emotional First Aid → Cormorant SC, normal case */
 .method-title{
   font-family: "Cormorant SC", serif;
   font-weight: 700;
@@ -52,6 +54,7 @@ body[data-page="method"] .method-section{
   margin: 0 0 6px;
   color: rgba(180,0,255,0.95);
   text-shadow: 0 0 14px rgba(255,0,255,0.35);
+  text-transform: none;
 }
 
 .method-text{
@@ -69,10 +72,8 @@ body[data-page="method"] .method-section{
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: 0;
 }
 
-/* Correct aspect ratio: 2160 x 2934 → 120 / 163 */
 .video-shell{
   border-radius: 18px;
   overflow: hidden;
@@ -80,7 +81,7 @@ body[data-page="method"] .method-section{
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
 
-  aspect-ratio: 120 / 163;
+  aspect-ratio: 120 / 163; /* 2160x2934 */
   width: min(92vw, 320px);
   max-height: calc(100svh - 260px);
 }
@@ -100,17 +101,16 @@ body[data-page="method"] .method-section{
   }
 }
 
-/* Divider line (below video) - updated to full-width breathing gradient */
+/* Divider (footer-style full bleed without layout shift) */
 .method-divider{
   position: relative;
   width: 100%;
   height: 2px;
   border-radius: 2px;
   margin-top: 2px;
-  overflow: clip; /* keep the pseudo-element from creating scrollbars */
+  overflow: clip;
 }
 
-/* full-bleed gradient line without affecting layout width */
 .method-divider::before{
   content: "";
   position: absolute;
@@ -120,27 +120,30 @@ body[data-page="method"] .method-section{
   width: 100vw;
   height: 2px;
   border-radius: 2px;
-
-  /* exact footer-style gradient line */
-  background: linear-gradient(90deg, rgba(0,255,255,0.75), rgba(255,0,255,0.75));
+  background: linear-gradient(
+    90deg,
+    rgba(0,255,255,0.75),
+    rgba(255,0,255,0.75)
+  );
   animation: dividerBreathWide 3.6s ease-in-out infinite;
 }
 
 @keyframes dividerBreathWide{
-  0%,100%{ opacity:.55; filter: blur(0px); background-position: 0% 0%; }
-  50%{ opacity:1; filter: blur(1px); background-position: 100% 0%; }
+  0%,100%{ opacity:.55; filter: blur(0px); }
+  50%{ opacity:1; filter: blur(1px); }
 }
 
 /* Side navigation dots */
 .method-dots{
-  position: fixed;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  z-index: 80;
+  position: fixed !important;
+  right: 16px !important;
+  left: auto !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+  z-index: 9999 !important;
 }
 
 .method-dots .dot{
@@ -151,29 +154,30 @@ body[data-page="method"] .method-section{
   padding: 0;
   background: rgba(255,255,255,0.28);
   cursor: pointer;
-  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
 }
 
-/* Active dot: animated cyan→purple glow */
 .method-dots .dot.is-active{
-  background: linear-gradient(90deg, rgba(0,255,255,0.95), rgba(255,0,255,0.95));
+  background: linear-gradient(
+    90deg,
+    rgba(0,255,255,0.95),
+    rgba(255,0,255,0.95)
+  );
   background-size: 200% 100%;
   animation: dotGlowShift 2.8s ease-in-out infinite;
   transform: scale(1.18);
-  box-shadow: 0 0 12px rgba(0,255,255,.35), 0 0 18px rgba(255,0,255,.30);
+  box-shadow: 0 0 12px rgba(0,255,255,.35),
+              0 0 18px rgba(255,0,255,.30);
 }
 
 @keyframes dotGlowShift{
   0%,100%{
     background-position: 0% 0%;
-    box-shadow: 0 0 10px rgba(0,255,255,.35), 0 0 16px rgba(255,0,255,.18);
+    box-shadow: 0 0 10px rgba(0,255,255,.35),
+                0 0 16px rgba(255,0,255,.18);
   }
   50%{
     background-position: 100% 0%;
-    box-shadow: 0 0 10px rgba(255,0,255,.38), 0 0 18px rgba(0,255,255,.18);
+    box-shadow: 0 0 10px rgba(255,0,255,.38),
+                0 0 18px rgba(0,255,255,.18);
   }
-}
-
-@media (max-width: 768px){
-  .method-dots{ right: 10px; }
 }
