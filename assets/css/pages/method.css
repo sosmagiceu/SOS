@@ -1,5 +1,3 @@
-body[data-page="method"]{ overflow-x: hidden; }
-
 /* Method page layout (Home fonts: Cormorant SC + Montserrat) */
 
 /* Page container */
@@ -40,14 +38,12 @@ body[data-page="method"]{ overflow-x: hidden; }
 }
 
 .method-title{
-  font-family: "Montserrat", sans-serif;
+  font-family: "Cormorant SC", serif;
   font-weight: 700;
   font-size: clamp(28px, 6.7vw, 45px);
   line-height: 1.06;
   margin: 0 0 6px;
   color: rgba(180,0,255,0.95);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
   text-shadow: 0 0 14px rgba(255,0,255,0.35);
 }
 
@@ -97,16 +93,23 @@ body[data-page="method"]{ overflow-x: hidden; }
   }
 }
 
-/* Divider line (below video) - matches footer top glow line */
+/* Divider line (below video) - updated to full-width breathing gradient */
 .method-divider{
   width: 100vw;
-  margin-left: calc(50% - 50vw);
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
-  animation: glow-line 3s ease-in-out infinite;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(0,255,255,0.85), rgba(255,0,255,0.85));
+  background-size: 200% 100%;
+  animation: dividerBreathWide 3.6s ease-in-out infinite;
+  margin-top: 2px;
 }
 
-50%{ opacity:1; filter: blur(1px); background-position: 100% 0%; }
+@keyframes dividerBreathWide{
+  0%,100%{ opacity:.55; filter: blur(0px); background-position: 0% 0%; }
+  50%{ opacity:1; filter: blur(1px); background-position: 100% 0%; }
 }
 
 /* Side navigation dots */
@@ -154,4 +157,34 @@ body[data-page="method"]{ overflow-x: hidden; }
 
 @media (max-width: 768px){
   .method-dots{ right: 10px; }
+}
+
+/* --- FIX: keep section dots pinned on the right side (mobile-safe) --- */
+.method-dots{
+  position: fixed !important;
+  right: 16px !important;
+  left: auto !important;
+  top: 50% !important;
+  bottom: auto !important;
+  transform: translateY(-50%) !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+}
+
+.method-dots .dot{
+  appearance: none;
+  -webkit-appearance: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: rgba(255,255,255,0.28);
+  cursor: pointer;
 }
