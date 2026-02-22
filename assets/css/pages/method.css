@@ -16,31 +16,31 @@
   width: min(92vw, 680px);
 }
 
-/* 25% bigger */
+/* 25% bigger (kept as requested) */
 .method-kicker{
   margin: 0 0 6px;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
-  font-size: clamp(18px, 4.2vw, 22px); /* was ~14–18 */
+  font-size: clamp(18px, 4.2vw, 22px);
   letter-spacing: 0.10em;
   text-transform: uppercase;
   color: rgba(0,255,255,0.85);
 }
 
-/* 25% bigger + purple title */
+/* Title reduced ~10% from previous */
 .method-title{
   font-family: "Cormorant SC", serif;
   font-weight: 700;
-  font-size: clamp(32px, 7.5vw, 50px); /* scaled up */
+  font-size: clamp(28px, 6.7vw, 45px); /* was 32–50 */
   line-height: 1.06;
   margin: 0 0 6px;
-  color: rgba(180,0,255,0.95); /* neon purple used previously */
+  color: rgba(180,0,255,0.95);
   text-shadow: 0 0 14px rgba(255,0,255,0.35);
 }
 
 .method-text{
   font-family: "Montserrat", sans-serif;
-  font-size: clamp(16px, 4vw, 20px); /* was ~12–16 */
+  font-size: clamp(16px, 4vw, 20px);
   line-height: 1.5;
   margin: 0 0 4px;
   color: rgba(255,255,255,0.85);
@@ -55,6 +55,7 @@
   margin-top: -8px;
 }
 
+/* Fix potential stray inline text gap */
 .video-shell{
   position: relative;
   border-radius: 18px;
@@ -66,6 +67,8 @@
   aspect-ratio: 120 / 163;
   width: min(92vw, 320px);
   max-height: calc(100svh - 240px);
+
+  font-size: 0; /* prevents stray text node gap */
 }
 
 .method-player{
