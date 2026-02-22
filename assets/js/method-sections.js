@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
   const sections = document.querySelectorAll(".method-section");
   const dots = document.querySelectorAll(".method-dots .dot");
