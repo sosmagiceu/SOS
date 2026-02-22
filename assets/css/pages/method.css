@@ -13,7 +13,7 @@
   display: grid;
   gap: 10px;               /* keep tight; no giant gaps */
   justify-items: center;
-  align-content: start;    /* IMPORTANT: prevents vertical centering that makes things feel huge */
+  align-content: start;    /* prevents vertical centering */
 }
 
 @media (max-width: 520px){
@@ -22,17 +22,11 @@
   }
 }
 
-.method-section--blank{
-  /* keep blank section empty but scrollable */
-}
-
-/* Hero block */
 .method-hero{
   text-align: center;
   width: min(92vw, 680px);
 }
 
-/* Kicker + title + body (your current sizing) */
 .method-kicker{
   margin: 0 0 6px;
   font-family: "Montserrat", sans-serif;
@@ -81,7 +75,7 @@
 
   aspect-ratio: 120 / 163;
   width: min(92vw, 320px);
-  max-height: calc(100svh - 260px); /* keep it from getting massive */
+  max-height: calc(100svh - 260px);
 }
 
 .method-player{
@@ -99,19 +93,23 @@
   }
 }
 
-/* Divider line (below video) */
+/* Divider line (below video) - updated to full-width breathing gradient */
 .method-divider{
-  width: 120px;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
   height: 2px;
   border-radius: 2px;
   background: linear-gradient(90deg, rgba(0,255,255,0.85), rgba(255,0,255,0.85));
-  animation: dividerBreath 3.5s ease-in-out infinite;
+  background-size: 200% 100%;
+  animation: dividerBreathWide 3.6s ease-in-out infinite;
   margin-top: 2px;
 }
 
-@keyframes dividerBreath{
-  0%,100%{ opacity:.55; filter: blur(0px); }
-  50%{ opacity:1; filter: blur(1px); }
+@keyframes dividerBreathWide{
+  0%,100%{ opacity:.55; filter: blur(0px); background-position: 0% 0%; }
+  50%{ opacity:1; filter: blur(1px); background-position: 100% 0%; }
 }
 
 /* Side navigation dots */
@@ -137,10 +135,24 @@
   transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
 }
 
+/* Active dot: animated cyan→purple glow */
 .method-dots .dot.is-active{
-  background: rgba(255,0,255,0.95);
-  box-shadow: 0 0 10px rgba(255,0,255,.55);
-  transform: scale(1.15);
+  background: linear-gradient(90deg, rgba(0,255,255,0.95), rgba(255,0,255,0.95));
+  background-size: 200% 100%;
+  animation: dotGlowShift 2.8s ease-in-out infinite;
+  transform: scale(1.18);
+  box-shadow: 0 0 12px rgba(0,255,255,.35), 0 0 18px rgba(255,0,255,.30);
+}
+
+@keyframes dotGlowShift{
+  0%,100%{
+    background-position: 0% 0%;
+    box-shadow: 0 0 10px rgba(0,255,255,.35), 0 0 16px rgba(255,0,255,.18);
+  }
+  50%{
+    background-position: 100% 0%;
+    box-shadow: 0 0 10px rgba(255,0,255,.38), 0 0 18px rgba(0,255,255,.18);
+  }
 }
 
 @media (max-width: 768px){
