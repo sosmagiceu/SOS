@@ -5,7 +5,7 @@
   margin: 0 auto;
   padding: 110px 18px 18px;
   display: grid;
-  gap: 6px; /* reduced spacing */
+  gap: 6px; /* tight vertical rhythm */
   min-height: 100svh;
   box-sizing: border-box;
   justify-items: center;
@@ -51,11 +51,12 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: -6px; /* reduces empty space */
+  margin-top: -10px; /* more noticeable than -6px */
 }
 
 /* Correct aspect ratio: 2160 x 2934 → 120 / 163 */
 .video-shell{
+  position: relative;
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.12);
@@ -73,21 +74,60 @@
   object-fit: cover;
   background: #000;
   display: block;
-
-  /* Cyan UI tint (supported browsers) */
-  accent-color: #00ffff;
 }
 
-/* WebKit play button color tweak (limited support) */
-.method-player::-webkit-media-controls-play-button{
-  filter: hue-rotate(160deg) saturate(2);
+/* Custom cyan play button overlay (works on mobile where native controls can't be styled) */
+.video-play{
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 78px;
+  height: 78px;
+  border-radius: 999px;
+  border: 2px solid rgba(0,255,255,0.92);
+  background: rgba(0,0,0,0.32);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 18px rgba(0,255,255,0.30), 0 0 26px rgba(255,0,255,0.14);
+  transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+}
+
+.video-play::before{
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 20px solid rgba(0,255,255,0.95);
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  margin-left: 4px;
+}
+
+.video-play:hover{
+  transform: scale(1.03);
+  background: rgba(0,0,0,0.42);
+  box-shadow: 0 0 22px rgba(0,255,255,0.38), 0 0 30px rgba(255,0,255,0.16);
+}
+
+/* Hide overlay when playing */
+.video-shell.is-playing .video-play{
+  display: none;
+}
+
+/* Optional: keep native controls but prevent immediate UI clutter */
+.method-player::-webkit-media-controls-panel{
+  background-image: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
 }
 
 @media (max-width: 520px){
   .method-page{
-    padding-top: 96px;
+    padding-top: 78px; /* reduce header dead space */
   }
   .video-shell{
     width: min(92vw, 300px);
+    max-height: calc(100svh - 220px);
+  }
+  .method-video{
+    margin-top: -8px;
   }
 }
