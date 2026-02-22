@@ -31,16 +31,28 @@
 
     document.body.prepend(layer);
 
-    document.body.classList.add("has-bg-video");
+    // Toggle fallback based on real playback state
+    video.addEventListener("play", () => document.body.classList.add("bg-video-ready"));
+    video.addEventListener("pause", () => document.body.classList.remove("bg-video-ready"));
+    video.addEventListener("ended", () => document.body.classList.remove("bg-video-ready"));
+
 
     // iOS fallback: force play
     video.addEventListener("loadeddata", () => {
       const p = video.play();
-      if (p && typeof p.catch === "function") {
-        p.catch(() => {});
+      if (p && typeof p.then === "function") {
+        p.then(() => {
+          document.body.classList.add("bg-video-ready");
+        }).catch(() => {
+          // keep PNG fallback visible
+          document.body.classList.remove("bg-video-ready");
+        });
+      } else {
+        // Older browsers: best effort
+        document.body.classList.add("bg-video-ready");
       }
     });
-  }
+}
 
   ensureMobileBgVideo();
 

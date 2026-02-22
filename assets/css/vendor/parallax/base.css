@@ -68,8 +68,8 @@ body::before {
 }
 
 
-/* When mobile background video is active, fade out PNG fallback */
-body.has-bg-video::before {
+/* When mobile background video is READY, fade out PNG fallback */
+body.bg-video-ready::before {
 	opacity: 0;
 }
 /* Video layer (only exists on mobile/tablet via JS) */
