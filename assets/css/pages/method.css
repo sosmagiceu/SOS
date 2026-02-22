@@ -5,7 +5,7 @@
   margin: 0 auto;
   padding: 110px 18px 18px;
   display: grid;
-  gap: 6px; /* tight vertical rhythm */
+  gap: 6px;
   min-height: 100svh;
   box-sizing: border-box;
   justify-items: center;
@@ -16,45 +16,45 @@
   width: min(92vw, 680px);
 }
 
+/* 25% bigger */
 .method-kicker{
   margin: 0 0 6px;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
-  font-size: clamp(14px, 3.4vw, 18px);
+  font-size: clamp(18px, 4.2vw, 22px); /* was ~14–18 */
   letter-spacing: 0.10em;
   text-transform: uppercase;
   color: rgba(0,255,255,0.85);
 }
 
+/* 25% bigger + purple title */
 .method-title{
   font-family: "Cormorant SC", serif;
   font-weight: 700;
-  font-size: clamp(26px, 6vw, 40px);
+  font-size: clamp(32px, 7.5vw, 50px); /* scaled up */
   line-height: 1.06;
   margin: 0 0 6px;
-  color: rgba(255,255,255,0.95);
-  text-shadow: 0 0 10px rgba(0,255,255,0.12), 0 0 14px rgba(255,0,255,0.10);
+  color: rgba(180,0,255,0.95); /* neon purple used previously */
+  text-shadow: 0 0 14px rgba(255,0,255,0.35);
 }
 
 .method-text{
   font-family: "Montserrat", sans-serif;
-  font-size: clamp(12px, 3.1vw, 16px);
-  line-height: 1.45;
-  margin: 0 0 4px; /* tighten space under text */
-  color: rgba(255,255,255,0.80);
+  font-size: clamp(16px, 4vw, 20px); /* was ~12–16 */
+  line-height: 1.5;
+  margin: 0 0 4px;
+  color: rgba(255,255,255,0.85);
   text-wrap: balance;
 }
 
-/* Pull video slightly upward */
 .method-video{
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: -10px; /* more noticeable than -6px */
+  margin-top: -8px;
 }
 
-/* Correct aspect ratio: 2160 x 2934 → 120 / 163 */
 .video-shell{
   position: relative;
   border-radius: 18px;
@@ -76,58 +76,12 @@
   display: block;
 }
 
-/* Custom cyan play button overlay (works on mobile where native controls can't be styled) */
-.video-play{
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  width: 78px;
-  height: 78px;
-  border-radius: 999px;
-  border: 2px solid rgba(0,255,255,0.92);
-  background: rgba(0,0,0,0.32);
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 0 18px rgba(0,255,255,0.30), 0 0 26px rgba(255,0,255,0.14);
-  transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
-}
-
-.video-play::before{
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 20px solid rgba(0,255,255,0.95);
-  border-top: 14px solid transparent;
-  border-bottom: 14px solid transparent;
-  margin-left: 4px;
-}
-
-.video-play:hover{
-  transform: scale(1.03);
-  background: rgba(0,0,0,0.42);
-  box-shadow: 0 0 22px rgba(0,255,255,0.38), 0 0 30px rgba(255,0,255,0.16);
-}
-
-/* Hide overlay when playing */
-.video-shell.is-playing .video-play{
-  display: none;
-}
-
-/* Optional: keep native controls but prevent immediate UI clutter */
-.method-player::-webkit-media-controls-panel{
-  background-image: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
-}
-
 @media (max-width: 520px){
   .method-page{
-    padding-top: 78px; /* reduce header dead space */
+    padding-top: 78px;
   }
   .video-shell{
     width: min(92vw, 300px);
     max-height: calc(100svh - 220px);
-  }
-  .method-video{
-    margin-top: -8px;
   }
 }
