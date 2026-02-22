@@ -133,13 +133,12 @@ body[data-page="method"] .method-section{
   50%{ opacity:1; filter: blur(1px); }
 }
 
-/* Side navigation dots */
+/* Side navigation dots (LOCKED POSITION — no wobble) */
 .method-dots{
   position: fixed !important;
   right: 16px !important;
-  left: auto !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
+  top: 50vh !important;          /* stable viewport anchor */
+  transform: translateY(-50%);
   display: flex !important;
   flex-direction: column !important;
   gap: 14px !important;
