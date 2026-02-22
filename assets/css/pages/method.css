@@ -34,10 +34,10 @@ body[data-page="method"] .method-section{
   width: min(92vw, 680px);
 }
 
-/* THE S.O.S. MAGIC METHOD → ALL CAPS, Montserrat */
+/* THE S.O.S. MAGIC METHOD → ALL CAPS, Cormorant SC */
 .method-kicker{
   margin: 0 0 6px;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Cormorant SC", serif;
   font-weight: 600;
   font-size: clamp(18px, 4.2vw, 22px);
   letter-spacing: 0.10em;
