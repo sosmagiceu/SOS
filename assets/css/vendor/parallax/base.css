@@ -45,7 +45,12 @@ body {
 body::before {
 	content: "";
 	position: fixed;
-	inset: 0;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	height: 100svh;
+	height: 100lvh;
 	z-index: -2;
 	pointer-events: none;
 
@@ -58,13 +63,25 @@ body::before {
 	transform: translate3d(0, 0, 0);
 	backface-visibility: hidden;
 	will-change: transform;
+	opacity: 1;
+	transition: opacity .35s ease;
 }
 
+
+/* When mobile background video is active, fade out PNG fallback */
+body.has-bg-video::before {
+	opacity: 0;
+}
 /* Video layer (only exists on mobile/tablet via JS) */
 .bg-video-layer {
 	position: fixed;
-	inset: 0;
-	z-index: -1; /* above PNG fallback, below content */
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	height: 100svh;
+	height: 100lvh;
+z-index: -1; /* above PNG fallback, below content */
 	pointer-events: none;
 	overflow: hidden;
 }

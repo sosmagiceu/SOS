@@ -31,6 +31,8 @@
 
     document.body.prepend(layer);
 
+    document.body.classList.add("has-bg-video");
+
     // iOS fallback: force play
     video.addEventListener("loadeddata", () => {
       const p = video.play();
@@ -41,6 +43,9 @@
   }
 
   ensureMobileBgVideo();
+
+  window.addEventListener("resize", ensureMobileBgVideo, { passive: true });
+  window.addEventListener("orientationchange", ensureMobileBgVideo, { passive: true });
 
   /* ---------- INJECT HEADER ---------- */
   function injectFallbackHeader() {
