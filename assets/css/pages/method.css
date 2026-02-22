@@ -1,9 +1,8 @@
-/* Prevent horizontal scroll caused by full-bleed elements */
-html, body{
-  overflow-x: hidden;
-}
-body[data-page="method"]{
-  overflow-x: hidden;
+/* Prevent side-scroll without breaking background rendering */
+body[data-page="method"],
+body[data-page="method"] .method-page,
+body[data-page="method"] .method-section{
+  overflow-x: clip;
 }
 
 /* Method page layout (Home fonts: Cormorant SC + Montserrat) */
@@ -103,14 +102,26 @@ body[data-page="method"]{
 
 /* Divider line (below video) - updated to full-width breathing gradient */
 .method-divider{
-  /* match footer divider look, but full-bleed without causing side-scroll */
+  position: relative;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  margin-top: 2px;
+  overflow: clip; /* keep the pseudo-element from creating scrollbars */
+}
+
+/* full-bleed gradient line without affecting layout width */
+.method-divider::before{
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 100vw;
   height: 2px;
   border-radius: 2px;
 
-  /* full-bleed trick */
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-
+  /* exact footer-style gradient line */
   background: linear-gradient(90deg, rgba(0,255,255,0.75), rgba(255,0,255,0.75));
   animation: dividerBreathWide 3.6s ease-in-out infinite;
 }
@@ -165,34 +176,4 @@ body[data-page="method"]{
 
 @media (max-width: 768px){
   .method-dots{ right: 10px; }
-}
-
-/* --- FIX: keep section dots pinned on the right side (mobile-safe) --- */
-.method-dots{
-  position: fixed !important;
-  right: 16px !important;
-  left: auto !important;
-  top: 50% !important;
-  bottom: auto !important;
-  transform: translateY(-50%) !important;
-
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 14px !important;
-
-  z-index: 9999 !important;
-  pointer-events: auto !important;
-}
-
-.method-dots .dot{
-  appearance: none;
-  -webkit-appearance: none;
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  border: 0;
-  padding: 0;
-  margin: 0;
-  background: rgba(255,255,255,0.28);
-  cursor: pointer;
 }
