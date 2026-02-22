@@ -9,34 +9,40 @@ body[data-page="method"]{
   margin: 0 auto;
   padding: 110px 18px 18px; /* room for header */
   display: grid;
-  gap: 14px;
+  gap: 12px;
   min-height: 100svh;
   box-sizing: border-box;
 }
 
 .method-hero{
   text-align: center;
-  padding: 8px 6px 0;
+  padding: 6px 6px 0;
 }
 
+/* Main title (bigger): "Your Emotional First Aid" */
 .method-title{
   font-family: "Cormorant SC", serif;
   font-weight: 700;
-  font-size: clamp(28px, 6.5vw, 56px);
+  font-size: clamp(34px, 7.5vw, 62px);
   line-height: 1.05;
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   color: rgba(255,255,255,0.95);
   text-shadow: 0 0 10px rgba(0,255,255,0.14), 0 0 16px rgba(255,0,255,0.12);
 }
 
-.method-subtitle{
-  font-family: "Cormorant SC", serif;
-  font-weight: 600;
-  font-size: clamp(18px, 4.2vw, 28px);
+/* Cyan kicker: "THE S.O.S. MAGIC METHOD"
+   Make it about ~2px bigger than the body text. */
+.method-kicker{
   margin: 0 0 10px;
-  color: rgba(255,255,255,0.88);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: clamp(16px, 3.9vw, 20px); /* body ~14-18, this ~2px+ */
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(0,255,255,0.85);
 }
 
+/* Body text */
 .method-text{
   font-family: "Montserrat", sans-serif;
   font-size: clamp(14px, 3.6vw, 18px);
@@ -52,8 +58,8 @@ body[data-page="method"]{
   align-items: center;
 }
 
+/* Vertical player shell */
 .video-shell{
-  width: min(100%, 920px);
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.12);
@@ -61,13 +67,23 @@ body[data-page="method"]{
   backdrop-filter: blur(10px);
 }
 
+/* Vertical sizing: keep it on one mobile screen */
+.video-shell--vertical{
+  height: min(56svh, 640px);
+  aspect-ratio: 9 / 16;
+  width: auto;
+  max-width: min(92vw, 420px);
+}
+
 .method-player{
   display: block;
   width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  max-height: calc(100svh - 240px);
+  height: 100%;
   background: #000;
+}
+
+.method-player--vertical{
+  object-fit: contain;
 }
 
 @media (max-width: 520px){
@@ -75,7 +91,8 @@ body[data-page="method"]{
     padding-top: 96px;
     gap: 10px;
   }
-  .method-player{
-    max-height: calc(100svh - 220px);
+  .video-shell--vertical{
+    height: min(52svh, 560px);
+    max-width: 92vw;
   }
 }
