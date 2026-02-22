@@ -23,7 +23,7 @@
     video.setAttribute("webkit-playsinline", "");
 
     const source = document.createElement("source");
-    source.src = "https://sosmagic.b-cdn.net/Achterground%20enzo/Bubbels_.mp4";
+    source.src = "https://sosmagic.b-cdn.net/Achterground%20enzo/Bubbles_.mp4";
     source.type = "video/mp4";
 
     video.appendChild(source);
