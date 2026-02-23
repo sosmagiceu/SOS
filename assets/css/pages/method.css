@@ -202,3 +202,13 @@ body[data-page="method"] .method-section{
   -webkit-text-fill-color: transparent;
   animation: scanBand 2.2s linear infinite;
 }
+
+/* Reduce top spacing for sections after the first (≈75% less) */
+.method-section + .method-section{
+  padding-top: 28px;
+}
+
+@media (max-width: 520px){
+  .method-section + .method-section{
+    padding-top: 20px;
+  }
