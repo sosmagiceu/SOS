@@ -83,7 +83,29 @@ body[data-page="method"] .method-text{
   font-size: clamp(28px, 6.7vw, 45px);
   line-height: 1.06;
   margin: 0 0 6px;
-  color: rgba(180,0,255,0.95);
+  text-align: center;
+
+  color: #b400ff; /* base purple */
+
+  animation: titleBreath 3.6s ease-in-out infinite;
+}
+
+/* Breathing glow animation */
+@keyframes titleBreath{
+  0%,100%{
+    color: #b400ff;
+    text-shadow:
+      0 0 6px rgba(180,0,255,0.4),
+      0 0 14px rgba(180,0,255,0.3);
+  }
+
+  50%{
+    color: #d76bff; /* lighter purple mid-breath */
+    text-shadow:
+      0 0 10px rgba(215,107,255,0.7),
+      0 0 22px rgba(215,107,255,0.5);
+  }
+}
 
   /* White outline for visibility */
   -webkit-text-stroke: 1px rgba(255,255,255,0.6);
