@@ -1,7 +1,6 @@
 /* Prevent side-scroll
    Clip on the page/root, not each section.
-   Clipping on .method-section was cutting off the full-bleed divider,
-   making it look misaligned vs the footer's top glow line.
+   Clipping on .method-section can cut off full-bleed elements.
 */
 body[data-page="method"],
 body[data-page="method"] .method-page{
@@ -96,6 +95,13 @@ body[data-page="method"] .method-section{
   letter-spacing: 0.12em;
 }
 
+/* NEW: middle ground between small and big */
+.method-line-mid{
+  display: block;
+  font-size: clamp(1.8em, 4.8vw, 2.35em);
+  letter-spacing: 0.11em;
+}
+
 /* ============================= */
 /* PURPLE TITLE (BREATHING)     */
 /* ============================= */
@@ -164,36 +170,35 @@ body[data-page="method"] .method-section{
 
 /* ============================= */
 /* METHOD DIVIDER (MATCH FOOTER) */
-/* FULL BLEED + WORKS IN GRID    */
+/* TRUE FULL BLEED               */
 /* ============================= */
 .method-divider{
   height: 1px;
   position: relative;
-  overflow: hidden;
   margin-top: 14px;
 
-  /* IMPORTANT: give it real width inside the grid */
+  /* important inside grid */
   width: 100%;
   justify-self: stretch;
 
-  /* cancel section padding so it bleeds */
-  margin-left: -24px;
-  margin-right: -24px;
-}
+  /* allow the pseudo element to extend */
+  overflow: visible;
 
-@media (max-width: 520px){
-  .method-divider{
-    margin-left: -20px;
-    margin-right: -20px;
-  }
+  /* do NOT use negative margins here anymore */
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .method-divider::before{
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+
+  /* real viewport-wide line, centered */
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
+
   height: 1px;
 
   background: linear-gradient(
@@ -253,12 +258,14 @@ body[data-page="method"] .method-section{
 }
 
 .method-kicker .method-line-small,
+.method-kicker .method-line-mid,
 .method-kicker .method-line-big{
   position: relative;
   display: block;
 }
 
 .method-kicker .method-line-small::after,
+.method-kicker .method-line-mid::after,
 .method-kicker .method-line-big::after{
   content: attr(data-text);
   position: absolute;
