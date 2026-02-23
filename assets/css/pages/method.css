@@ -1,8 +1,13 @@
 /* Prevent side-scroll */
 body[data-page="method"],
-body[data-page="method"] .method-page,
-body[data-page="method"] .method-section{
+body[data-page="method"] .method-page{
   overflow-x: clip;
+}
+
+/* IMPORTANT:
+   Do NOT clip the section itself or it will cut off the full-bleed divider */
+body[data-page="method"] .method-section{
+  overflow-x: visible;
 }
 
 /* ============================= */
@@ -156,36 +161,36 @@ body[data-page="method"] .method-section{
 
 /* ============================= */
 /* METHOD DIVIDER (MATCH FOOTER) */
-/* FULL BLEED + WORKS IN GRID    */
+/* TRUE FULL BLEED (NO MARGINS)  */
 /* ============================= */
 .method-divider{
   height: 1px;
   position: relative;
-  overflow: hidden;
+
   margin-top: 14px;
 
-  /* IMPORTANT: give it real width inside the grid */
+  /* inside grid: stretch across column */
   width: 100%;
   justify-self: stretch;
 
-  /* cancel section padding so it bleeds */
-  margin-left: -24px;
-  margin-right: -24px;
-}
+  /* stop cropping behavior */
+  overflow: visible;
 
-@media (max-width: 520px){
-  .method-divider{
-    margin-left: -20px;
-    margin-right: -20px;
-  }
+  /* remove the fake full width */
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .method-divider::before{
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+
+  /* REAL full viewport width */
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
+
   height: 1px;
 
   background: linear-gradient(
