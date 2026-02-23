@@ -33,15 +33,17 @@ body[data-page="method"] .method-section{
   }
 }
 
-/* Ensure section 2 stays centered */
-#section-2 .method-hero,
-#section-2 .method-text{
-  text-align: center;
-}
-
-.method-hero{
+/* Force consistent centering for ALL sections */
+body[data-page="method"] .method-hero{
   text-align: center;
   width: min(92vw, 680px);
+}
+
+body[data-page="method"] .method-title,
+body[data-page="method"] .method-text{
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* BODY TEXT */
@@ -170,139 +172,7 @@ body[data-page="method"] .method-section{
   flex-direction: column !important;
   gap: 14px !important;
   z-index: 9999 !important;
-}
-
-.method-dots .dot{
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 0;
-  background: rgba(255,255,255,0.28);
-}
-
-.method-dots .dot.is-active{
-  background: linear-gradient(
-    90deg,
-    rgba(0,255,255,0.95),
-    rgba(255,0,255,0.95)
-  );
-  background-size: 200% 100%;
-  animation: dotGlowShift 2.8s ease-in-out infinite;
-}
-
-@keyframes dotGlowShift{
-  0%,100%{ background-position: 0% 0%; }
-  50%{ background-position: 100% 0%; }
-}
-
-/* Scan band */
-@keyframes scanBand{
-  0%   { background-position: 200% 0; }
-  100% { background-position: 0% 0; }
-}
-
-.method-kicker .method-line-small,
-.method-kicker .method-line-big{
-  position: relative;
-  display: block;
-}
-
-.method-kicker .method-line-small::after,
-.method-kicker .method-line-big::after{
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    rgba(0,255,255,0) 0%,
-    rgba(0,255,255,0) 42%,
-    rgba(0,255,255,1) 48%,
-    rgba(255,0,255,1) 52%,
-    rgba(255,0,255,0) 58%,
-    rgba(255,0,255,0) 100%
-  );
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: scanBand 2.2s linear infinite;
-}}
-
-/* Video */
-.method-video{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-.video-shell{
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(0,0,0,0.28);
-  backdrop-filter: blur(10px);
-
-  aspect-ratio: 120 / 163;
-  width: min(92vw, 320px);
-  max-height: calc(100svh - 260px);
-}
-
-.method-player{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: #000;
-  display: block;
-}
-
-@media (max-width: 520px){
-  .video-shell{
-    width: min(92vw, 300px);
-    max-height: calc(100svh - 240px);
-  }
-}
-
-/* Divider */
-.method-divider{
-  position: relative;
-  width: 100%;
-  height: 2px;
-  overflow: clip;
-  margin-top: 14px; /* small controlled spacing */
-}
-
-.method-divider::before{
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100svw;
-  width: 100vw;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    rgba(0,255,255,0.75),
-    rgba(255,0,255,0.75)
-  );
-  animation: dividerBreathWide 3.6s ease-in-out infinite;
-}
-
-@keyframes dividerBreathWide{
-  0%,100%{ opacity:.55; filter: blur(0px); }
-  50%{ opacity:1; filter: blur(1px); }
-}
-
-/* Dots */
-.method-dots{
-  position: fixed !important;
-  right: 16px !important;
-  top: 50vh !important;
-  transform: translateY(-50%);
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 14px !important;
-  z-index: 9999 !important;
+  left: auto !important; /* keep them on the right */
 }
 
 .method-dots .dot{
