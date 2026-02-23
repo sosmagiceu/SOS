@@ -155,17 +155,20 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* METHOD DIVIDER (MATCH FOOTER)*/
-/* FULL BLEED by canceling section padding */
+/* METHOD DIVIDER (MATCH FOOTER) */
+/* FULL BLEED + WORKS IN GRID    */
 /* ============================= */
 .method-divider{
-  width: auto;
   height: 1px;
   position: relative;
   overflow: hidden;
   margin-top: 14px;
 
-  /* cancel the section padding so it bleeds edge-to-edge */
+  /* IMPORTANT: give it real width inside the grid */
+  width: 100%;
+  justify-self: stretch;
+
+  /* cancel section padding so it bleeds */
   margin-left: -24px;
   margin-right: -24px;
 }
