@@ -38,6 +38,15 @@ body[data-page="method"] .method-section{
   width: min(92vw, 680px);
 }
 
+/* Prevent text from running under the section dots (wrap earlier instead) */
+@media (max-width: 900px){
+  .method-hero{
+    width: min(calc(92vw - 36px), 680px);
+    padding-right: 36px; /* space reserved for the dots */
+    box-sizing: border-box;
+  }
+}
+
 /* BODY TEXT */
 .method-text{
   font-family: "Montserrat", sans-serif;
