@@ -497,27 +497,43 @@ body[data-page="method"] .method-section{
   width: 12px;
   height: 12px;
 
-  border-right: 2px solid rgba(255,255,255,0.85);
-  border-bottom: 2px solid rgba(255,255,255,0.85);
+  border-right: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+
+  /* cyan → purple gradient stroke */
+  background: linear-gradient(
+    90deg,
+    rgba(0,255,255,1),
+    rgba(255,0,255,1)
+  );
+  background-size: 200% 100%;
+  animation: dotGlowShift 2.8s ease-in-out infinite;
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) padding-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
 
   transform: translateY(-50%) rotate(45deg);
   transition:
     transform 420ms cubic-bezier(.2,.8,.2,1),
-    border-color 300ms ease,
     box-shadow 300ms ease;
 
   opacity: 0.9;
+
+  /* subtle idle glow */
+  box-shadow:
+    0 0 4px rgba(0,255,255,0.35),
+    0 0 6px rgba(255,0,255,0.25);
 }
 
-/* OPEN STATE – real neon glow */
+/* OPEN STATE – stronger neon */
 .method-acc-item.is-open .method-acc-btn::after{
   transform: translateY(-50%) rotate(-135deg);
 
-  border-right: 2px solid rgba(0,255,255,1);
-  border-bottom: 2px solid rgba(255,0,255,1);
-
   box-shadow:
-    0 0 6px rgba(0,255,255,0.9),
-    0 0 12px rgba(255,0,255,0.7),
-    0 0 18px rgba(0,255,255,0.4);
+    0 0 8px rgba(0,255,255,0.9),
+    0 0 14px rgba(255,0,255,0.8),
+    0 0 20px rgba(0,255,255,0.5);
 }
