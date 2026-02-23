@@ -9,7 +9,7 @@ body[data-page="method"] .method-section{
 .method-section{
   min-height: auto;
   box-sizing: border-box;
-  padding: 110px 18px 18px;
+  padding: 110px 23px 18px 18px; /* 5px extra right padding */
   display: grid;
   gap: 10px;
   justify-items: center;
@@ -25,6 +25,7 @@ body[data-page="method"] .method-section{
 @media (max-width: 520px){
   .method-section{
     padding-top: 78px;
+    padding-right: 23px; /* keep right buffer on mobile */
   }
 
   #section-2,
@@ -33,7 +34,7 @@ body[data-page="method"] .method-section{
   }
 }
 
-/* Force consistent centering for ALL sections */
+/* Force consistent centering */
 body[data-page="method"] .method-hero{
   text-align: center;
   width: min(92vw, 680px);
@@ -76,21 +77,17 @@ body[data-page="method"] .method-text{
   letter-spacing: 0.12em;
 }
 
-/* Purple Title (ALL sections) */
+/* Purple Title (breathing glow) */
 .method-title{
   font-family: "Cormorant SC", serif;
   font-weight: 700;
   font-size: clamp(28px, 6.7vw, 45px);
   line-height: 1.06;
   margin: 0 0 6px;
-  text-align: center;
-
-  color: #b400ff; /* base purple */
-
+  color: #b400ff;
   animation: titleBreath 3.6s ease-in-out infinite;
 }
 
-/* Breathing glow animation */
 @keyframes titleBreath{
   0%,100%{
     color: #b400ff;
@@ -100,23 +97,11 @@ body[data-page="method"] .method-text{
   }
 
   50%{
-    color: #d76bff; /* lighter purple mid-breath */
+    color: #d76bff;
     text-shadow:
       0 0 10px rgba(215,107,255,0.7),
       0 0 22px rgba(215,107,255,0.5);
   }
-}
-
-  /* White outline for visibility */
-  -webkit-text-stroke: 1px rgba(255,255,255,0.6);
-
-  /* Fallback outline */
-  text-shadow:
-    -1px 0 rgba(255,255,255,0.4),
-     1px 0 rgba(255,255,255,0.4),
-     0 -1px rgba(255,255,255,0.4),
-     0  1px rgba(255,255,255,0.4),
-     0  0 14px rgba(255,0,255,0.35);
 }
 
 /* Video */
@@ -194,7 +179,7 @@ body[data-page="method"] .method-text{
   flex-direction: column !important;
   gap: 14px !important;
   z-index: 9999 !important;
-  left: auto !important; /* keep them on the right */
+  left: auto !important;
 }
 
 .method-dots .dot{
@@ -262,8 +247,8 @@ body[data-page="method"] .method-text{
 }
 
 .method-image img{
-  width: 75vw;          /* ~75% of screen width */
-  max-width: 900px;     /* prevents huge scaling on large screens */
+  width: 75vw;
+  max-width: 900px;
   height: auto;
   border-radius: 18px;
   display: block;
