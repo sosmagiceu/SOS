@@ -42,7 +42,7 @@ body[data-page="method"] .method-section{
 @media (max-width: 900px){
   .method-hero{
     width: min(calc(92vw - 36px), 680px);
-    padding-right: 36px; /* space reserved for the dots */
+    padding-right: 5px; /* space reserved for the dots */
     box-sizing: border-box;
   }
 }
