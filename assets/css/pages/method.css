@@ -165,3 +165,42 @@ body[data-page="method"] .method-section{
   0%,100%{ background-position: 0% 0%; }
   50%{ background-position: 100% 0%; }
 }
+
+
+/* Presents-style scan band effect (reused from home) */
+@keyframes scanBand{
+  0%   { background-position: 200% 0; }
+  100% { background-position: 0% 0; }
+}
+
+/* Apply scan band to kicker lines (THE S.O.S. MAGIC + METHOD) */
+.method-kicker .method-line-small,
+.method-kicker .method-line-big{
+  position: relative;
+  display: block;
+}
+
+/* Overlay band */
+.method-kicker .method-line-small::after,
+.method-kicker .method-line-big::after{
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0,255,255,0) 0%,
+    rgba(0,255,255,0) 42%,
+    rgba(0,255,255,1) 48%,
+    rgba(255,0,255,1) 52%,
+    rgba(255,0,255,0) 58%,
+    rgba(255,0,255,0) 100%
+  );
+
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: scanBand 2.2s linear infinite;
+}
