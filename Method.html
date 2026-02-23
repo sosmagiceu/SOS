@@ -87,26 +87,92 @@
 
     </section>
 
-    <section id="section-3" class="method-section">
+<section id="section-3" class="method-section">
 
-      <div class="method-hero">
+  <div class="method-hero">
 
-        <div class="method-kicker">
-          <span class="method-line-mid" data-text="Why it works?">Why it works?</span>
-        </div>
+    <div class="method-kicker">
+      <span class="method-line-mid" data-text="Why it works?">Why it works?</span>
+    </div>
 
-        <h1 class="method-title">The Three Layers of Your Transformation</h1>
+    <h1 class="method-title">The Three Layers of Your Transformation</h1>
 
+    <p class="method-text">
+      This journey is an effortless, science-backed method designed to bypass mental resistance
+      through three visual layers:
+    </p>
+
+    <!-- Accordion -->
+    <div class="method-accordion" aria-label="Three layers accordion">
+
+      <button class="method-acc-btn" type="button" aria-expanded="false" aria-controls="layer-1">
+        <span class="method-acc-bullet" aria-hidden="true">●</span>
+        <span class="method-acc-title">Neon Glow: Your Mental Reset</span>
+      </button>
+      <div class="method-acc-panel" id="layer-1" hidden>
         <p class="method-text">
-          This journey is an effortless, science-backed method designed to bypass mental resistance
-          through three visual layers:
+          Acts as a lighthouse in the dark, helping you find your way during moments of uncertainty.
+          This layer breaks the anxious loop and gives your mind the immediate calm it needs to stop
+          struggling.
         </p>
-
       </div>
 
-      <div class="method-divider"></div>
+      <button class="method-acc-btn" type="button" aria-expanded="false" aria-controls="layer-2">
+        <span class="method-acc-bullet" aria-hidden="true">●</span>
+        <span class="method-acc-title">Neuro-aesthetic Art: Deep Immersion</span>
+      </button>
+      <div class="method-acc-panel" id="layer-2" hidden>
+        <p class="method-text">
+          Specially crafted visual art captures your focus and holds it. This allows your real feelings to
+          surface from the depths, bypassing the noise of daily stress.
+        </p>
+      </div>
 
-    </section>
+      <button class="method-acc-btn" type="button" aria-expanded="false" aria-controls="layer-3">
+        <span class="method-acc-bullet" aria-hidden="true">●</span>
+        <span class="method-acc-title">The Mermaid Archetype: Inner Safety</span>
+      </button>
+      <div class="method-acc-panel" id="layer-3" hidden>
+        <p class="method-text">
+          Familiar since childhood, these images help the conscious mind relax. By lowering your inner
+          critic and reducing the need for control, they clear the way for intuition and positive change.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="method-divider"></div>
+
+  <!-- Minimal JS to toggle panels (no CSS yet) -->
+  <script>
+    (() => {
+      const root = document.querySelector("#section-3 .method-accordion");
+      if (!root) return;
+
+      const buttons = Array.from(root.querySelectorAll(".method-acc-btn"));
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const panelId = btn.getAttribute("aria-controls");
+          const panel = panelId ? document.getElementById(panelId) : null;
+          if (!panel) return;
+
+          const isOpen = btn.getAttribute("aria-expanded") === "true";
+          btn.setAttribute("aria-expanded", String(!isOpen));
+
+          if (isOpen) {
+            panel.hidden = true;
+          } else {
+            panel.hidden = false;
+          }
+        });
+      });
+    })();
+  </script>
+
+</section>
 
     <section id="section-4" class="method-section">
       <!-- scaffolding for section 4 -->
