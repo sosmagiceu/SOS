@@ -33,11 +33,11 @@ body[data-page="method"] .method-section{
   }
 }
 
-/* Hero container (THIS fixes section 1 overlap issue) */
+/* Hero container (CENTERED + protected from dots) */
 body[data-page="method"] .method-hero{
   text-align: center;
   width: min(92vw, 680px);
-  padding-right: 40px; /* protects from dots */
+  padding: 0 40px;   /* symmetric spacing so layout stays centered */
   box-sizing: border-box;
 }
 
@@ -237,7 +237,7 @@ body[data-page="method"] .method-text{
   animation: scanBand 2.2s linear infinite;
 }
 
-/* Section 2 image */
+/* Section image */
 .method-image{
   width: 100%;
   display: flex;
