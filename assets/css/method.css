@@ -467,7 +467,7 @@ body[data-page="method"] .method-section{
     font-size: 13px;
   }
   .method-acc-panel{
-    padding: 0 14px 14px;
+    padding: 0 14px 0px;
   }
   .method-acc-item.is-open .method-acc-panel{
     max-height: 420px;
