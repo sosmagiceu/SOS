@@ -11,12 +11,13 @@
 
 <link href="/assets/css/main.css" rel="stylesheet">
 <link href="/assets/css/header.css" rel="stylesheet"/>
-<link href="/assets/css/method.css" rel="stylesheet"/>
+<link href="/assets/css/pages/method.css" rel="stylesheet"/>
 
 <script defer src="/assets/js/vendor/tooplate-2144-parallax-scripts.js"></script>
 <script defer src="/assets/js/header.js"></script>
 <script defer src="/assets/js/footer.js"></script>
 <script defer src="/assets/js/method-sections.js"></script>
+<script defer src="/assets/js/method-accordion.js"></script>
 </head>
 
 <body data-page="method">
@@ -149,30 +150,7 @@
       </div>
 
       <div class="method-divider"></div>
-
-      <!-- Minimal JS to toggle panels -->
-      <script>
-        (() => {
-          const root = document.querySelector("#section-3 .method-accordion");
-          if (!root) return;
-
-          const buttons = Array.from(root.querySelectorAll(".method-acc-btn"));
-
-          buttons.forEach((btn) => {
-            btn.addEventListener("click", () => {
-              const panelId = btn.getAttribute("aria-controls");
-              const panel = panelId ? document.getElementById(panelId) : null;
-              if (!panel) return;
-
-              const isOpen = btn.getAttribute("aria-expanded") === "true";
-              btn.setAttribute("aria-expanded", String(!isOpen));
-              panel.hidden = isOpen;
-            });
-          });
-        })();
-      </script>
-
-    </section>
+</section>
 
     <section id="section-4" class="method-section">
       <!-- scaffolding for section 4 -->
