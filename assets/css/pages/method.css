@@ -6,35 +6,25 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* GLOBAL GUTTERS (ONE SOURCE)  */
-/* ============================= */
-body[data-page="method"]{
-  --method-gutter: 24px;          /* normal page side padding */
-  --method-dot-safe: 44px;        /* reserved space for dots */
-}
-
-/* Mobile: slightly tighter */
-@media (max-width: 520px){
-  body[data-page="method"]{
-    --method-gutter: 18px;
-    --method-dot-safe: 44px;      /* keep dots safe area */
-  }
-}
-
-/* ============================= */
-/* SECTION LAYOUT (NO HACKS)     */
+/* CLEAN GLOBAL SECTION LAYOUT  */
 /* ============================= */
 .method-section{
   min-height: auto;
   box-sizing: border-box;
 
-  /* One rule: page padding + extra space on right for dots */
-  padding: 110px calc(var(--method-gutter) + var(--method-dot-safe)) 18px var(--method-gutter);
+  /* Simple equal padding */
+  padding: 110px 24px 18px 24px;
 
   display: grid;
   gap: 10px;
   justify-items: center;
   align-content: start;
+}
+
+@media (max-width: 520px){
+  .method-section{
+    padding: 78px 20px 18px 20px;
+  }
 }
 
 /* Slightly tighter top spacing for later sections */
@@ -44,10 +34,6 @@ body[data-page="method"]{
 }
 
 @media (max-width: 520px){
-  .method-section{
-    padding-top: 78px;
-  }
-
   #section-2,
   #section-3{
     padding-top: 20px;
@@ -55,7 +41,7 @@ body[data-page="method"]{
 }
 
 /* ============================= */
-/* HERO / TEXT GLOBAL CENTERING  */
+/* HERO / TEXT CENTERING        */
 /* ============================= */
 .method-hero{
   width: 100%;
@@ -71,7 +57,7 @@ body[data-page="method"]{
 }
 
 /* ============================= */
-/* BODY TEXT                     */
+/* BODY TEXT                    */
 /* ============================= */
 .method-text{
   font-family: "Montserrat", sans-serif;
@@ -82,7 +68,7 @@ body[data-page="method"]{
 }
 
 /* ============================= */
-/* KICKER                        */
+/* KICKER                       */
 /* ============================= */
 .method-kicker{
   font-family: "Cormorant SC", serif;
@@ -103,7 +89,7 @@ body[data-page="method"]{
 }
 
 /* ============================= */
-/* PURPLE TITLE (BREATHING)      */
+/* PURPLE TITLE (BREATHING)     */
 /* ============================= */
 .method-title{
   font-family: "Cormorant SC", serif;
@@ -111,6 +97,7 @@ body[data-page="method"]{
   font-size: clamp(28px, 6.7vw, 45px);
   line-height: 1.06;
   margin: 0 0 6px;
+
   color: #b400ff;
   animation: titleBreath 3.6s ease-in-out infinite;
 }
@@ -131,7 +118,7 @@ body[data-page="method"]{
 }
 
 /* ============================= */
-/* VIDEO                          */
+/* VIDEO                        */
 /* ============================= */
 .method-video{
   display: flex;
@@ -168,9 +155,8 @@ body[data-page="method"]{
 }
 
 /* ============================= */
-/* METHOD DIVIDER (FOOTER LOOK)  */
+/* METHOD DIVIDER (MATCH FOOTER)*/
 /* ============================= */
-/* Full width because it sits inside a section that already manages padding */
 .method-divider{
   width: 100%;
   height: 1px;
@@ -186,6 +172,7 @@ body[data-page="method"]{
   left: 0;
   right: 0;
   height: 1px;
+
   background: linear-gradient(
     90deg,
     transparent,
@@ -193,11 +180,12 @@ body[data-page="method"]{
     var(--secondary),
     transparent
   );
+
   animation: glow-line 3s ease-in-out infinite;
 }
 
 /* ============================= */
-/* DOTS (UNCHANGED)              */
+/* DOTS                         */
 /* ============================= */
 .method-dots{
   position: fixed !important;
@@ -234,7 +222,7 @@ body[data-page="method"]{
 }
 
 /* ============================= */
-/* SCAN BAND (KICKER)            */
+/* SCAN BAND                    */
 /* ============================= */
 @keyframes scanBand{
   0%   { background-position: 200% 0; }
@@ -269,12 +257,11 @@ body[data-page="method"]{
 }
 
 /* ============================= */
-/* SECTION IMAGE                 */
+/* SECTION IMAGE                */
 /* ============================= */
 .method-image{
   display: flex;
   justify-content: center;
-  width: 100%;
   margin-top: 18px;
 }
 
