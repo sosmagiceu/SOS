@@ -46,14 +46,14 @@ body[data-page="method"] .method-section{
 /* THE S.O.S. MAGIC → 150% of body */
 .method-line-small{
   display: block;
-  font-size: 1.5em;
+  font-size: 1.3em;
   letter-spacing: 0.1em;
 }
 
 /* METHOD → 200% of body */
 .method-line-big{
   display: block;
-  font-size: 2em;
+  font-size: 3em;
   letter-spacing: 0.12em;
 }
 
