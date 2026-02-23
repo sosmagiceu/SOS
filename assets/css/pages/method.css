@@ -359,7 +359,7 @@ body[data-page="method"] .method-section{
 .method-acc-btn{
   width: 100%;
   min-height: 64px;
-  padding: 14px 16px;
+  padding: 14px 52px 14px 16px; /* right padding includes arrow room */
 
   display: grid;
   grid-template-columns: 34px 1fr;
@@ -431,7 +431,6 @@ body[data-page="method"] .method-section{
 
   padding: 0 16px 14px;
 
-  /* animation setup */
   max-height: 0;
   opacity: 0;
   transform: translateY(-6px);
@@ -447,7 +446,7 @@ body[data-page="method"] .method-section{
 .method-acc-item.is-open .method-acc-panel{
   opacity: 1;
   transform: translateY(0);
-  max-height: 320px; /* JS will override for perfect height, this is a safe fallback */
+  max-height: 420px; /* safe fallback; JS should override */
   padding-top: 8px;
 }
 
@@ -458,7 +457,7 @@ body[data-page="method"] .method-section{
 @media (max-width: 520px){
   .method-acc-btn{
     min-height: 60px;
-    padding: 12px 14px;
+    padding: 12px 48px 12px 14px;
     grid-template-columns: 32px 1fr;
   }
   .method-acc-bullet{
@@ -470,7 +469,7 @@ body[data-page="method"] .method-section{
     padding: 0 14px 14px;
   }
   .method-acc-item.is-open .method-acc-panel{
-    max-height: 420px;
+    max-height: 520px;
   }
 }
 
@@ -484,23 +483,19 @@ body[data-page="method"] .method-section{
     transform: none;
   }
 }
+
 /* ============================= */
 /* ACCORDION CHEVRON INDICATOR  */
 /* ============================= */
 
-.method-acc-btn{
-  position: relative;
-  padding-right: 48px; /* room for arrow */
-}
-
-/* Down arrow */
 .method-acc-btn::after{
   content: "";
   position: absolute;
-  right: 18px;
+  right: 20px;
   top: 50%;
-  width: 10px;
-  height: 10px;
+
+  width: 12px;
+  height: 12px;
 
   border-right: 2px solid rgba(255,255,255,0.85);
   border-bottom: 2px solid rgba(255,255,255,0.85);
@@ -508,17 +503,21 @@ body[data-page="method"] .method-section{
   transform: translateY(-50%) rotate(45deg);
   transition:
     transform 420ms cubic-bezier(.2,.8,.2,1),
-    border-color 300ms ease;
+    border-color 300ms ease,
+    box-shadow 300ms ease;
 
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
-/* Glow when open */
+/* OPEN STATE – real neon glow */
 .method-acc-item.is-open .method-acc-btn::after{
   transform: translateY(-50%) rotate(-135deg);
-  border-color: rgba(0,255,255,0.95);
+
+  border-right: 2px solid rgba(0,255,255,1);
+  border-bottom: 2px solid rgba(255,0,255,1);
 
   box-shadow:
-    0 0 6px rgba(0,255,255,0.6),
-    0 0 10px rgba(255,0,255,0.4);
+    0 0 6px rgba(0,255,255,0.9),
+    0 0 12px rgba(255,0,255,0.7),
+    0 0 18px rgba(0,255,255,0.4);
 }
