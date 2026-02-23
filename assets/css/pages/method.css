@@ -155,29 +155,37 @@ body[data-page="method"] .method-section{
   }
 }
 
-/* DIVIDER (FULL BLEED, IGNORES PADDING) */
+/* ============================= */
+/* METHOD DIVIDER (MATCH FOOTER) */
+/* ============================= */
 .method-divider{
   position: relative;
-  height: 2px;
+  height: 1px;   /* same thickness as footer */
+  width: 100%;
   margin-top: 14px;
 }
 
-/* make the line span the entire viewport width */
 .method-divider::before{
-  content: "";
+  content: '';
   position: absolute;
-  left: 50%;
   top: 0;
+  left: 50%;
   transform: translateX(-50%);
+
+  /* Full-bleed, ignores section padding */
   width: 100vw;
-  height: 2px;
+  height: 1px;
 
   background: linear-gradient(
     90deg,
-    rgba(0,255,255,0.75),
-    rgba(255,0,255,0.75)
+    transparent,
+    var(--primary),
+    var(--secondary),
+    transparent
   );
-  animation: dividerBreathWide 3.6s ease-in-out infinite;
+
+  /* Uses EXISTING footer animation */
+  animation: glow-line 3s ease-in-out infinite;
 }
 /* ============================= */
 /* DOTS                         */
