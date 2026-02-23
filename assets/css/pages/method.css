@@ -156,13 +156,25 @@ body[data-page="method"] .method-section{
 
 /* ============================= */
 /* METHOD DIVIDER (MATCH FOOTER)*/
+/* FULL BLEED by canceling section padding */
 /* ============================= */
 .method-divider{
-  width: 100%;
+  width: auto;
   height: 1px;
   position: relative;
   overflow: hidden;
   margin-top: 14px;
+
+  /* cancel the section padding so it bleeds edge-to-edge */
+  margin-left: -24px;
+  margin-right: -24px;
+}
+
+@media (max-width: 520px){
+  .method-divider{
+    margin-left: -20px;
+    margin-right: -20px;
+  }
 }
 
 .method-divider::before{
