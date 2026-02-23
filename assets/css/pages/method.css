@@ -484,3 +484,41 @@ body[data-page="method"] .method-section{
     transform: none;
   }
 }
+/* ============================= */
+/* ACCORDION CHEVRON INDICATOR  */
+/* ============================= */
+
+.method-acc-btn{
+  position: relative;
+  padding-right: 48px; /* room for arrow */
+}
+
+/* Down arrow */
+.method-acc-btn::after{
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+
+  border-right: 2px solid rgba(255,255,255,0.85);
+  border-bottom: 2px solid rgba(255,255,255,0.85);
+
+  transform: translateY(-50%) rotate(45deg);
+  transition:
+    transform 420ms cubic-bezier(.2,.8,.2,1),
+    border-color 300ms ease;
+
+  opacity: 0.8;
+}
+
+/* Glow when open */
+.method-acc-item.is-open .method-acc-btn::after{
+  transform: translateY(-50%) rotate(-135deg);
+  border-color: rgba(0,255,255,0.95);
+
+  box-shadow:
+    0 0 6px rgba(0,255,255,0.6),
+    0 0 10px rgba(255,0,255,0.4);
+}
