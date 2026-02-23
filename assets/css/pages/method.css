@@ -6,14 +6,30 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* GLOBAL SECTION LAYOUT        */
+/* GLOBAL GUTTERS (ONE SOURCE)  */
+/* ============================= */
+body[data-page="method"]{
+  --method-gutter: 24px;          /* normal page side padding */
+  --method-dot-safe: 44px;        /* reserved space for dots */
+}
+
+/* Mobile: slightly tighter */
+@media (max-width: 520px){
+  body[data-page="method"]{
+    --method-gutter: 18px;
+    --method-dot-safe: 44px;      /* keep dots safe area */
+  }
+}
+
+/* ============================= */
+/* SECTION LAYOUT (NO HACKS)     */
 /* ============================= */
 .method-section{
   min-height: auto;
   box-sizing: border-box;
 
-  /* NO horizontal padding here (divider needs full width like footer) */
-  padding: 110px 0 18px;
+  /* One rule: page padding + extra space on right for dots */
+  padding: 110px calc(var(--method-gutter) + var(--method-dot-safe)) 18px var(--method-gutter);
 
   display: grid;
   gap: 10px;
@@ -29,7 +45,7 @@ body[data-page="method"] .method-section{
 
 @media (max-width: 520px){
   .method-section{
-    padding: 78px 0 18px;
+    padding-top: 78px;
   }
 
   #section-2,
@@ -39,47 +55,23 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* CONTENT PADDING (GLOBAL)     */
-/* ============================= */
-:root{
-  --method-pad-desktop: 40px;
-  --method-pad-mobile: 28px;
-}
-
-.method-hero,
-.method-video,
-.method-image{
-  width: 100%;
-  padding: 0 var(--method-pad-desktop);
-  box-sizing: border-box;
-}
-
-@media (max-width: 520px){
-  .method-hero,
-  .method-video,
-  .method-image{
-    padding: 0 var(--method-pad-mobile);
-  }
-}
-
-/* ============================= */
-/* HERO                         */
+/* HERO / TEXT GLOBAL CENTERING  */
 /* ============================= */
 .method-hero{
+  width: 100%;
   text-align: center;
 }
 
-/* Center text globally */
 .method-title,
 .method-text{
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  max-width: 820px; /* keeps readable width */
+  max-width: 820px;
 }
 
 /* ============================= */
-/* BODY TEXT                    */
+/* BODY TEXT                     */
 /* ============================= */
 .method-text{
   font-family: "Montserrat", sans-serif;
@@ -90,7 +82,7 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* KICKER                       */
+/* KICKER                        */
 /* ============================= */
 .method-kicker{
   font-family: "Cormorant SC", serif;
@@ -111,7 +103,7 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* PURPLE TITLE (BREATHING)     */
+/* PURPLE TITLE (BREATHING)      */
 /* ============================= */
 .method-title{
   font-family: "Cormorant SC", serif;
@@ -119,7 +111,6 @@ body[data-page="method"] .method-section{
   font-size: clamp(28px, 6.7vw, 45px);
   line-height: 1.06;
   margin: 0 0 6px;
-
   color: #b400ff;
   animation: titleBreath 3.6s ease-in-out infinite;
 }
@@ -131,7 +122,6 @@ body[data-page="method"] .method-section{
       0 0 6px rgba(180,0,255,0.4),
       0 0 14px rgba(180,0,255,0.3);
   }
-
   50%{
     color: #d76bff;
     text-shadow:
@@ -141,12 +131,13 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* VIDEO                        */
+/* VIDEO                          */
 /* ============================= */
 .method-video{
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .video-shell{
@@ -177,21 +168,17 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* METHOD DIVIDER (EXACT FOOTER) */
+/* METHOD DIVIDER (FOOTER LOOK)  */
 /* ============================= */
-/* Works even if divider is placed inside padded containers */
+/* Full width because it sits inside a section that already manages padding */
 .method-divider{
   width: 100%;
   height: 1px;
   position: relative;
   overflow: hidden;
   margin-top: 14px;
-
-  /* If you ever place it inside a padded wrapper, this cancels that padding */
-  padding: 0;
 }
 
-/* Full-bleed line identical geometry to .footer::before */
 .method-divider::before{
   content: '';
   position: absolute;
@@ -199,7 +186,6 @@ body[data-page="method"] .method-section{
   left: 0;
   right: 0;
   height: 1px;
-
   background: linear-gradient(
     90deg,
     transparent,
@@ -211,7 +197,7 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* DOTS                         */
+/* DOTS (UNCHANGED)              */
 /* ============================= */
 .method-dots{
   position: fixed !important;
@@ -248,7 +234,7 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* SCAN BAND                    */
+/* SCAN BAND (KICKER)            */
 /* ============================= */
 @keyframes scanBand{
   0%   { background-position: 200% 0; }
@@ -283,11 +269,12 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* SECTION IMAGE                */
+/* SECTION IMAGE                 */
 /* ============================= */
 .method-image{
   display: flex;
   justify-content: center;
+  width: 100%;
   margin-top: 18px;
 }
 
