@@ -1,18 +1,11 @@
-/* Method page layout (Home fonts: Cormorant SC + Montserrat) */
-
-/* Prevent side-scroll without breaking background */
+/* Prevent side-scroll */
 body[data-page="method"],
 body[data-page="method"] .method-page,
 body[data-page="method"] .method-section{
   overflow-x: clip;
 }
 
-/* Page container */
-.method-page{
-  position: relative;
-}
-
-/* Each section */
+/* Section layout */
 .method-section{
   min-height: 100svh;
   box-sizing: border-box;
@@ -34,18 +27,37 @@ body[data-page="method"] .method-section{
   width: min(92vw, 680px);
 }
 
-/* THE S.O.S. MAGIC METHOD → ALL CAPS, Cormorant SC */
-.method-kicker{
-  margin: 0 0 6px;
-  font-family: "Cormorant SC", serif;
-  font-weight: 600;
-  font-size: clamp(18px, 4.2vw, 22px);
-  letter-spacing: 0.10em;
-  text-transform: uppercase;
-  color: rgba(0,255,255,0.85);
+/* BODY TEXT (base reference size) */
+.method-text{
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(16px, 4vw, 20px);
+  line-height: 1.5;
+  margin: 0 0 4px;
+  color: rgba(255,255,255,0.85);
 }
 
-/* Your Emotional First Aid → Cormorant SC, normal case */
+/* Kicker container */
+.method-kicker{
+  font-family: "Cormorant SC", serif;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+/* THE S.O.S. MAGIC → 150% of body */
+.method-line-small{
+  display: block;
+  font-size: 1.5em;
+  letter-spacing: 0.1em;
+}
+
+/* METHOD → 200% of body */
+.method-line-big{
+  display: block;
+  font-size: 2em;
+  letter-spacing: 0.12em;
+}
+
+/* Title */
 .method-title{
   font-family: "Cormorant SC", serif;
   font-weight: 700;
@@ -54,16 +66,6 @@ body[data-page="method"] .method-section{
   margin: 0 0 6px;
   color: rgba(180,0,255,0.95);
   text-shadow: 0 0 14px rgba(255,0,255,0.35);
-  text-transform: none;
-}
-
-.method-text{
-  font-family: "Montserrat", sans-serif;
-  font-size: clamp(16px, 4vw, 20px);
-  line-height: 1.5;
-  margin: 0 0 4px;
-  color: rgba(255,255,255,0.85);
-  text-wrap: balance;
 }
 
 /* Video */
@@ -81,7 +83,7 @@ body[data-page="method"] .method-section{
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
 
-  aspect-ratio: 120 / 163; /* 2160x2934 */
+  aspect-ratio: 120 / 163;
   width: min(92vw, 320px);
   max-height: calc(100svh - 260px);
 }
@@ -101,13 +103,11 @@ body[data-page="method"] .method-section{
   }
 }
 
-/* Divider (footer-style full bleed without layout shift) */
+/* Divider */
 .method-divider{
   position: relative;
   width: 100%;
   height: 2px;
-  border-radius: 2px;
-  margin-top: 2px;
   overflow: clip;
 }
 
@@ -115,11 +115,9 @@ body[data-page="method"] .method-section{
   content: "";
   position: absolute;
   left: 50%;
-  top: 0;
   transform: translateX(-50%);
   width: 100vw;
   height: 2px;
-  border-radius: 2px;
   background: linear-gradient(
     90deg,
     rgba(0,255,255,0.75),
@@ -133,11 +131,11 @@ body[data-page="method"] .method-section{
   50%{ opacity:1; filter: blur(1px); }
 }
 
-/* Side navigation dots (LOCKED POSITION — no wobble) */
+/* Dots (locked position) */
 .method-dots{
   position: fixed !important;
   right: 16px !important;
-  top: 50vh !important;          /* stable viewport anchor */
+  top: 50vh !important;
   transform: translateY(-50%);
   display: flex !important;
   flex-direction: column !important;
@@ -150,9 +148,7 @@ body[data-page="method"] .method-section{
   height: 8px;
   border-radius: 50%;
   border: 0;
-  padding: 0;
   background: rgba(255,255,255,0.28);
-  cursor: pointer;
 }
 
 .method-dots .dot.is-active{
@@ -163,20 +159,9 @@ body[data-page="method"] .method-section{
   );
   background-size: 200% 100%;
   animation: dotGlowShift 2.8s ease-in-out infinite;
-  transform: scale(1.18);
-  box-shadow: 0 0 12px rgba(0,255,255,.35),
-              0 0 18px rgba(255,0,255,.30);
 }
 
 @keyframes dotGlowShift{
-  0%,100%{
-    background-position: 0% 0%;
-    box-shadow: 0 0 10px rgba(0,255,255,.35),
-                0 0 16px rgba(255,0,255,.18);
-  }
-  50%{
-    background-position: 100% 0%;
-    box-shadow: 0 0 10px rgba(255,0,255,.38),
-                0 0 18px rgba(0,255,255,.18);
-  }
+  0%,100%{ background-position: 0% 0%; }
+  50%{ background-position: 100% 0%; }
 }
