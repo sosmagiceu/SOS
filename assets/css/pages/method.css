@@ -156,24 +156,21 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* METHOD DIVIDER (MATCH FOOTER) */
+/* ============================= */
+/* METHOD DIVIDER (MATCH FOOTER + TRUE BLEED) */
 /* ============================= */
 .method-divider{
   position: relative;
-  height: 1px;   /* same thickness as footer */
-  width: 100%;
-  margin-top: 14px;
+  height: 1px;
+  margin: 14px -40px 0 -40px; /* cancel global section padding */
 }
 
 .method-divider::before{
   content: '';
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-
-  /* Full-bleed, ignores section padding */
-  width: 100vw;
+  left: 0;
+  right: 0;
   height: 1px;
 
   background: linear-gradient(
@@ -184,8 +181,15 @@ body[data-page="method"] .method-section{
     transparent
   );
 
-  /* Uses EXISTING footer animation */
   animation: glow-line 3s ease-in-out infinite;
+}
+
+/* Mobile padding compensation */
+@media (max-width: 520px){
+  .method-divider{
+    margin-left: -28px;
+    margin-right: -28px;
+  }
 }
 /* ============================= */
 /* DOTS                         */
