@@ -252,3 +252,19 @@ body[data-page="method"] .method-text{
   -webkit-text-fill-color: transparent;
   animation: scanBand 2.2s linear infinite;
 }
+
+/* Section 2 image */
+.method-image{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.method-image img{
+  width: 75vw;          /* ~75% of screen width */
+  max-width: 900px;     /* prevents huge scaling on large screens */
+  height: auto;
+  border-radius: 18px;
+  display: block;
+}
