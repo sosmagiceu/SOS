@@ -16,9 +16,20 @@ body[data-page="method"] .method-section{
   align-content: start;
 }
 
+/* Reduce spacing for sections after first */
+#section-2,
+#section-3{
+  padding-top: 28px;
+}
+
 @media (max-width: 520px){
   .method-section{
     padding-top: 78px;
+  }
+
+  #section-2,
+  #section-3{
+    padding-top: 20px;
   }
 }
 
@@ -27,7 +38,7 @@ body[data-page="method"] .method-section{
   width: min(92vw, 680px);
 }
 
-/* BODY TEXT (base reference size) */
+/* BODY TEXT */
 .method-text{
   font-family: "Montserrat", sans-serif;
   font-size: clamp(16px, 4vw, 20px);
@@ -36,21 +47,21 @@ body[data-page="method"] .method-section{
   color: rgba(255,255,255,0.85);
 }
 
-/* Kicker container */
+/* Kicker */
 .method-kicker{
   font-family: "Cormorant SC", serif;
   color: #ffffff;
   margin-bottom: 6px;
 }
 
-/* THE S.O.S. MAGIC → 150% of body */
+/* THE S.O.S. MAGIC */
 .method-line-small{
   display: block;
   font-size: 1.3em;
   letter-spacing: 0.1em;
 }
 
-/* METHOD → 200% of body */
+/* METHOD */
 .method-line-big{
   display: block;
   font-size: 3em;
@@ -109,10 +120,7 @@ body[data-page="method"] .method-section{
   width: 100%;
   height: 2px;
   overflow: clip;
-
-  /* IMPORTANT: push divider to the bottom of each section
-     (fixes the "huge gap" before section 2) */
-  margin-top: auto;
+  margin-top: 14px; /* small controlled spacing */
 }
 
 .method-divider::before{
@@ -120,11 +128,8 @@ body[data-page="method"] .method-section{
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-
-  /* IMPORTANT: use stable viewport width first to avoid the "jump right" */
   width: 100svw;
   width: 100vw;
-
   height: 2px;
   background: linear-gradient(
     90deg,
@@ -139,7 +144,7 @@ body[data-page="method"] .method-section{
   50%{ opacity:1; filter: blur(1px); }
 }
 
-/* Dots (locked position) */
+/* Dots */
 .method-dots{
   position: fixed !important;
   right: 16px !important;
@@ -174,14 +179,12 @@ body[data-page="method"] .method-section{
   50%{ background-position: 100% 0%; }
 }
 
-
-/* --- Presents-style scan band effect (from home) --- */
+/* Scan band */
 @keyframes scanBand{
   0%   { background-position: 200% 0; }
   100% { background-position: 0% 0; }
 }
 
-/* Apply scan band to kicker lines (The S.O.S. Magic + METHOD) */
 .method-kicker .method-line-small,
 .method-kicker .method-line-big{
   position: relative;
@@ -194,7 +197,6 @@ body[data-page="method"] .method-section{
   position: absolute;
   inset: 0;
   pointer-events: none;
-
   background: linear-gradient(
     90deg,
     rgba(0,255,255,0) 0%,
