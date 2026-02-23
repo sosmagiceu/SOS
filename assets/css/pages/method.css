@@ -7,7 +7,7 @@ body[data-page="method"] .method-section{
 
 /* Section layout */
 .method-section{
-  min-height: 100svh;
+  min-height: auto;
   box-sizing: border-box;
   padding: 110px 18px 18px;
   display: grid;
