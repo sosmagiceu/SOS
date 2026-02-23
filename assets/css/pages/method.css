@@ -5,18 +5,23 @@ body[data-page="method"] .method-section{
   overflow-x: clip;
 }
 
-/* Section layout */
+/* ============================= */
+/* GLOBAL SECTION LAYOUT (ALL)  */
+/* ============================= */
 .method-section{
   min-height: auto;
   box-sizing: border-box;
-  padding: 110px 18px 18px 18px;
+
+  /* SAME horizontal padding for EVERY section */
+  padding: 110px 40px 18px 40px;
+
   display: grid;
   gap: 10px;
   justify-items: center;
   align-content: start;
 }
 
-/* Reduce spacing for sections after first */
+/* Slightly tighter top spacing for later sections */
 #section-2,
 #section-3{
   padding-top: 28px;
@@ -24,7 +29,7 @@ body[data-page="method"] .method-section{
 
 @media (max-width: 520px){
   .method-section{
-    padding-top: 78px;
+    padding: 78px 28px 18px 28px;
   }
 
   #section-2,
@@ -33,15 +38,15 @@ body[data-page="method"] .method-section{
   }
 }
 
-/* Hero container (CENTERED + protected from dots) */
-body[data-page="method"] .method-hero{
+/* ============================= */
+/* CONTENT CONTAINER            */
+/* ============================= */
+.method-hero{
   text-align: center;
   width: min(92vw, 680px);
-  padding: 0 40px;   /* symmetric spacing so layout stays centered */
-  box-sizing: border-box;
 }
 
-/* Force centering everywhere */
+/* Force centered text globally */
 body[data-page="method"] .method-title,
 body[data-page="method"] .method-text{
   text-align: center;
@@ -49,7 +54,9 @@ body[data-page="method"] .method-text{
   margin-right: auto;
 }
 
-/* BODY TEXT */
+/* ============================= */
+/* BODY TEXT                    */
+/* ============================= */
 .method-text{
   font-family: "Montserrat", sans-serif;
   font-size: clamp(16px, 4vw, 20px);
@@ -58,34 +65,37 @@ body[data-page="method"] .method-text{
   color: rgba(255,255,255,0.85);
 }
 
-/* Kicker */
+/* ============================= */
+/* KICKER                       */
+/* ============================= */
 .method-kicker{
   font-family: "Cormorant SC", serif;
   color: #ffffff;
   margin-bottom: 6px;
 }
 
-/* THE S.O.S. MAGIC */
 .method-line-small{
   display: block;
   font-size: 1.3em;
   letter-spacing: 0.1em;
 }
 
-/* METHOD */
 .method-line-big{
   display: block;
   font-size: 3em;
   letter-spacing: 0.12em;
 }
 
-/* Purple Title with breathing glow */
+/* ============================= */
+/* PURPLE TITLE (BREATHING)     */
+/* ============================= */
 .method-title{
   font-family: "Cormorant SC", serif;
   font-weight: 700;
   font-size: clamp(28px, 6.7vw, 45px);
   line-height: 1.06;
   margin: 0 0 6px;
+
   color: #b400ff;
   animation: titleBreath 3.6s ease-in-out infinite;
 }
@@ -106,7 +116,9 @@ body[data-page="method"] .method-text{
   }
 }
 
-/* Video */
+/* ============================= */
+/* VIDEO                        */
+/* ============================= */
 .method-video{
   display: flex;
   justify-content: center;
@@ -120,6 +132,7 @@ body[data-page="method"] .method-text{
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
+
   aspect-ratio: 120 / 163;
   width: min(92vw, 320px);
   max-height: calc(100svh - 260px);
@@ -140,7 +153,9 @@ body[data-page="method"] .method-text{
   }
 }
 
-/* Divider */
+/* ============================= */
+/* DIVIDER                      */
+/* ============================= */
 .method-divider{
   position: relative;
   width: 100%;
@@ -169,7 +184,9 @@ body[data-page="method"] .method-text{
   50%{ opacity:1; filter: blur(1px); }
 }
 
-/* Dots */
+/* ============================= */
+/* DOTS                         */
+/* ============================= */
 .method-dots{
   position: fixed !important;
   right: 16px !important;
@@ -204,7 +221,9 @@ body[data-page="method"] .method-text{
   50%{ background-position: 100% 0%; }
 }
 
-/* Scan band */
+/* ============================= */
+/* SCAN BAND                    */
+/* ============================= */
 @keyframes scanBand{
   0%   { background-position: 200% 0; }
   100% { background-position: 0% 0; }
@@ -237,7 +256,9 @@ body[data-page="method"] .method-text{
   animation: scanBand 2.2s linear infinite;
 }
 
-/* Section image */
+/* ============================= */
+/* SECTION IMAGE                */
+/* ============================= */
 .method-image{
   width: 100%;
   display: flex;
