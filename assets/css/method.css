@@ -1,14 +1,11 @@
-/* Prevent side-scroll
-   Clip on the page/root, not each section.
-   Clipping on .method-section was cutting off the full-bleed divider,
-   making it look misaligned vs the footer's top glow line.
-*/
+/* Prevent side-scroll */
 body[data-page="method"],
 body[data-page="method"] .method-page{
   overflow-x: clip;
 }
 
-/* Allow full-bleed elements (like .method-divider) to extend to the edges */
+/* IMPORTANT:
+   Do NOT clip the section itself or it will cut off the full-bleed divider */
 body[data-page="method"] .method-section{
   overflow-x: visible;
 }
@@ -92,16 +89,17 @@ body[data-page="method"] .method-section{
   letter-spacing: 0.1em;
 }
 
-.method-line-mid{
-  display: block;
-  font-size: clamp(1.8em, 4.8vw, 2.35em);
-  letter-spacing: 0.11em;
-}
-
 .method-line-big{
   display: block;
   font-size: 3em;
   letter-spacing: 0.12em;
+}
+
+/* Middle ground between small and big (used for "Why it works?") */
+.method-line-mid{
+  display: block;
+  font-size: clamp(1.8em, 4.8vw, 2.35em);
+  letter-spacing: 0.11em;
 }
 
 /* ============================= */
@@ -172,21 +170,22 @@ body[data-page="method"] .method-section{
 
 /* ============================= */
 /* METHOD DIVIDER (MATCH FOOTER) */
-/* TRUE FULL BLEED               */
+/* TRUE FULL BLEED (NO MARGINS)  */
 /* ============================= */
 .method-divider{
   height: 1px;
   position: relative;
+
   margin-top: 14px;
 
-  /* IMPORTANT: give it real width inside the grid */
+  /* inside grid: stretch across column */
   width: 100%;
   justify-self: stretch;
 
-  /* allow the pseudo element to extend */
+  /* stop cropping behavior */
   overflow: visible;
 
-  /* no negative margin hacks */
+  /* remove the fake full width */
   margin-left: 0;
   margin-right: 0;
 }
@@ -196,7 +195,7 @@ body[data-page="method"] .method-section{
   position: absolute;
   top: 0;
 
-  /* real viewport-wide line, centered */
+  /* REAL full viewport width */
   width: 100vw;
   left: 50%;
   transform: translateX(-50%);
