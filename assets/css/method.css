@@ -90,17 +90,16 @@ body[data-page="method"] .method-section{
   letter-spacing: 0.1em;
 }
 
-.method-line-big{
-  display: block;
-  font-size: 3em;
-  letter-spacing: 0.12em;
-}
-
-/* ✅ Added: middle-ground size between small and big */
 .method-line-mid{
   display: block;
   font-size: clamp(1.8em, 4.8vw, 2.35em);
   letter-spacing: 0.11em;
+}
+
+.method-line-big{
+  display: block;
+  font-size: 3em;
+  letter-spacing: 0.12em;
 }
 
 /* ============================= */
