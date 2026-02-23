@@ -1,11 +1,16 @@
-/* Prevent side-scroll */
+/* Prevent side-scroll without breaking background */
 body[data-page="method"],
 body[data-page="method"] .method-page,
 body[data-page="method"] .method-section{
   overflow-x: clip;
 }
 
-/* Section layout */
+/* Page container */
+.method-page{
+  position: relative;
+}
+
+/* Each section */
 .method-section{
   min-height: 100svh;
   box-sizing: border-box;
@@ -16,9 +21,17 @@ body[data-page="method"] .method-section{
   align-content: start;
 }
 
+/* Reduce top spacing for sections after the first (≈75% less) */
+.method-section + .method-section{
+  padding-top: 28px;
+}
+
 @media (max-width: 520px){
   .method-section{
     padding-top: 78px;
+  }
+  .method-section + .method-section{
+    padding-top: 20px;
   }
 }
 
@@ -36,24 +49,24 @@ body[data-page="method"] .method-section{
   color: rgba(255,255,255,0.85);
 }
 
-/* Kicker container */
+/* Kicker */
 .method-kicker{
   font-family: "Cormorant SC", serif;
   color: #ffffff;
   margin-bottom: 6px;
 }
 
-/* THE S.O.S. MAGIC → 150% of body */
+/* THE S.O.S. Magic */
 .method-line-small{
   display: block;
-  font-size: 1.3em;
+  font-size: 1.5em;
   letter-spacing: 0.1em;
 }
 
-/* METHOD → 200% of body */
+/* METHOD */
 .method-line-big{
   display: block;
-  font-size: 3em;
+  font-size: 2em;
   letter-spacing: 0.12em;
 }
 
@@ -96,13 +109,6 @@ body[data-page="method"] .method-section{
   display: block;
 }
 
-@media (max-width: 520px){
-  .video-shell{
-    width: min(92vw, 300px);
-    max-height: calc(100svh - 240px);
-  }
-}
-
 /* Divider */
 .method-divider{
   position: relative;
@@ -131,7 +137,42 @@ body[data-page="method"] .method-section{
   50%{ opacity:1; filter: blur(1px); }
 }
 
-/* Dots (locked position) */
+/* Scanband effect */
+@keyframes scanBand{
+  0%   { background-position: 200% 0; }
+  100% { background-position: 0% 0; }
+}
+
+.method-kicker .method-line-small,
+.method-kicker .method-line-big{
+  position: relative;
+}
+
+.method-kicker .method-line-small::after,
+.method-kicker .method-line-big::after{
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0,255,255,0) 0%,
+    rgba(0,255,255,0) 42%,
+    rgba(0,255,255,1) 48%,
+    rgba(255,0,255,1) 52%,
+    rgba(255,0,255,0) 58%,
+    rgba(255,0,255,0) 100%
+  );
+
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: scanBand 2.2s linear infinite;
+}
+
+/* Side navigation dots */
 .method-dots{
   position: fixed !important;
   right: 16px !important;
@@ -164,41 +205,4 @@ body[data-page="method"] .method-section{
 @keyframes dotGlowShift{
   0%,100%{ background-position: 0% 0%; }
   50%{ background-position: 100% 0%; }
-}
-
-
-/* --- Presents-style scan band effect (from home) --- */
-@keyframes scanBand{
-  0%   { background-position: 200% 0; }
-  100% { background-position: 0% 0; }
-}
-
-
-/* Apply scan band to kicker lines (The S.O.S. Magic + METHOD) */
-.method-kicker .method-line-small,
-.method-kicker .method-line-big{
-  position: relative;
-  display: block;
-}
-
-.method-kicker .method-line-small::after,
-.method-kicker .method-line-big::after{
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-
-  background: linear-gradient(
-    90deg,
-    rgba(0,255,255,0) 0%,
-    rgba(0,255,255,0) 42%,
-    rgba(0,255,255,1) 48%,
-    rgba(255,0,255,1) 52%,
-    rgba(255,0,255,0) 58%,
-    rgba(255,0,255,0) 100%
-  );
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: scanBand 2.2s linear infinite;
 }
