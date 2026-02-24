@@ -708,3 +708,41 @@ body[data-page="method"] .method-section{
     height: 42px;
   }
 }
+/* ============================= */
+/* SECTION 4 GALLERY SIZE FIX    */
+/* (Stops Section 4 getting huge)*/
+/* ============================= */
+
+#section-4 .method-gallery{
+  max-width: 820px;        /* match your content width */
+  margin-top: 14px;
+}
+
+#section-4 .gallery-viewport{
+  padding: 10px 48px;      /* smaller side padding = less visual bulk */
+}
+
+/* Make cards a sane size on desktop and mobile */
+#section-4 .gallery-item{
+  flex: 0 0 320px;         /* fixed card width instead of massive vw */
+}
+
+/* Cap image height so the section doesn't grow stupidly tall */
+#section-4 .gallery-item img{
+  width: 100%;
+  height: clamp(340px, 52vh, 520px);
+  object-fit: cover;
+  display: block;
+
+  /* IMPORTANT: kill the aspect-ratio if you had it, it's what balloons the height */
+  aspect-ratio: auto;
+}
+
+@media (max-width: 520px){
+  #section-4 .gallery-item{
+    flex-basis: 78vw;      /* mobile: big but not insane */
+  }
+  #section-4 .gallery-item img{
+    height: clamp(300px, 46vh, 440px);
+  }
+}
