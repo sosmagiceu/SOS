@@ -429,7 +429,8 @@ body[data-page="method"] .method-section{
   position: relative;
   z-index: 1;
 
-  padding: 0 16px 14px;
+  /* CLOSED = no vertical padding (prevents ghost space) */
+  padding: 0 16px 0;
 
   max-height: 0;
   opacity: 0;
@@ -439,7 +440,8 @@ body[data-page="method"] .method-section{
   transition:
     max-height 520ms cubic-bezier(.2,.8,.2,1),
     opacity 380ms ease,
-    transform 520ms cubic-bezier(.2,.8,.2,1);
+    transform 520ms cubic-bezier(.2,.8,.2,1),
+    padding 520ms cubic-bezier(.2,.8,.2,1);
 }
 
 /* open state toggled by JS on the item */
@@ -447,7 +449,7 @@ body[data-page="method"] .method-section{
   opacity: 1;
   transform: translateY(0);
   max-height: 420px; /* safe fallback; JS should override */
-  padding-top: 8px;
+  padding: 8px 16px 14px;
 }
 
 .method-acc-panel .method-text{
@@ -466,10 +468,11 @@ body[data-page="method"] .method-section{
     font-size: 13px;
   }
   .method-acc-panel{
-    padding: 0 14px 14px;
+    padding: 0 14px 0;
   }
   .method-acc-item.is-open .method-acc-panel{
     max-height: 520px;
+    padding: 8px 14px 14px;
   }
 }
 
@@ -611,19 +614,18 @@ body[data-page="method"] .method-section{
 
 .gallery-item img{
   width: 100%;
-  height: clamp(320px, 52vw, 440px);
+  height: auto;
   display: block;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
 }
 
-.gallery-controls{
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 12px;
-}
-
 .gallery-nav{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+
   width: 44px;
   height: 44px;
   border-radius: 14px;
@@ -658,6 +660,9 @@ body[data-page="method"] .method-section{
   pointer-events: none;
   animation: accGlowBreath 3.2s ease-in-out infinite;
 }
+
+.gallery-nav.prev{ left: 8px; }
+.gallery-nav.next{ right: 8px; }
 
 .gallery-nav.prev::after,
 .gallery-nav.next::after{
@@ -701,48 +706,5 @@ body[data-page="method"] .method-section{
   }
   .gallery-item{
     flex-basis: min(78vw, 340px);
-  }
-
-  .gallery-nav{
-    width: 42px;
-    height: 42px;
-  }
-}
-/* ============================= */
-/* SECTION 4 GALLERY SIZE FIX    */
-/* (Stops Section 4 getting huge)*/
-/* ============================= */
-
-#section-4 .method-gallery{
-  max-width: 820px;        /* match your content width */
-  margin-top: 14px;
-}
-
-#section-4 .gallery-viewport{
-  padding: 10px 48px;      /* smaller side padding = less visual bulk */
-}
-
-/* Make cards a sane size on desktop and mobile */
-#section-4 .gallery-item{
-  flex: 0 0 320px;         /* fixed card width instead of massive vw */
-}
-
-/* Cap image height so the section doesn't grow stupidly tall */
-#section-4 .gallery-item img{
-  width: 100%;
-  height: clamp(340px, 52vh, 520px);
-  object-fit: cover;
-  display: block;
-
-  /* IMPORTANT: kill the aspect-ratio if you had it, it's what balloons the height */
-  aspect-ratio: auto;
-}
-
-@media (max-width: 520px){
-  #section-4 .gallery-item{
-    flex-basis: 78vw;      /* mobile: big but not insane */
-  }
-  #section-4 .gallery-item img{
-    height: clamp(300px, 46vh, 440px);
   }
 }
