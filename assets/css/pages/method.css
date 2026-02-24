@@ -429,10 +429,8 @@ body[data-page="method"] .method-section{
   position: relative;
   z-index: 1;
 
-  /* CLOSED = no vertical padding (prevents ghost space) */
-  padding: 0 16px 0;
+  padding: 0 16px 14px;
 
-  /* animation setup */
   max-height: 0;
   opacity: 0;
   transform: translateY(-6px);
@@ -441,8 +439,7 @@ body[data-page="method"] .method-section{
   transition:
     max-height 520ms cubic-bezier(.2,.8,.2,1),
     opacity 380ms ease,
-    transform 520ms cubic-bezier(.2,.8,.2,1),
-    padding 520ms cubic-bezier(.2,.8,.2,1);
+    transform 520ms cubic-bezier(.2,.8,.2,1);
 }
 
 /* open state toggled by JS on the item */
@@ -450,7 +447,7 @@ body[data-page="method"] .method-section{
   opacity: 1;
   transform: translateY(0);
   max-height: 420px; /* safe fallback; JS should override */
-  padding: 8px 16px 14px;
+  padding-top: 8px;
 }
 
 .method-acc-panel .method-text{
@@ -469,12 +466,10 @@ body[data-page="method"] .method-section{
     font-size: 13px;
   }
   .method-acc-panel{
-    /* CLOSED */
-    padding: 0 14px 0;
+    padding: 0 14px 14px;
   }
   .method-acc-item.is-open .method-acc-panel{
     max-height: 520px;
-    padding: 8px 14px 14px;
   }
 }
 
@@ -544,39 +539,53 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* SECTION 4 CTA (MATCH ACCORDION) */
+/* SECTION 4 GALLERY CAROUSEL    */
+/* Center card + peeking sides   */
+/* Swipe + buttons               */
 /* ============================= */
 
-.method-cta{
+.method-gallery{
+  width: 100%;
+  max-width: 920px;
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  min-height: 64px;
-  padding: 14px 18px;
-
+  margin-top: 16px;
   border-radius: 18px;
-  text-decoration: none;
+}
+
+.gallery-viewport{
+  display: flex;
+  gap: 14px;
+
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
+  /* padding creates the “peek” effect */
+  padding: 12px 64px;
+
+  scrollbar-width: none; /* Firefox */
+}
+
+.gallery-viewport::-webkit-scrollbar{
+  display: none; /* Chrome/Safari */
+}
+
+.gallery-item{
+  scroll-snap-align: center;
+  flex: 0 0 min(68vw, 360px);
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
 
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
 
-  color: rgba(255,255,255,0.92);
- font-family: "Cormorant SC", serif;
-  font-weight: 600;
-  font-size: clamp(18px, 4vw, 20px);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-
-  cursor: pointer;
-  user-select: none;
-
-  transition: transform 180ms ease;
+  transform: translateZ(0);
 }
 
-.method-cta::before{
+.gallery-item::before{
   content: "";
   position: absolute;
   inset: -1px;
@@ -597,22 +606,102 @@ body[data-page="method"] .method-section{
 
   pointer-events: none;
   opacity: 0.55;
-  filter: blur(0px);
   animation: accGlowBreath 3.2s ease-in-out infinite;
 }
 
-.method-cta:hover{
-  transform: translateY(-1px);
+.gallery-item img{
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
 }
 
-.method-cta:focus-visible{
-  outline: 2px solid rgba(0,255,255,0.7);
-  outline-offset: 3px;
+.gallery-nav{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.28);
+  backdrop-filter: blur(10px);
+
+  cursor: pointer;
+}
+
+.gallery-nav::before{
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 14px;
+  padding: 1px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0,255,255,0.95),
+    rgba(255,0,255,0.95)
+  );
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  opacity: 0.55;
+  pointer-events: none;
+  animation: accGlowBreath 3.2s ease-in-out infinite;
+}
+
+.gallery-nav.prev{ left: 8px; }
+.gallery-nav.next{ right: 8px; }
+
+.gallery-nav.prev::after,
+.gallery-nav.next::after{
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+
+  background: linear-gradient(90deg, rgba(0,255,255,1), rgba(255,0,255,1));
+  background-size: 200% 100%;
+  animation: dotGlowShift 2.8s ease-in-out infinite;
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) padding-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  transform: translate(-50%, -50%) rotate(45deg);
+  opacity: 0.95;
+}
+
+.gallery-nav.prev::after{
+  border-left: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  transform: translate(-50%, -50%) rotate(225deg);
+}
+
+.gallery-nav.next::after{
+  border-right: 2px solid transparent;
+  border-top: 2px solid transparent;
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 @media (max-width: 520px){
-  .method-cta{
-    min-height: 60px;
-    padding: 12px 16px;
+  .gallery-viewport{
+    padding: 12px 52px;
+    gap: 12px;
+  }
+  .gallery-item{
+    flex-basis: min(78vw, 340px);
   }
 }

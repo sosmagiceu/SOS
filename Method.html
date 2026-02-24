@@ -18,6 +18,7 @@
 <script defer src="/assets/js/footer.js"></script>
 <script defer src="/assets/js/method-sections.js"></script>
 <script defer src="/assets/js/method-accordion.js"></script>
+<script defer src="/assets/js/method-gallery.js"></script>
 </head>
 
 <body data-page="method">
@@ -177,6 +178,28 @@
   <h2 class="method-title">
     Your way back to yourself.
   </h2>
+
+  <!-- Gallery carousel (center card + peeking sides) -->
+  <div class="method-gallery" aria-label="Deck gallery carousel">
+    <button class="gallery-nav prev" type="button" aria-label="Previous image"></button>
+
+    <div class="gallery-viewport" id="methodGallery" tabindex="0">
+      <!-- 3 placeholders (duplicate this block up to 25 images) -->
+      <a class="gallery-item" href="#" aria-label="Gallery image 1">
+        <img src="https://picsum.photos/800/1000?random=11" alt="Placeholder 1">
+      </a>
+
+      <a class="gallery-item" href="#" aria-label="Gallery image 2">
+        <img src="https://picsum.photos/800/1000?random=12" alt="Placeholder 2">
+      </a>
+
+      <a class="gallery-item" href="#" aria-label="Gallery image 3">
+        <img src="https://picsum.photos/800/1000?random=13" alt="Placeholder 3">
+      </a>
+    </div>
+
+    <button class="gallery-nav next" type="button" aria-label="Next image"></button>
+  </div>
 
   <div style="margin-top: 18px;">
     <a href="collection.html" class="method-cta">
