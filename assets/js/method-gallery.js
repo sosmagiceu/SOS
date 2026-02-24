@@ -11,15 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const n = originals.length;
   if (n < 2) return;
 
-  // -----------------------------
-  // Infinite loop (seamless-ish)
-  // -----------------------------
-  // We clone:
-  //   [last N] + [real N] + [first N]
-  // Then we start on the first real item (index N).
-  // While scrolling, if we drift into clone zones we shift scrollLeft by exactly one cycle width.
-  // Important: we keep CSS scroll-behavior as AUTO so the normalization is invisible.
+  // Make sure any CSS 'scroll-behavior: smooth' doesn't make the loop correction visible.
+  viewport.style.scrollBehavior = "auto";
 
+  // ---- clones for infinite loop: [last N] + [real N] + [first N]
   const cloneItem = (node) => {
     const c = node.cloneNode(true);
     c.classList.add("is-clone");
@@ -28,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return c;
   };
 
-  // Prepend clones of last N (keep order)
+  // Prepend clones of last N (in order)
   for (let i = n - 1; i >= 0; i--) {
     viewport.insertBefore(cloneItem(originals[i]), viewport.firstChild);
   }
@@ -39,19 +34,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let items = getItems();
 
-  const getSidePad = () => {
-    const cs = getComputedStyle(viewport);
-    const pl = parseFloat(cs.paddingLeft || "0");
-    return Number.isFinite(pl) ? pl : 0;
-  };
-
   const centerOnIndex = (idx, behavior = "smooth") => {
     const el = items[idx];
     if (!el) return;
-
-    // Center item
     const target = el.offsetLeft + el.offsetWidth / 2 - viewport.clientWidth / 2;
-
     viewport.scrollTo({ left: target, behavior });
   };
 
@@ -73,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const getCycleWidth = () => {
-    // Distance between first real item and the equivalent item in the appended clone block
+    // distance between first real and its copy in the appended clone block
     const firstReal = items[n];
     const firstAppendedClone = items[n * 2];
     if (!firstReal || !firstAppendedClone) return 0;
@@ -87,71 +73,113 @@ document.addEventListener("DOMContentLoaded", () => {
     cycleWidth = getCycleWidth();
   };
 
+  // Seamless normalization:
+  // If the active item is inside the left clone block (idx < n), jump forward one cycle.
+  // If inside the right clone block (idx >= 2n), jump backward one cycle.
+  // Because clones are identical, this should be visually seamless.
   const normalize = () => {
     if (!cycleWidth) return;
 
-    const sidePad = getSidePad();
-    const firstReal = items[n];
-    const firstAppendedClone = items[n * 2];
+    const idx = getActiveIndex();
 
-    if (!firstReal || !firstAppendedClone) return;
-
-    // Boundaries where "empty padding space" tends to appear.
-    // If we ever end up there, yank back into the real zone immediately.
-    const leftEdge = firstReal.offsetLeft - sidePad;
-    const rightEdge = firstAppendedClone.offsetLeft - sidePad;
-
-    // If we're in the left clone zone, jump forward one cycle.
-    if (viewport.scrollLeft <= leftEdge + 1) {
+    // NOTE: Do NOT do this with smooth scrolling. It must be instant.
+    if (idx < n) {
       viewport.scrollLeft += cycleWidth;
-      return;
-    }
-
-    // If we're in the right clone zone, jump backward one cycle.
-    if (viewport.scrollLeft >= rightEdge - 1) {
+    } else if (idx >= 2 * n) {
       viewport.scrollLeft -= cycleWidth;
-      return;
     }
   };
 
+  // -----------------------------
+  // Wheel / trackpad: 1 gesture = 1 slide
+  // -----------------------------
+  // Browsers fire a storm of wheel events on touchpads.
+  // We accumulate until a threshold and then move exactly one item.
+  let wheelAcc = 0;
+  let wheelLock = false;
+  const WHEEL_THRESHOLD = 40; // px-ish
+  const WHEEL_LOCK_MS = 420;
+
+  const onWheel = (e) => {
+    // Only handle horizontal intent:
+    // - deltaX clearly bigger than deltaY
+    // - OR user is doing shift+wheel (often horizontal)
+    const dx = e.deltaX;
+    const dy = e.deltaY;
+    const wantsHorizontal = Math.abs(dx) > Math.abs(dy) || e.shiftKey;
+
+    if (!wantsHorizontal) return;
+
+    // Stop native scroll, we'll do controlled steps
+    e.preventDefault();
+
+    if (wheelLock) return;
+
+    wheelAcc += (Math.abs(dx) > 0 ? dx : dy);
+
+    if (Math.abs(wheelAcc) < WHEEL_THRESHOLD) return;
+
+    const dir = wheelAcc > 0 ? 1 : -1;
+    wheelAcc = 0;
+    wheelLock = true;
+
+    const idx = getActiveIndex();
+    centerOnIndex(idx + dir, "smooth");
+
+    // allow the scroll-snap to settle, then normalize
+    setTimeout(() => {
+      normalize();
+      wheelLock = false;
+    }, WHEEL_LOCK_MS);
+  };
+
+  viewport.addEventListener("wheel", onWheel, { passive: false });
+
   // Buttons
   prevBtn?.addEventListener("click", () => {
-    centerOnIndex(getActiveIndex() - 1, "smooth");
+    const idx = getActiveIndex();
+    centerOnIndex(idx - 1, "smooth");
+    setTimeout(normalize, 420);
   });
 
   nextBtn?.addEventListener("click", () => {
-    centerOnIndex(getActiveIndex() + 1, "smooth");
+    const idx = getActiveIndex();
+    centerOnIndex(idx + 1, "smooth");
+    setTimeout(normalize, 420);
   });
 
-  // Keyboard support
+  // Keyboard
   viewport.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") {
       e.preventDefault();
-      centerOnIndex(getActiveIndex() - 1, "smooth");
+      const idx = getActiveIndex();
+      centerOnIndex(idx - 1, "smooth");
+      setTimeout(normalize, 420);
     }
     if (e.key === "ArrowRight") {
       e.preventDefault();
-      centerOnIndex(getActiveIndex() + 1, "smooth");
+      const idx = getActiveIndex();
+      centerOnIndex(idx + 1, "smooth");
+      setTimeout(normalize, 420);
     }
   });
 
-  // Normalize during manual scrolling (rAF for performance)
-  let rafId = 0;
+  // Normalize while user drags/swipes
+  let raf = 0;
   viewport.addEventListener(
     "scroll",
     () => {
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(normalize);
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(normalize);
     },
     { passive: true }
   );
 
-  // Resize
+  // Resize: keep current item centered
   window.addEventListener(
     "resize",
     () => {
       measure();
-      // Keep the currently active item centered after resize
       const idx = getActiveIndex();
       centerOnIndex(idx, "auto");
       normalize();
@@ -159,18 +187,16 @@ document.addEventListener("DOMContentLoaded", () => {
     { passive: true }
   );
 
-  // INIT:
-  // The "starts on empty frame" issue is usually because offsets are 0 before images/fonts settle.
-  // So we init on window load AND also retry a few frames until we have a usable cycleWidth.
+  // Init after layout is stable (images/fonts)
   const init = () => {
-    viewport.style.scrollBehavior = "auto"; // kills visible jumps during normalization
+    viewport.style.scrollBehavior = "auto";
     measure();
 
     let tries = 0;
     const tick = () => {
       measure();
-      if (cycleWidth > 0 || tries > 20) {
-        // Start centered on first REAL item
+      if (cycleWidth > 0 || tries > 24) {
+        // Start on first REAL item (picture 1)
         centerOnIndex(n, "auto");
         normalize();
         return;
@@ -182,6 +208,5 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   window.addEventListener("load", init, { once: true });
-  // fallback in case load already fired
   if (document.readyState === "complete") init();
 });
