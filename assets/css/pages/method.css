@@ -429,8 +429,10 @@ body[data-page="method"] .method-section{
   position: relative;
   z-index: 1;
 
-  padding: 0 16px 14px;
+  /* CLOSED = no vertical padding (prevents ghost space) */
+  padding: 0 16px 0;
 
+  /* animation setup */
   max-height: 0;
   opacity: 0;
   transform: translateY(-6px);
@@ -439,7 +441,8 @@ body[data-page="method"] .method-section{
   transition:
     max-height 520ms cubic-bezier(.2,.8,.2,1),
     opacity 380ms ease,
-    transform 520ms cubic-bezier(.2,.8,.2,1);
+    transform 520ms cubic-bezier(.2,.8,.2,1),
+    padding 520ms cubic-bezier(.2,.8,.2,1);
 }
 
 /* open state toggled by JS on the item */
@@ -447,7 +450,7 @@ body[data-page="method"] .method-section{
   opacity: 1;
   transform: translateY(0);
   max-height: 420px; /* safe fallback; JS should override */
-  padding-top: 8px;
+  padding: 8px 16px 14px;
 }
 
 .method-acc-panel .method-text{
@@ -466,10 +469,12 @@ body[data-page="method"] .method-section{
     font-size: 13px;
   }
   .method-acc-panel{
-    padding: 0 14px 14px;
+    /* CLOSED */
+    padding: 0 14px 0;
   }
   .method-acc-item.is-open .method-acc-panel{
     max-height: 520px;
+    padding: 8px 14px 14px;
   }
 }
 
@@ -536,4 +541,77 @@ body[data-page="method"] .method-section{
     0 0 8px rgba(0,255,255,0.9),
     0 0 14px rgba(255,0,255,0.8),
     0 0 20px rgba(0,255,255,0.5);
+}
+
+/* ============================= */
+/* SECTION 4 CTA (MATCH ACCORDION) */
+/* ============================= */
+
+.method-cta{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 64px;
+  padding: 14px 18px;
+
+  border-radius: 18px;
+  text-decoration: none;
+
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.28);
+  backdrop-filter: blur(10px);
+
+  color: rgba(255,255,255,0.92);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: clamp(16px, 3.8vw, 18px);
+  letter-spacing: 0.01em;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition: transform 180ms ease;
+}
+
+.method-cta::before{
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 18px;
+  padding: 1px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0,255,255,0.95),
+    rgba(255,0,255,0.95)
+  );
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  pointer-events: none;
+  opacity: 0.55;
+  filter: blur(0px);
+  animation: accGlowBreath 3.2s ease-in-out infinite;
+}
+
+.method-cta:hover{
+  transform: translateY(-1px);
+}
+
+.method-cta:focus-visible{
+  outline: 2px solid rgba(0,255,255,0.7);
+  outline-offset: 3px;
+}
+
+@media (max-width: 520px){
+  .method-cta{
+    min-height: 60px;
+    padding: 12px 16px;
+  }
 }
