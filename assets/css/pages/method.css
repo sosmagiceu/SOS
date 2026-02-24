@@ -553,6 +553,14 @@ body[data-page="method"] .method-section{
   position: relative;
   margin-top: 16px;
   border-radius: 18px;
+
+  /*
+    Section layout uses CSS Grid.
+    A scrollable flex row inside a grid item can accidentally make the grid
+    item size itself to its *scroll width* (aka: the whole section "blows up"
+    off-screen) unless we explicitly allow it to shrink.
+  */
+  min-width: 0;
 }
 
 .gallery-viewport{
@@ -567,20 +575,14 @@ body[data-page="method"] .method-section{
 
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  overscroll-behavior-y: contain;
   scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
 
-  /* padding creates the “peek” effect (half vertical) */
-  padding: 6px 64px;
-  scroll-padding: 0 64px;
-
-  /* stop the weird up/down drag on touchpads/touch */
-  touch-action: pan-x;
-  -ms-touch-action: pan-x;
+  /* padding creates the “peek” effect */
+  padding: 12px 64px;
 
   scrollbar-width: none; /* Firefox */
 }
-
 
 .gallery-viewport::-webkit-scrollbar{
   display: none; /* Chrome/Safari */
@@ -593,11 +595,24 @@ body[data-page="method"] .method-section{
   position: relative;
   overflow: hidden;
 
+  /* Override any global ".gallery-item" styles from the parallax bundle */
+  height: auto;
+  aspect-ratio: auto;
+
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
 
   transform: translateZ(0);
+}
+
+/* The parallax bundle has a generic .gallery-item:hover animation.
+   For this horizontal carousel it causes layout/scroll weirdness.
+   Keep our items stable. */
+.method-gallery .gallery-item:hover{
+  transform: translateZ(0);
+  box-shadow: none;
+  z-index: auto;
 }
 
 .gallery-item::before{
@@ -682,42 +697,106 @@ body[data-page="method"] .method-section{
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
 
-  background: linear-gradient(90deg, rgba(0,255,255,1), rgba(255,0,255,1));
-  background-size: 200% 100%;
-  animation: dotGlowShift 2.8s ease-in-out infinite;
-
-  -webkit-mask:
-    linear-gradient(#000 0 0) padding-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  /* simple, reliable chevron (the previous one was doing interpretive dance) */
+  border-right: 2px solid rgba(255,255,255,0.92);
+  border-top: 2px solid rgba(255,255,255,0.92);
 
   transform: translate(-50%, -50%) rotate(45deg);
   opacity: 0.95;
+
+  filter:
+    drop-shadow(0 0 6px rgba(0,255,255,0.35))
+    drop-shadow(0 0 10px rgba(255,0,255,0.25));
 }
 
 .gallery-nav.prev::after{
-  border-left: 2px solid transparent;
-  border-bottom: 2px solid transparent;
+  /* left arrow */
   transform: translate(-50%, -50%) rotate(225deg);
-}
-
-.gallery-nav.next::after{
-  border-right: 2px solid transparent;
-  border-top: 2px solid transparent;
-  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 @media (max-width: 520px){
   .gallery-viewport{
-    padding: 6px 52px;
-    scroll-padding: 0 52px;
+    padding: 12px 52px;
     gap: 12px;
   }
   .gallery-item{
     flex-basis: min(78vw, 340px);
   }
+}
+
+/* ============================= */
+/* SECTION 4 CTA BUTTON          */
+/* ============================= */
+.method-cta{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 14px 26px;
+  border-radius: 999px;
+
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  color: rgba(255,255,255,0.95);
+  text-decoration: none;
+
+  position: relative;
+  isolation: isolate;
+
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.28);
+  backdrop-filter: blur(10px);
+
+  transition: transform 180ms ease, box-shadow 220ms ease, color 220ms ease;
+}
+
+.method-cta::before{
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 999px;
+  padding: 1px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0,255,255,0.95),
+    rgba(255,0,255,0.95)
+  );
+  background-size: 200% 100%;
+  animation: dotGlowShift 2.8s ease-in-out infinite;
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  opacity: 0.75;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.method-cta:hover{
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 14px rgba(0,255,255,0.20),
+    0 0 20px rgba(255,0,255,0.14);
+  color: #ffffff;
+}
+
+.method-cta:active{
+  transform: translateY(0px);
+}
+
+.method-cta:focus-visible{
+  outline: 2px solid rgba(0,255,255,0.75);
+  outline-offset: 4px;
 }
