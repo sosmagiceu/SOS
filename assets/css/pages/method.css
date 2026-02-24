@@ -564,10 +564,11 @@ body[data-page="method"] .method-section{
   backdrop-filter: blur(10px);
 
   color: rgba(255,255,255,0.92);
-  font-family: "Montserrat", sans-serif;
+ font-family: "Cormorant SC", serif;
   font-weight: 600;
-  font-size: clamp(16px, 3.8vw, 18px);
-  letter-spacing: 0.01em;
+  font-size: clamp(18px, 4vw, 20px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 
   cursor: pointer;
   user-select: none;
