@@ -553,11 +553,25 @@ body[data-page="method"] .method-section{
   position: relative;
   margin-top: 16px;
   border-radius: 18px;
+
+  /*
+    Section layout uses CSS Grid.
+    A scrollable flex row inside a grid item can accidentally make the grid
+    item size itself to its *scroll width* (aka: the whole section "blows up"
+    off-screen) unless we explicitly allow it to shrink.
+  */
+  min-width: 0;
 }
 
 .gallery-viewport{
   display: flex;
   gap: 14px;
+
+  /* Ensure the scroll container can shrink inside the grid */
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 
   overflow-x: auto;
   overscroll-behavior-x: contain;
@@ -581,11 +595,24 @@ body[data-page="method"] .method-section{
   position: relative;
   overflow: hidden;
 
+  /* Override any global ".gallery-item" styles from the parallax bundle */
+  height: auto;
+  aspect-ratio: auto;
+
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
 
   transform: translateZ(0);
+}
+
+/* The parallax bundle has a generic .gallery-item:hover animation.
+   For this horizontal carousel it causes layout/scroll weirdness.
+   Keep our items stable. */
+.method-gallery .gallery-item:hover{
+  transform: translateZ(0);
+  box-shadow: none;
+  z-index: auto;
 }
 
 .gallery-item::before{
