@@ -7,42 +7,51 @@ document.addEventListener("DOMContentLoaded", () => {
   const nextBtn = root?.querySelector(".gallery-controls .gallery-nav.next");
 
   const getItems = () => Array.from(viewport.querySelectorAll(".gallery-item"));
-  const originalItems = getItems();
-  const n = originalItems.length;
+  const originals = getItems();
+  const n = originals.length;
   if (n < 2) return;
 
-  // ------------------------------------------------------------
-  // Infinite loop strategy:
-  // - prepend clones of the last N items
-  // - append clones of the first N items
-  // - start centered on the first "real" item (index N)
-  // - when user scrolls into clone zones, jump scrollLeft by one cycle width
-  // ------------------------------------------------------------
+  // -----------------------------
+  // Infinite loop (seamless-ish)
+  // -----------------------------
+  // We clone:
+  //   [last N] + [real N] + [first N]
+  // Then we start on the first real item (index N).
+  // While scrolling, if we drift into clone zones we shift scrollLeft by exactly one cycle width.
+  // Important: we keep CSS scroll-behavior as AUTO so the normalization is invisible.
 
   const cloneItem = (node) => {
     const c = node.cloneNode(true);
     c.classList.add("is-clone");
-    // Keep clones from stealing focus in weird ways
+    c.setAttribute("aria-hidden", "true");
     c.setAttribute("tabindex", "-1");
     return c;
   };
 
-  // Prepend last N (in order)
+  // Prepend clones of last N (keep order)
   for (let i = n - 1; i >= 0; i--) {
-    viewport.insertBefore(cloneItem(originalItems[i]), viewport.firstChild);
+    viewport.insertBefore(cloneItem(originals[i]), viewport.firstChild);
   }
-  // Append first N (in order)
+  // Append clones of first N
   for (let i = 0; i < n; i++) {
-    viewport.appendChild(cloneItem(originalItems[i]));
+    viewport.appendChild(cloneItem(originals[i]));
   }
 
-  // Refresh list after cloning
   let items = getItems();
+
+  const getSidePad = () => {
+    const cs = getComputedStyle(viewport);
+    const pl = parseFloat(cs.paddingLeft || "0");
+    return Number.isFinite(pl) ? pl : 0;
+  };
 
   const centerOnIndex = (idx, behavior = "smooth") => {
     const el = items[idx];
     if (!el) return;
+
+    // Center item
     const target = el.offsetLeft + el.offsetWidth / 2 - viewport.clientWidth / 2;
+
     viewport.scrollTo({ left: target, behavior });
   };
 
@@ -51,20 +60,20 @@ document.addEventListener("DOMContentLoaded", () => {
     let bestIdx = 0;
     let bestDist = Infinity;
 
-    items.forEach((item, idx) => {
-      const center = item.offsetLeft + item.offsetWidth / 2;
-      const dist = Math.abs(center - viewCenter);
-      if (dist < bestDist) {
-        bestDist = dist;
-        bestIdx = idx;
+    for (let i = 0; i < items.length; i++) {
+      const it = items[i];
+      const c = it.offsetLeft + it.offsetWidth / 2;
+      const d = Math.abs(c - viewCenter);
+      if (d < bestDist) {
+        bestDist = d;
+        bestIdx = i;
       }
-    });
-
+    }
     return bestIdx;
   };
 
-  // Cycle width = distance between the first real item and the first appended clone (same image)
   const getCycleWidth = () => {
+    // Distance between first real item and the equivalent item in the appended clone block
     const firstReal = items[n];
     const firstAppendedClone = items[n * 2];
     if (!firstReal || !firstAppendedClone) return 0;
@@ -72,85 +81,107 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   let cycleWidth = 0;
+
   const measure = () => {
-    // re-cache in case layout changed
     items = getItems();
     cycleWidth = getCycleWidth();
   };
 
-  const normalizeIfNeeded = () => {
+  const normalize = () => {
     if (!cycleWidth) return;
 
+    const sidePad = getSidePad();
     const firstReal = items[n];
     const firstAppendedClone = items[n * 2];
-    const lastReal = items[n * 2 - 1];
 
-    // If we drift into the left clone zone, jump forward one cycle.
-    if (viewport.scrollLeft < firstReal.offsetLeft - 10) {
+    if (!firstReal || !firstAppendedClone) return;
+
+    // Boundaries where "empty padding space" tends to appear.
+    // If we ever end up there, yank back into the real zone immediately.
+    const leftEdge = firstReal.offsetLeft - sidePad;
+    const rightEdge = firstAppendedClone.offsetLeft - sidePad;
+
+    // If we're in the left clone zone, jump forward one cycle.
+    if (viewport.scrollLeft <= leftEdge + 1) {
       viewport.scrollLeft += cycleWidth;
       return;
     }
 
-    // If we drift into the right clone zone, jump back one cycle.
-    if (viewport.scrollLeft > firstAppendedClone.offsetLeft - 10) {
+    // If we're in the right clone zone, jump backward one cycle.
+    if (viewport.scrollLeft >= rightEdge - 1) {
       viewport.scrollLeft -= cycleWidth;
       return;
-    }
-
-    // Safety: if something gets weird and we go past the last real, normalize.
-    if (viewport.scrollLeft > lastReal.offsetLeft + lastReal.offsetWidth) {
-      viewport.scrollLeft -= cycleWidth;
     }
   };
 
   // Buttons
   prevBtn?.addEventListener("click", () => {
-    const idx = getActiveIndex();
-    centerOnIndex(idx - 1);
+    centerOnIndex(getActiveIndex() - 1, "smooth");
   });
 
   nextBtn?.addEventListener("click", () => {
-    const idx = getActiveIndex();
-    centerOnIndex(idx + 1);
+    centerOnIndex(getActiveIndex() + 1, "smooth");
   });
 
   // Keyboard support
   viewport.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") {
       e.preventDefault();
-      centerOnIndex(getActiveIndex() - 1);
+      centerOnIndex(getActiveIndex() - 1, "smooth");
     }
     if (e.key === "ArrowRight") {
       e.preventDefault();
-      centerOnIndex(getActiveIndex() + 1);
+      centerOnIndex(getActiveIndex() + 1, "smooth");
     }
   });
 
-  // Normalize during manual scrolling
+  // Normalize during manual scrolling (rAF for performance)
   let rafId = 0;
   viewport.addEventListener(
     "scroll",
     () => {
       cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(normalizeIfNeeded);
+      rafId = requestAnimationFrame(normalize);
     },
     { passive: true }
   );
 
-  // Handle resize
+  // Resize
   window.addEventListener(
     "resize",
     () => {
       measure();
-      // Keep a sane centered position on resize
-      centerOnIndex(getActiveIndex(), "auto");
+      // Keep the currently active item centered after resize
+      const idx = getActiveIndex();
+      centerOnIndex(idx, "auto");
+      normalize();
     },
     { passive: true }
   );
 
-  // Initial measure + start at first real item
-  requestAnimationFrame(() => {
+  // INIT:
+  // The "starts on empty frame" issue is usually because offsets are 0 before images/fonts settle.
+  // So we init on window load AND also retry a few frames until we have a usable cycleWidth.
+  const init = () => {
+    viewport.style.scrollBehavior = "auto"; // kills visible jumps during normalization
     measure();
-    centerOnIndex(n, "auto");
-  });
+
+    let tries = 0;
+    const tick = () => {
+      measure();
+      if (cycleWidth > 0 || tries > 20) {
+        // Start centered on first REAL item
+        centerOnIndex(n, "auto");
+        normalize();
+        return;
+      }
+      tries++;
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  window.addEventListener("load", init, { once: true });
+  // fallback in case load already fired
+  if (document.readyState === "complete") init();
 });
