@@ -485,3 +485,33 @@ body[data-page="method"] .method-section{
     transform: none;
   }
 }
+.method-cta{
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 40px;
+  text-decoration: none;
+
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+
+  color: #fff;
+  background: linear-gradient(
+    90deg,
+    rgba(0,255,255,0.95),
+    rgba(255,0,255,0.95)
+  );
+  background-size: 200% 100%;
+  animation: dotGlowShift 2.8s ease-in-out infinite;
+
+  box-shadow:
+    0 0 16px rgba(0,255,255,0.25),
+    0 0 22px rgba(255,0,255,0.2);
+
+  transition: transform 0.2s ease;
+}
+
+.method-cta:hover{
+  transform: translateY(-2px);
+}
