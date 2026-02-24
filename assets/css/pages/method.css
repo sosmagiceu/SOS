@@ -611,18 +611,19 @@ body[data-page="method"] .method-section{
 
 .gallery-item img{
   width: 100%;
-  height: auto;
+  height: clamp(320px, 52vw, 440px);
   display: block;
-  aspect-ratio: 4 / 5;
   object-fit: cover;
 }
 
-.gallery-nav{
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
+.gallery-controls{
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
 
+.gallery-nav{
   width: 44px;
   height: 44px;
   border-radius: 14px;
@@ -657,9 +658,6 @@ body[data-page="method"] .method-section{
   pointer-events: none;
   animation: accGlowBreath 3.2s ease-in-out infinite;
 }
-
-.gallery-nav.prev{ left: 8px; }
-.gallery-nav.next{ right: 8px; }
 
 .gallery-nav.prev::after,
 .gallery-nav.next::after{
@@ -703,5 +701,10 @@ body[data-page="method"] .method-section{
   }
   .gallery-item{
     flex-basis: min(78vw, 340px);
+  }
+
+  .gallery-nav{
+    width: 42px;
+    height: 42px;
   }
 }
