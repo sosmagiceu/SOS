@@ -33,7 +33,7 @@ body[data-page="method"] .method-section{
 }
 
 /* Slightly tighter top spacing for later sections */
-section-2,
+#section-2,
 #section-3,
 #section-4,
 #section-5,
