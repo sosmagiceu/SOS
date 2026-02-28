@@ -6,25 +6,22 @@
 
   if (!sections.length || !dots.length) return;
 
-  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
-  const getIndexById = (id) => sections.findIndex((s) => s.id === id);
-
-  const setActiveDot = (idx) => {
-    dots.forEach((d, i) => d.classList.toggle("is-active", i === idx));
+  const setActiveDotById = (sectionId) => {
+    dots.forEach((d) => d.classList.toggle("is-active", d.getAttribute("data-target") === sectionId));
   };
 
-  const scrollToIndex = (idx) => {
-    const i = clamp(idx, 0, sections.length - 1);
-    sections[i].scrollIntoView({ behavior: "smooth", block: "start" });
-    setActiveDot(i);
+  const scrollToId = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    setActiveDotById(id);
   };
 
   // Dot clicks
   dots.forEach((dot) => {
     dot.addEventListener("click", () => {
       const targetId = dot.getAttribute("data-target");
-      const idx = getIndexById(targetId);
-      if (idx >= 0) scrollToIndex(idx);
+      if (targetId) scrollToId(targetId);
     });
   });
 
@@ -36,8 +33,7 @@
         .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
       if (!visible) return;
-      const idx = sections.indexOf(visible.target);
-      if (idx >= 0) setActiveDot(idx);
+      if (visible.target && visible.target.id) setActiveDotById(visible.target.id);
     },
     {
       root: null,
