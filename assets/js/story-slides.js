@@ -1,5 +1,5 @@
 // assets/js/story-slides.js
-// Lightweight slide carousel: snap scrolling + arrows + dots.
+// Snap carousel: arrows + dots + sane wheel behaviour (one gesture = one slide)
 
 document.addEventListener("DOMContentLoaded", () => {
   const viewport = document.getElementById("storySlides");
@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Build dots
   const dots = [];
   if (dotsMount) {
+    dotsMount.innerHTML = "";
     slides.forEach((_, i) => {
       const b = document.createElement("button");
       b.type = "button";
@@ -82,18 +83,14 @@ document.addEventListener("DOMContentLoaded", () => {
     { passive: true }
   );
 
-  // Tame wheel/trackpad: one gesture = one slide (prevents hyperspeed on desktop)
+  // Wheel/trackpad: one gesture = one slide (prevents hyperspeed)
   let wheelLock = false;
   viewport.addEventListener(
     "wheel",
     (e) => {
-      // Only intercept vertical intent
       if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
-      if (wheelLock) {
-        e.preventDefault();
-        return;
-      }
       e.preventDefault();
+      if (wheelLock) return;
       wheelLock = true;
       const dir = e.deltaY > 0 ? 1 : -1;
       centerOnIndex(getActiveIndex() + dir);
@@ -102,11 +99,12 @@ document.addEventListener("DOMContentLoaded", () => {
     { passive: false }
   );
 
-  // Init
+  // Init after layout settles
   const init = () => {
     setActiveDot(0);
     centerOnIndex(0, "auto");
   };
+
   window.addEventListener("load", init, { once: true });
   if (document.readyState === "complete") init();
 });

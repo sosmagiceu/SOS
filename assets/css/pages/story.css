@@ -1,6 +1,5 @@
 /* assets/css/pages/story.css */
 
-/* Prevent horizontal overflow caused by scroll-snap rails */
 body[data-page="story"],
 body[data-page="story"] .story-page{
   overflow-x: clip;
@@ -20,30 +19,21 @@ body[data-page="story"] .story-page{
 }
 
 @media (max-width: 768px){
-  .story-section{
-    scroll-margin-top: 72px;
-  }
+  .story-section{ scroll-margin-top: 72px; }
 }
 
 @media (max-width: 520px){
-  .story-section{
-    padding: 78px 20px 18px 20px;
-  }
+  .story-section{ padding: 78px 20px 18px 20px; }
 }
 
-/* Tighter top spacing for sections after the intro */
+/* Tighter top spacing for later sections */
 #section-2,
-#section-3,
-#section-4{
+#section-3{
   padding-top: 28px;
 }
-
 @media (max-width: 520px){
   #section-2,
-  #section-3,
-  #section-4{
-    padding-top: 20px;
-  }
+  #section-3{ padding-top: 20px; }
 }
 
 /* ============================= */
@@ -80,18 +70,21 @@ body[data-page="story"] .story-page{
   animation: storyTitleBreath 3.6s ease-in-out infinite;
 }
 
+/* smaller purple title variant (used for closing lines) */
+.story-title.story-title-sm{
+  font-size: clamp(24px, 5.2vw, 38px);
+}
+
 @keyframes storyTitleBreath{
   0%,100%{
-    color: #b400ff;
-    text-shadow:
-      0 0 6px rgba(180,0,255,0.4),
-      0 0 14px rgba(180,0,255,0.3);
+    color:#b400ff;
+    text-shadow:0 0 6px rgba(180,0,255,0.4),
+               0 0 14px rgba(180,0,255,0.3);
   }
   50%{
-    color: #d76bff;
-    text-shadow:
-      0 0 10px rgba(215,107,255,0.7),
-      0 0 22px rgba(215,107,255,0.5);
+    color:#d76bff;
+    text-shadow:0 0 10px rgba(215,107,255,0.7),
+               0 0 22px rgba(215,107,255,0.5);
   }
 }
 
@@ -112,6 +105,13 @@ body[data-page="story"] .story-page{
   position: relative;
 }
 
+.story-line-big{
+  display: block;
+  font-size: 3em;
+  letter-spacing: 0.12em;
+  position: relative;
+}
+
 /* Inline kicker for first line inside paragraphs */
 .story-kicker-inline{
   font-family: "Cormorant SC", serif;
@@ -129,6 +129,7 @@ body[data-page="story"] .story-page{
 }
 
 .story-line-mid::after,
+.story-line-big::after,
 .story-kicker-inline::after,
 .slide-kicker::after{
   content: attr(data-text);
@@ -165,16 +166,28 @@ body[data-page="story"] .story-page{
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
-  width: min(92vw, 860px);
-  aspect-ratio: 16 / 9;
+
+  /* Vertical video sizing (match Method) */
+  aspect-ratio: 120 / 163;
+  width: min(92vw, 320px);
+  max-height: calc(100svh - 260px);
 }
 
 .story-player{
   width: 100%;
   height: 100%;
-  object-fit: fill; /* poster is off-res, so stretch to fit */
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
   background: #000;
   display: block;
+}
+
+@media (max-width: 520px){
+  .story-video-shell{
+    width: min(92vw, 300px);
+    max-height: calc(100svh - 240px);
+  }
 }
 
 /* ============================= */
@@ -208,18 +221,13 @@ body[data-page="story"] .story-page{
 }
 
 /* ============================= */
-
-
-
-@keyframes storyDotGlowShift{
+/* CTA BUTTON                    */
+/* ============================= */
+@keyframes storyGlowShift{
   0%,100%{ background-position: 0% 0%; }
   50%{ background-position: 100% 0%; }
 }
 
-
-/* ============================= */
-/* CTA BUTTON                    */
-/* ============================= */
 .story-cta{
   display: inline-flex;
   align-items: center;
@@ -254,7 +262,7 @@ body[data-page="story"] .story-page{
     rgba(255,0,255,0.95)
   );
   background-size: 200% 100%;
-  animation: storyDotGlowShift 2.8s ease-in-out infinite;
+  animation: storyGlowShift 2.8s ease-in-out infinite;
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
@@ -272,9 +280,7 @@ body[data-page="story"] .story-page{
     0 0 20px rgba(255,0,255,0.14);
   color: #ffffff;
 }
-
 .story-cta:active{ transform: translateY(0px); }
-
 .story-cta:focus-visible{
   outline: 2px solid rgba(0,255,255,0.75);
   outline-offset: 4px;
@@ -302,13 +308,15 @@ body[data-page="story"] .story-page{
   overscroll-behavior-x: contain;
   overscroll-behavior-y: contain;
   scroll-snap-type: x mandatory;
-  padding: 10px 64px;
-  scroll-padding: 0 64px;
+
+  /* More side space so nav buttons never cover slide text */
+  padding: 10px 96px;
+  scroll-padding: 0 96px;
+
   touch-action: pan-x;
   -ms-touch-action: pan-x;
   scrollbar-width: none;
 }
-
 .slides-viewport::-webkit-scrollbar{ display: none; }
 
 .story-slide{
@@ -320,7 +328,7 @@ body[data-page="story"] .story-page{
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
-  padding: 18px 18px 20px;
+  padding: 18px 22px 20px; /* a bit more inner padding */
   text-align: center;
 }
 
@@ -373,7 +381,7 @@ body[data-page="story"] .story-page{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 2;
+  z-index: 3;
   width: 44px;
   height: 44px;
   border-radius: 14px;
@@ -383,8 +391,8 @@ body[data-page="story"] .story-page{
   cursor: pointer;
 }
 
-.slides-nav.prev{ left: 8px; }
-.slides-nav.next{ right: 8px; }
+.slides-nav.prev{ left: 18px; }
+.slides-nav.next{ right: 18px; }
 
 .slides-nav::before{
   content: "";
@@ -423,7 +431,6 @@ body[data-page="story"] .story-page{
     drop-shadow(0 0 6px rgba(0,255,255,0.35))
     drop-shadow(0 0 10px rgba(255,0,255,0.25));
 }
-
 .slides-nav.prev::after{ transform: translate(-50%, -50%) rotate(225deg); }
 
 .slides-dots{
@@ -444,17 +451,19 @@ body[data-page="story"] .story-page{
 .slides-dots .sdot.is-active{
   background: linear-gradient(90deg, rgba(0,255,255,0.95), rgba(255,0,255,0.95));
   background-size: 200% 100%;
-  animation: storyDotGlowShift 2.8s ease-in-out infinite;
+  animation: storyGlowShift 2.8s ease-in-out infinite;
 }
 
 @media (max-width: 520px){
   .slides-viewport{
-    padding: 10px 52px;
-    scroll-padding: 0 52px;
+    padding: 10px 64px;
+    scroll-padding: 0 64px;
     gap: 12px;
   }
   .story-slide{
     flex-basis: min(86vw, 680px);
-    padding: 16px 16px 18px;
+    padding: 16px 18px 18px;
   }
+  .slides-nav.prev{ left: 12px; }
+  .slides-nav.next{ right: 12px; }
 }
