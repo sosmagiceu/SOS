@@ -17,7 +17,6 @@
   <script defer src="/assets/js/vendor/tooplate-2144-parallax-scripts.js"></script>
   <script defer src="/assets/js/header.js"></script>
   <script defer src="/assets/js/footer.js"></script>
-  <script defer src="/assets/js/story-sections.js"></script>
   <script defer src="/assets/js/story-slides.js"></script>
 </head>
 
@@ -25,14 +24,7 @@
   <div id="header-mount"></div>
 
   <main class="story-page">
-
-    <nav class="story-dots" aria-label="Section navigation">
-      <button class="dot is-active" type="button" data-target="section-1" aria-label="Go to section 1"></button>
-      <button class="dot" type="button" data-target="section-2" aria-label="Go to section 2"></button>
-      <button class="dot" type="button" data-target="section-3" aria-label="Go to section 3"></button>
-    </nav>
-
-    <!-- SECTION 1: Intro + Video + Purpose -->
+<!-- SECTION 1: Intro + Video -->
     <section id="section-1" class="story-section">
 
       <div class="story-hero">
@@ -55,12 +47,15 @@
                  poster="https://sosmagic.b-cdn.net/videos/story.png"
                  controls
                  playsinline
-                 preload="metadata"
-                 webkit-playsinline
-                 muted></video>
+                 preload="metadata"></video>
         </div>
       </div>
 
+      <div class="story-divider"></div>
+    </section>
+
+    <!-- SECTION 2: Purpose + CTA -->
+    <section id="section-2" class="story-section">
       <p class="story-text">
         <span class="story-kicker-inline" data-text="Our pain became our purpose:">Our pain became our purpose:</span>
         to build a lighthouse for those who are still fighting the waves…
@@ -73,11 +68,11 @@
       <div class="story-divider"></div>
     </section>
 
-    <!-- SECTION 2: Slides -->
-    <section id="section-2" class="story-section">
+    <!-- SECTION 3: Slides -->
+    <section id="section-3" class="story-section">
 
       <div class="story-kicker">
-        <span class="story-line-big" data-text="The Story in Six Slides">The Story in Six Slides</span>
+        <span class="story-line-mid" data-text="The Story in Six Slides">The Story in Six Slides</span>
       </div>
 
       <h1 class="story-title">How S.O.S. MAGIC Became a Method</h1>
@@ -154,8 +149,8 @@
       <div class="story-divider"></div>
     </section>
 
-    <!-- SECTION 3: Closing + CTA -->
-    <section id="section-3" class="story-section">
+    <!-- SECTION 4: Closing + CTA -->
+    <section id="section-4" class="story-section">
 
       <p class="story-text">
         <span class="story-kicker-inline" data-text="This is how S.O.S. MAGIC was born.">This is how S.O.S. MAGIC was born.</span>
