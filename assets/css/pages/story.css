@@ -33,15 +33,13 @@ body[data-page="story"] .story-page{
 
 /* Tighter top spacing for sections after the intro */
 #section-2,
-#section-3,
-#section-4{
+#section-3{
   padding-top: 28px;
 }
 
 @media (max-width: 520px){
   #section-2,
-  #section-3,
-  #section-4{
+#section-3{
     padding-top: 20px;
   }
 }
@@ -71,6 +69,7 @@ body[data-page="story"] .story-page{
 }
 
 .story-title{
+
   font-family: "Cormorant SC", serif;
   font-weight: 700;
   font-size: clamp(28px, 6.7vw, 45px);
@@ -93,6 +92,10 @@ body[data-page="story"] .story-page{
       0 0 10px rgba(215,107,255,0.7),
       0 0 22px rgba(215,107,255,0.5);
   }
+
+.story-title-sm{
+  font-size: clamp(22px, 5.2vw, 34px);
+}
 }
 
 /* ============================= */
@@ -109,6 +112,13 @@ body[data-page="story"] .story-page{
   display: block;
   font-size: 2em;
   letter-spacing: 0.11em;
+  position: relative;
+}
+
+.story-line-big{
+  display: block;
+  font-size: 3em;
+  letter-spacing: 0.12em;
   position: relative;
 }
 
@@ -165,16 +175,23 @@ body[data-page="story"] .story-page{
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
-  width: min(92vw, 860px);
-  aspect-ratio: 16 / 9;
+
+  aspect-ratio: 120 / 163;
+  width: min(92vw, 320px);
+  max-height: calc(100svh - 260px);
 }
 
-.story-player{
-  width: 100%;
-  height: 100%;
-  object-fit: fill; /* poster is off-res, so stretch to fit */
+ /* poster is off-res, so stretch to fit */
   background: #000;
   display: block;
+}
+
+
+@media (max-width: 520px){
+  .story-video-shell{
+    width: min(92vw, 300px);
+    max-height: calc(100svh - 240px);
+  }
 }
 
 /* ============================= */
