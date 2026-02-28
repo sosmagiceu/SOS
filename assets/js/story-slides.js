@@ -1,50 +1,110 @@
-document.addEventListener("DOMContentLoaded", () => {
+// assets/js/story-slides.js
+// Snap carousel: arrows + dots + sane wheel behaviour (one gesture = one slide)
 
+document.addEventListener("DOMContentLoaded", () => {
   const viewport = document.getElementById("storySlides");
   if (!viewport) return;
 
   const root = viewport.closest(".story-slides");
-  const prevBtn = root.querySelector(".slides-nav.prev");
-  const nextBtn = root.querySelector(".slides-nav.next");
+  const prevBtn = root?.querySelector(".slides-controls .slides-nav.prev");
+  const nextBtn = root?.querySelector(".slides-controls .slides-nav.next");
+  const dotsMount = document.getElementById("storySlidesDots");
 
   const slides = Array.from(viewport.querySelectorAll(".story-slide"));
   if (slides.length < 2) return;
 
-  const centerOnIndex = (index, behavior = "smooth") => {
-    const i = Math.max(0, Math.min(slides.length - 1, index));
-    const slide = slides[i];
-    const target =
-      slide.offsetLeft +
-      slide.offsetWidth / 2 -
-      viewport.clientWidth / 2;
-
+  const centerOnIndex = (idx, behavior = "smooth") => {
+    const i = Math.max(0, Math.min(slides.length - 1, idx));
+    const el = slides[i];
+    const target = el.offsetLeft + el.offsetWidth / 2 - viewport.clientWidth / 2;
     viewport.scrollTo({ left: target, behavior });
   };
 
   const getActiveIndex = () => {
-    const center = viewport.scrollLeft + viewport.clientWidth / 2;
-    let closest = 0;
-    let minDist = Infinity;
+    const viewCenter = viewport.scrollLeft + viewport.clientWidth / 2;
+    let bestIdx = 0;
+    let bestDist = Infinity;
 
-    slides.forEach((slide, i) => {
-      const slideCenter =
-        slide.offsetLeft + slide.offsetWidth / 2;
-      const dist = Math.abs(center - slideCenter);
-      if (dist < minDist) {
-        minDist = dist;
-        closest = i;
+    for (let i = 0; i < slides.length; i++) {
+      const s = slides[i];
+      const c = s.offsetLeft + s.offsetWidth / 2;
+      const d = Math.abs(c - viewCenter);
+      if (d < bestDist) {
+        bestDist = d;
+        bestIdx = i;
       }
-    });
-
-    return closest;
+    }
+    return bestIdx;
   };
 
-  prevBtn.addEventListener("click", () => {
-    centerOnIndex(getActiveIndex() - 1);
+  // Build dots
+  const dots = [];
+  if (dotsMount) {
+    dotsMount.innerHTML = "";
+    slides.forEach((_, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "sdot";
+      b.setAttribute("aria-label", `Go to slide ${i + 1}`);
+      b.addEventListener("click", () => centerOnIndex(i));
+      dotsMount.appendChild(b);
+      dots.push(b);
+    });
+  }
+
+  const setActiveDot = (idx) => {
+    dots.forEach((d, i) => d.classList.toggle("is-active", i === idx));
+  };
+
+  // Buttons
+  prevBtn?.addEventListener("click", () => centerOnIndex(getActiveIndex() - 1));
+  nextBtn?.addEventListener("click", () => centerOnIndex(getActiveIndex() + 1));
+
+  // Keyboard
+  viewport.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      centerOnIndex(getActiveIndex() - 1);
+    }
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      centerOnIndex(getActiveIndex() + 1);
+    }
   });
 
-  nextBtn.addEventListener("click", () => {
-    centerOnIndex(getActiveIndex() + 1);
-  });
+  // Keep dots synced
+  let rafId = 0;
+  viewport.addEventListener(
+    "scroll",
+    () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => setActiveDot(getActiveIndex()));
+    },
+    { passive: true }
+  );
 
+  // Wheel/trackpad: one gesture = one slide (prevents hyperspeed)
+  let wheelLock = false;
+  viewport.addEventListener(
+    "wheel",
+    (e) => {
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+      e.preventDefault();
+      if (wheelLock) return;
+      wheelLock = true;
+      const dir = e.deltaY > 0 ? 1 : -1;
+      centerOnIndex(getActiveIndex() + dir);
+      setTimeout(() => (wheelLock = false), 420);
+    },
+    { passive: false }
+  );
+
+  // Init after layout settles
+  const init = () => {
+    setActiveDot(0);
+    centerOnIndex(0, "auto");
+  };
+
+  window.addEventListener("load", init, { once: true });
+  if (document.readyState === "complete") init();
 });
