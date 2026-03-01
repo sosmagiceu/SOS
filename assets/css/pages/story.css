@@ -191,33 +191,20 @@ body[data-page="story"] .story-page{
 }
 
 /* ============================= */
-/* DIVIDER (FULL BLEED)          */
+/* DIVIDER (IMAGE)               */
 /* ============================= */
 .story-divider{
-  height: 1px;
-  position: relative;
   margin-top: 18px;
   width: 100%;
-  justify-self: stretch;
-  overflow: visible;
+  display: flex;
+  justify-content: center;
 }
 
-.story-divider::before{
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 100vw;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--primary),
-    var(--secondary),
-    transparent
-  );
-  animation: glow-line 3s ease-in-out infinite;
+.story-divider-img{
+  width: 100%;
+  max-width: 980px;
+  height: auto;
+  display: block;
 }
 
 /* ============================= */
@@ -310,8 +297,8 @@ body[data-page="story"] .story-page{
   scroll-snap-type: x mandatory;
 
   /* More side space so nav buttons never cover slide text */
-  padding: 10px 96px;
-  scroll-padding: 0 96px;
+  padding: 10px 110px;
+  scroll-padding: 0 110px;
 
   touch-action: pan-x;
   -ms-touch-action: pan-x;
@@ -321,7 +308,7 @@ body[data-page="story"] .story-page{
 
 .story-slide{
   scroll-snap-align: center;
-  flex: 0 0 min(82vw, 720px);
+  flex: 0 0 min(78vw, 660px);
   border-radius: 18px;
   position: relative;
   overflow: hidden;
@@ -391,8 +378,8 @@ body[data-page="story"] .story-page{
   cursor: pointer;
 }
 
-.slides-nav.prev{ left: 18px; }
-.slides-nav.next{ right: 18px; }
+.slides-nav.prev{ left: 6px; }
+.slides-nav.next{ right: 6px; }
 
 .slides-nav::before{
   content: "";
@@ -456,14 +443,14 @@ body[data-page="story"] .story-page{
 
 @media (max-width: 520px){
   .slides-viewport{
-    padding: 10px 64px;
-    scroll-padding: 0 64px;
+    padding: 10px 76px;
+    scroll-padding: 0 76px;
     gap: 12px;
   }
   .story-slide{
     flex-basis: min(86vw, 680px);
     padding: 16px 18px 18px;
   }
-  .slides-nav.prev{ left: 12px; }
-  .slides-nav.next{ right: 12px; }
+  .slides-nav.prev{ left: 6px; }
+  .slides-nav.next{ right: 6px; }
 }
