@@ -443,14 +443,17 @@ body[data-page="story"] .story-page{
 
 @media (max-width: 520px){
   .slides-viewport{
-    padding: 10px 76px;
-    scroll-padding: 0 76px;
+    /* Mobile-only: more side air so arrows never sit on top of text */
+    padding: 10px 88px;
+    scroll-padding: 0 88px;
     gap: 12px;
   }
   .story-slide{
-    flex-basis: min(86vw, 680px);
+    /* Slightly slimmer cards so the content stays clear of nav buttons */
+    flex-basis: min(82vw, 640px);
     padding: 16px 18px 18px;
   }
-  .slides-nav.prev{ left: 6px; }
-  .slides-nav.next{ right: 6px; }
+  /* Push arrows outward a bit (outside the card area) */
+  .slides-nav.prev{ left: -8px; }
+  .slides-nav.next{ right: -8px; }
 }
