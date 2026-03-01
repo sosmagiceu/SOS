@@ -447,12 +447,18 @@ body[data-page="story"] .story-page{
     padding: 10px 88px;
     scroll-padding: 0 88px;
     gap: 12px;
+
+    /* NEW: hide tiny left/right “peek” without changing card sizing again */
+    overflow-y: hidden;
+    clip-path: inset(0 12px 0 12px);
   }
+
   .story-slide{
     /* Slightly slimmer cards so the content stays clear of nav buttons */
     flex-basis: min(82vw, 640px);
     padding: 16px 18px 18px;
   }
+
   /* Push arrows outward a bit (outside the card area) */
   .slides-nav.prev{ left: -8px; }
   .slides-nav.next{ right: -8px; }
