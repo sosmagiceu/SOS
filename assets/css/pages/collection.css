@@ -187,8 +187,17 @@ body[data-page="collection"] .collection-page{
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
-  width: min(92vw, 900px);
-  aspect-ratio: 16 / 9;
+  /* Vertical video sizing (match Method/Story) */
+  aspect-ratio: 120 / 163;
+  width: min(92vw, 320px);
+  max-height: calc(100svh - 260px);
+}
+
+@media (max-width: 520px){
+  .collection-video-shell{
+    width: min(92vw, 300px);
+    max-height: calc(100svh - 240px);
+  }
 }
 
 .collection-player{
@@ -272,63 +281,44 @@ body[data-page="collection"] .collection-page{
 /* ============================= */
 .collection-cards{
   width: 100%;
-  max-width: 980px;
+  max-width: 920px;
   display: grid;
   gap: 14px;
   margin-top: 8px;
 }
 
 .collection-card{
+  /* Not a "card" anymore: keep layout, remove glass box */
   position: relative;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(0,0,0,0.28);
-  backdrop-filter: blur(10px);
-  overflow: hidden;
-  padding: 18px 18px 20px;
+  border: 0;
+  background: transparent;
+  backdrop-filter: none;
+  overflow: visible;
+  padding: 0;
   text-align: center;
 }
 
-.collection-card::before{
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: 18px;
-  padding: 1px;
-  background: linear-gradient(
-    90deg,
-    rgba(0,255,255,0.95),
-    rgba(255,0,255,0.95)
-  );
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-  opacity: 0.55;
-  animation: collectionCardBreath 3.2s ease-in-out infinite;
+/* Deck headings: 1st line scan-band (mid), 2nd line purple title */
+.collection-deck-head{
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  margin: 0 0 10px;
 }
 
-@keyframes collectionCardBreath{
-  0%,100%{ opacity: 0.45; filter: blur(0px); }
-  50%{ opacity: 0.95; filter: blur(0.6px); }
+.collection-deck-line{
+  font-size: 2em; /* medium scan-band */
+  letter-spacing: 0.11em;
 }
 
-.collection-card h3{
+.collection-deck-title{
   font-family: "Cormorant SC", serif;
   font-weight: 700;
-  font-size: clamp(22px, 4.6vw, 32px);
-  letter-spacing: 0.09em;
-  margin: 2px 0 8px;
-  color: rgba(255,255,255,0.95);
-}
-
-.collection-card .collection-subtitle{
-  font-family: "Montserrat", sans-serif;
-  font-weight: 600;
-  color: rgba(255,255,255,0.88);
-  margin: 0 0 10px;
+  font-size: clamp(22px, 5.6vw, 34px);
+  line-height: 1.06;
+  margin: 0;
+  color: #b400ff;
+  animation: collectionTitleBreath 3.6s ease-in-out infinite;
 }
 
 .collection-bullets{
@@ -421,7 +411,12 @@ body[data-page="collection"] .collection-page{
   mask-composite: exclude;
   pointer-events: none;
   opacity: 0.55;
-  animation: collectionCardBreath 3.2s ease-in-out infinite;
+  animation: collectionAccBreath 3.2s ease-in-out infinite;
+}
+
+@keyframes collectionAccBreath{
+  0%,100%{ opacity: 0.45; filter: blur(0px); }
+  50%{ opacity: 0.95; filter: blur(0.6px); }
 }
 
 .method-acc-btn{
@@ -499,26 +494,48 @@ body[data-page="collection"] .collection-page{
   margin: 0;
 }
 
-/* chevron */
+/* Chevron indicator (match Method: cyan→purple + down/up) */
 .method-acc-btn::after{
   content: "";
   position: absolute;
   right: 20px;
   top: 50%;
+
   width: 12px;
   height: 12px;
-  border-right: 2px solid rgba(255,255,255,0.92);
-  border-top: 2px solid rgba(255,255,255,0.92);
+
+  border-right: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0,255,255,1),
+    rgba(255,0,255,1)
+  );
+  background-size: 200% 100%;
+  animation: collectionGlowShift 2.8s ease-in-out infinite;
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) padding-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
   transform: translateY(-50%) rotate(45deg);
-  opacity: 0.95;
-  filter:
-    drop-shadow(0 0 6px rgba(0,255,255,0.35))
-    drop-shadow(0 0 10px rgba(255,0,255,0.25));
-  transition: transform 420ms cubic-bezier(.2,.8,.2,1);
+  transition: transform 420ms cubic-bezier(.2,.8,.2,1), box-shadow 300ms ease;
+
+  opacity: 0.9;
+  box-shadow:
+    0 0 4px rgba(0,255,255,0.35),
+    0 0 6px rgba(255,0,255,0.25);
 }
 
 .method-acc-item.is-open .method-acc-btn::after{
   transform: translateY(-50%) rotate(-135deg);
+  box-shadow:
+    0 0 8px rgba(0,255,255,0.9),
+    0 0 14px rgba(255,0,255,0.8),
+    0 0 20px rgba(0,255,255,0.5);
 }
 
 @media (max-width: 520px){
