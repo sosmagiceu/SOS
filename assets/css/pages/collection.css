@@ -1,6 +1,5 @@
 /* assets/css/pages/collection.css */
 
-/* Prevent horizontal overflow */
 body[data-page="collection"],
 body[data-page="collection"] .collection-page{
   overflow-x: clip;
@@ -27,26 +26,15 @@ body[data-page="collection"] .collection-page{
   .collection-section{ padding: 78px 20px 18px 20px; }
 }
 
-/* Slightly tighter top spacing for later sections */
-#section-2,
-#section-3{
-  padding-top: 28px;
-}
-
-@media (max-width: 520px){
-  #section-2,
-  #section-3{ padding-top: 20px; }
-}
-
 /* ============================= */
-/* TYPOGRAPHY                    */
+/* HERO / TEXT                   */
 /* ============================= */
 .collection-title,
 .collection-text{
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  max-width: 920px;
+  max-width: 880px;
 }
 
 .collection-text{
@@ -57,10 +45,11 @@ body[data-page="collection"] .collection-page{
   color: rgba(255,255,255,0.85);
 }
 
+/* Purple breathing title */
 .collection-title{
   font-family: "Cormorant SC", serif;
   font-weight: 700;
-  font-size: clamp(30px, 6.8vw, 50px);
+  font-size: clamp(28px, 6.7vw, 45px);
   line-height: 1.06;
   margin: 0;
   color: #b400ff;
@@ -88,40 +77,28 @@ body[data-page="collection"] .collection-page{
 .collection-kicker{
   font-family: "Cormorant SC", serif;
   color: #ffffff;
+  margin-bottom: 6px;
   text-align: center;
 }
 
-.collection-line-big{
-  display: block;
-  font-size: 3.1em;
-  letter-spacing: 0.12em;
-  position: relative;
-}
-
+/* FIXED: same base styling as top kicker */
 .collection-line-mid{
   display: block;
+  font-family: "Cormorant SC", serif;
+  font-weight: 600;
   font-size: 2em;
   letter-spacing: 0.11em;
   position: relative;
+  color: #ffffff; /* prevents black fallback */
 }
 
-.collection-inline-kicker{
-  font-family: "Cormorant SC", serif;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: rgba(255,255,255,0.95);
-  position: relative;
-  display: inline-block;
-}
-
+/* Scan band animation */
 @keyframes collectionScanBand{
   0%   { background-position: 200% 0; }
   100% { background-position: 0% 0; }
 }
 
-.collection-line-big::after,
 .collection-line-mid::after,
-.collection-inline-kicker::after,
 .collection-stars::after{
   content: attr(data-text);
   position: absolute;
@@ -143,15 +120,41 @@ body[data-page="collection"] .collection-page{
 }
 
 /* ============================= */
-/* DIVIDER (FULL BLEED LINE)     */
+/* VIDEO                         */
+/* ============================= */
+.collection-video{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.collection-video-shell{
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.28);
+  backdrop-filter: blur(10px);
+
+  aspect-ratio: 120 / 163; /* vertical like other pages */
+  width: min(92vw, 320px);
+  max-height: calc(100svh - 260px);
+}
+
+.collection-player{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ============================= */
+/* DIVIDER                       */
 /* ============================= */
 .collection-divider{
   height: 1px;
   position: relative;
-  margin-top: 18px;
+  margin: 28px 0;
   width: 100%;
-  justify-self: stretch;
-  overflow: visible;
 }
 
 .collection-divider::before{
@@ -173,54 +176,12 @@ body[data-page="collection"] .collection-page{
 }
 
 /* ============================= */
-/* VIDEO                         */
-/* ============================= */
-.collection-video{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.collection-video-shell{
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(0,0,0,0.28);
-  backdrop-filter: blur(10px);
-  /* Vertical video sizing (match Method/Story) */
-  aspect-ratio: 120 / 163;
-  width: min(92vw, 320px);
-  max-height: calc(100svh - 260px);
-}
-
-@media (max-width: 520px){
-  .collection-video-shell{
-    width: min(92vw, 300px);
-    max-height: calc(100svh - 240px);
-  }
-}
-
-.collection-player{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: #000;
-  display: block;
-}
-
-/* ============================= */
 /* CTA BUTTON                    */
 /* ============================= */
-@keyframes collectionGlowShift{
-  0%,100%{ background-position: 0% 0%; }
-  50%{ background-position: 100% 0%; }
-}
-
 .collection-cta{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
   padding: 14px 26px;
   border-radius: 999px;
   font-family: "Montserrat", sans-serif;
@@ -230,325 +191,16 @@ body[data-page="collection"] .collection-page{
   text-transform: uppercase;
   color: rgba(255,255,255,0.95);
   text-decoration: none;
-  position: relative;
-  isolation: isolate;
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
-  transition: transform 180ms ease, box-shadow 220ms ease, color 220ms ease;
-}
-
-.collection-cta::before{
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: 999px;
-  padding: 1px;
-  background: linear-gradient(
-    90deg,
-    rgba(0,255,255,0.95),
-    rgba(255,0,255,0.95)
-  );
-  background-size: 200% 100%;
-  animation: collectionGlowShift 2.8s ease-in-out infinite;
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0.75;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.collection-cta:hover{
-  transform: translateY(-1px);
-  box-shadow:
-    0 0 14px rgba(0,255,255,0.20),
-    0 0 20px rgba(255,0,255,0.14);
-  color: #ffffff;
-}
-
-.collection-cta:active{ transform: translateY(0px); }
-
-.collection-cta:focus-visible{
-  outline: 2px solid rgba(0,255,255,0.75);
-  outline-offset: 4px;
 }
 
 /* ============================= */
-/* EDITION CARDS                 */
+/* Reviews                       */
 /* ============================= */
-.collection-cards{
-  width: 100%;
-  max-width: 920px;
-  display: grid;
-  gap: 14px;
-  margin-top: 8px;
-}
-
-.collection-card{
-  /* Not a "card" anymore: keep layout, remove glass box */
-  position: relative;
-  border: 0;
-  background: transparent;
-  backdrop-filter: none;
-  overflow: visible;
-  padding: 0;
-  text-align: center;
-}
-
-/* Deck headings: 1st line scan-band (mid), 2nd line purple title */
-.collection-deck-head{
-  display: grid;
-  gap: 6px;
-  justify-items: center;
-  margin: 0 0 10px;
-}
-
-.collection-deck-line{
-  font-size: 2em; /* medium scan-band */
-  letter-spacing: 0.11em;
-}
-
-.collection-deck-title{
-  font-family: "Cormorant SC", serif;
-  font-weight: 700;
-  font-size: clamp(22px, 5.6vw, 34px);
-  line-height: 1.06;
-  margin: 0;
-  color: #b400ff;
-  animation: collectionTitleBreath 3.6s ease-in-out infinite;
-}
-
-.collection-bullets{
-  list-style: none;
-  padding: 0;
-  margin: 12px auto 14px;
-  display: grid;
-  gap: 8px;
-  max-width: 720px;
-  color: rgba(255,255,255,0.86);
-  font-family: "Montserrat", sans-serif;
-  font-size: 15px;
-}
-
-.collection-bullets li::before{
-  content: "•";
-  margin-right: 8px;
-  color: rgba(0,255,255,0.85);
-}
-
-.collection-review{
-  margin-top: 14px;
-  font-family: "Montserrat", sans-serif;
-  font-size: 14px;
-  color: rgba(255,255,255,0.78);
-}
-
 .collection-stars{
   position: relative;
-  display: inline-block;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  color: rgba(255,255,255,0.95);
-}
-
-.collection-stars::after{
-  content: attr(data-text);
-}
-
-.collection-badge{
-  display: inline-block;
-  margin-top: 10px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 800;
-  letter-spacing: 0.07em;
-  font-size: 12px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.95);
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(0,0,0,0.22);
-}
-
-/* ============================= */
-/* 3-STEP ACCORDION (reuse JS)   */
-/* ============================= */
-.method-accordion{
-  width: 100%;
-  max-width: 980px;
-  display: grid;
-  gap: 12px;
-  margin-top: 14px;
-}
-
-.method-acc-item{
-  position: relative;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(0,0,0,0.28);
-  backdrop-filter: blur(10px);
-  overflow: hidden;
-}
-
-.method-acc-item::before{
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: 18px;
-  padding: 1px;
-  background: linear-gradient(
-    90deg,
-    rgba(0,255,255,0.95),
-    rgba(255,0,255,0.95)
-  );
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-  opacity: 0.55;
-  animation: collectionAccBreath 3.2s ease-in-out infinite;
-}
-
-@keyframes collectionAccBreath{
-  0%,100%{ opacity: 0.45; filter: blur(0px); }
-  50%{ opacity: 0.95; filter: blur(0.6px); }
-}
-
-.method-acc-btn{
-  width: 100%;
-  min-height: 64px;
-  padding: 14px 52px 14px 16px;
-  display: grid;
-  grid-template-columns: 34px 1fr;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  user-select: none;
-  background: transparent;
-  border: 0;
-  text-align: left;
-  color: rgba(255,255,255,0.92);
-  font-family: "Montserrat", sans-serif;
-  position: relative;
-  z-index: 1;
-}
-
-.method-acc-title{
-  font-size: clamp(16px, 3.8vw, 18px);
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: rgba(255,255,255,0.92);
-}
-
-.method-acc-bullet{
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-family: "Montserrat", sans-serif;
   font-weight: 700;
-  font-size: 14px;
-  line-height: 1;
-  color: #fff;
-  background: linear-gradient(
-    90deg,
-    rgba(0,255,255,0.95),
-    rgba(255,0,255,0.95)
-  );
-  background-size: 200% 100%;
-  animation: collectionGlowShift 2.8s ease-in-out infinite;
-  box-shadow:
-    0 0 10px rgba(0,255,255,0.25),
-    0 0 14px rgba(255,0,255,0.18);
-}
-
-.method-acc-panel{
-  position: relative;
-  z-index: 1;
-  padding: 0 16px 0;
-  max-height: 0;
-  opacity: 0;
-  transform: translateY(-6px);
-  overflow: hidden;
-  transition:
-    max-height 520ms cubic-bezier(.2,.8,.2,1),
-    opacity 380ms ease,
-    transform 520ms cubic-bezier(.2,.8,.2,1),
-    padding 520ms cubic-bezier(.2,.8,.2,1);
-}
-
-.method-acc-item.is-open .method-acc-panel{
-  opacity: 1;
-  transform: translateY(0);
-  max-height: 520px;
-  padding: 8px 16px 14px;
-}
-
-.method-acc-panel .collection-text{
-  margin: 0;
-}
-
-/* Chevron indicator (match Method: cyan→purple + down/up) */
-.method-acc-btn::after{
-  content: "";
-  position: absolute;
-  right: 20px;
-  top: 50%;
-
-  width: 12px;
-  height: 12px;
-
-  border-right: 2px solid transparent;
-  border-bottom: 2px solid transparent;
-
-  background: linear-gradient(
-    90deg,
-    rgba(0,255,255,1),
-    rgba(255,0,255,1)
-  );
-  background-size: 200% 100%;
-  animation: collectionGlowShift 2.8s ease-in-out infinite;
-
-  -webkit-mask:
-    linear-gradient(#000 0 0) padding-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-
-  transform: translateY(-50%) rotate(45deg);
-  transition: transform 420ms cubic-bezier(.2,.8,.2,1), box-shadow 300ms ease;
-
-  opacity: 0.9;
-  box-shadow:
-    0 0 4px rgba(0,255,255,0.35),
-    0 0 6px rgba(255,0,255,0.25);
-}
-
-.method-acc-item.is-open .method-acc-btn::after{
-  transform: translateY(-50%) rotate(-135deg);
-  box-shadow:
-    0 0 8px rgba(0,255,255,0.9),
-    0 0 14px rgba(255,0,255,0.8),
-    0 0 20px rgba(0,255,255,0.5);
-}
-
-@media (max-width: 520px){
-  .method-acc-btn{
-    min-height: 60px;
-    padding: 12px 48px 12px 14px;
-    grid-template-columns: 32px 1fr;
-  }
-  .method-acc-bullet{
-    width: 26px;
-    height: 26px;
-    font-size: 13px;
-  }
-  .method-acc-panel{ padding: 0 14px 0; }
-  .method-acc-item.is-open .method-acc-panel{ padding: 8px 14px 14px; }
+  color: #ffffff;
 }
