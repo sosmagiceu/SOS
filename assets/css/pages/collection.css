@@ -91,12 +91,6 @@ body[data-page="collection"] .collection-page{
   text-align: center;
 }
 
-.collection-line-big{
-  display: block;
-  font-size: 3.1em;
-  letter-spacing: 0.12em;
-  position: relative;
-}
 
 .collection-line-mid{
   display: block;
@@ -106,23 +100,13 @@ body[data-page="collection"] .collection-page{
   color: #ffffff; /* force white base so it doesn't inherit black */
 }
 
-.collection-inline-kicker{
-  font-family: "Cormorant SC", serif;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: rgba(255,255,255,0.95);
-  position: relative;
-  display: inline-block;
-}
 
 @keyframes collectionScanBand{
   0%   { background-position: 200% 0; }
   100% { background-position: 0% 0; }
 }
 
-.collection-line-big::after,
 .collection-line-mid::after,
-.collection-inline-kicker::after,
 .collection-stars::after{
   content: attr(data-text);
   position: absolute;
@@ -307,10 +291,6 @@ body[data-page="collection"] .collection-page{
   margin: 0 0 10px;
 }
 
-.collection-deck-line{
-  font-size: 2em; /* medium scan-band */
-  letter-spacing: 0.11em;
-}
 
 .collection-deck-title{
   font-family: "Cormorant SC", serif;
