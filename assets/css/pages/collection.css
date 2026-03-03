@@ -15,7 +15,7 @@ body[data-page="collection"] .collection-page{
   gap: 12px;
   justify-items: center;
   align-content: start;
-  scroll-margin-top: 96px;
+  scroll-margin-top: 96px; /* fixed header clearance on desktop */
 }
 
 @media (max-width: 768px){
@@ -29,6 +29,11 @@ body[data-page="collection"] .collection-page{
 /* ============================= */
 /* HERO / TEXT                   */
 /* ============================= */
+.collection-hero{
+  width: 100%;
+  text-align: center;
+}
+
 .collection-title,
 .collection-text{
   text-align: center;
@@ -45,7 +50,7 @@ body[data-page="collection"] .collection-page{
   color: rgba(255,255,255,0.85);
 }
 
-/* Purple breathing title */
+/* Purple breathing title (used for hero headline) */
 .collection-title{
   font-family: "Cormorant SC", serif;
   font-weight: 700;
@@ -81,15 +86,15 @@ body[data-page="collection"] .collection-page{
   text-align: center;
 }
 
-/* FIXED: same base styling as top kicker */
+/* IMPORTANT FIX:
+   Deck title line must have a white base (same as THE COLLECTION),
+   otherwise it can render black depending on the browser/compositing. */
 .collection-line-mid{
   display: block;
-  font-family: "Cormorant SC", serif;
-  font-weight: 600;
   font-size: 2em;
   letter-spacing: 0.11em;
   position: relative;
-  color: #ffffff; /* prevents black fallback */
+  color: #ffffff; /* <- the actual fix */
 }
 
 /* Scan band animation */
@@ -135,7 +140,8 @@ body[data-page="collection"] .collection-page{
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
 
-  aspect-ratio: 120 / 163; /* vertical like other pages */
+  /* Vertical video sizing (match Method/Story) */
+  aspect-ratio: 120 / 163;
   width: min(92vw, 320px);
   max-height: calc(100svh - 260px);
 }
@@ -143,18 +149,30 @@ body[data-page="collection"] .collection-page{
 .collection-player{
   width: 100%;
   height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: cover;
+  background: #000;
   display: block;
 }
 
+@media (max-width: 520px){
+  .collection-video-shell{
+    width: min(92vw, 300px);
+    max-height: calc(100svh - 240px);
+  }
+}
+
 /* ============================= */
-/* DIVIDER                       */
+/* DIVIDER (full-bleed line)     */
 /* ============================= */
 .collection-divider{
   height: 1px;
   position: relative;
-  margin: 28px 0;
+  margin: 18px 0;
   width: 100%;
+  justify-self: stretch;
+  overflow: visible;
 }
 
 .collection-divider::before{
@@ -178,29 +196,158 @@ body[data-page="collection"] .collection-page{
 /* ============================= */
 /* CTA BUTTON                    */
 /* ============================= */
+@keyframes collectionGlowShift{
+  0%,100%{ background-position: 0% 0%; }
+  50%{ background-position: 100% 0%; }
+}
+
 .collection-cta{
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
   padding: 14px 26px;
   border-radius: 999px;
+
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
   font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+
   color: rgba(255,255,255,0.95);
   text-decoration: none;
+
+  position: relative;
+  isolation: isolate;
+
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
+
+  transition: transform 180ms ease, box-shadow 220ms ease, color 220ms ease;
+}
+
+.collection-cta::before{
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 999px;
+  padding: 1px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0,255,255,0.95),
+    rgba(255,0,255,0.95)
+  );
+  background-size: 200% 100%;
+  animation: collectionGlowShift 2.8s ease-in-out infinite;
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  opacity: 0.75;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.collection-cta:hover{
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 14px rgba(0,255,255,0.20),
+    0 0 20px rgba(255,0,255,0.14);
+  color: #ffffff;
+}
+.collection-cta:active{ transform: translateY(0px); }
+.collection-cta:focus-visible{
+  outline: 2px solid rgba(0,255,255,0.75);
+  outline-offset: 4px;
 }
 
 /* ============================= */
-/* Reviews                       */
+/* EDITION HEADINGS              */
 /* ============================= */
+.collection-deck-head{
+  width: 100%;
+  text-align: center; /* restores centering for deck headings */
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+
+/* Purple breathing subtitle under each deck title (was missing / got overwritten) */
+.collection-deck-title{
+  font-family: "Cormorant SC", serif;
+  font-weight: 700;
+  font-size: clamp(22px, 5.2vw, 34px);
+  line-height: 1.08;
+  margin: 0;
+  color: #b400ff;
+  animation: collectionTitleBreath 3.6s ease-in-out infinite;
+}
+
+/* ============================= */
+/* BULLETS / REVIEWS / BADGE     */
+/* ============================= */
+.collection-bullets{
+  margin: 8px auto 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  color: rgba(255,255,255,0.85);
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+}
+
+.collection-bullets li{
+  position: relative;
+  padding-left: 18px;
+  text-align: left;
+  width: min(520px, 92vw);
+}
+
+.collection-bullets li::before{
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: rgba(255,255,255,0.75);
+}
+
+.collection-review{
+  margin-top: 14px;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  color: rgba(255,255,255,0.85);
+}
+
 .collection-stars{
   position: relative;
   font-weight: 700;
   color: #ffffff;
+  display: inline-block;
+}
+
+.collection-badge{
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.20);
+  backdrop-filter: blur(10px);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: rgba(255,255,255,0.92);
+}
+
+/* Mild width consistency */
+.collection-cards{
+  width: 100%;
+  max-width: 980px;
 }
