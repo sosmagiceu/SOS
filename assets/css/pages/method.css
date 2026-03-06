@@ -4,22 +4,18 @@ body[data-page="method"] .method-page{
   overflow-x: clip;
 }
 
-/* IMPORTANT:
-   Do NOT clip the section itself or it will cut off the full-bleed divider */
+/* Keep sections clean */
 body[data-page="method"] .method-section{
   overflow-x: visible;
 }
 
 /* ============================= */
-/* CLEAN GLOBAL SECTION LAYOUT  */
+/* CLEAN GLOBAL SECTION LAYOUT   */
 /* ============================= */
 .method-section{
   min-height: auto;
   box-sizing: border-box;
-
-  /* Simple equal padding */
   padding: 110px 24px 18px 24px;
-
   display: grid;
   gap: 10px;
   justify-items: center;
@@ -34,21 +30,19 @@ body[data-page="method"] .method-section{
 
 /* Slightly tighter top spacing for later sections */
 #section-2,
-#section-3,
-#section-4{
+#section-3{
   padding-top: 28px;
 }
 
 @media (max-width: 520px){
   #section-2,
-  #section-3,
-  #section-4{
+  #section-3{
     padding-top: 20px;
   }
 }
 
 /* ============================= */
-/* HERO / TEXT CENTERING        */
+/* HERO / TEXT CENTERING         */
 /* ============================= */
 .method-hero{
   width: 100%;
@@ -64,7 +58,7 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* BODY TEXT                    */
+/* BODY TEXT                     */
 /* ============================= */
 .method-text{
   font-family: "Montserrat", sans-serif;
@@ -74,8 +68,18 @@ body[data-page="method"] .method-section{
   color: rgba(255,255,255,0.85);
 }
 
+.method-text a{
+  color: #69c9ff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.method-text a:hover{
+  color: #8dd6ff;
+}
+
 /* ============================= */
-/* KICKER                       */
+/* KICKER                        */
 /* ============================= */
 .method-kicker{
   font-family: "Cormorant SC", serif;
@@ -95,7 +99,6 @@ body[data-page="method"] .method-section{
   letter-spacing: 0.12em;
 }
 
-/* Middle ground between small and big (used for "Why it works?") */
 .method-line-mid{
   display: block;
   font-size: 2em;
@@ -103,7 +106,7 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* PURPLE TITLE (BREATHING)     */
+/* PURPLE TITLE (BREATHING)      */
 /* ============================= */
 .method-title{
   font-family: "Cormorant SC", serif;
@@ -111,7 +114,6 @@ body[data-page="method"] .method-section{
   font-size: clamp(28px, 6.7vw, 45px);
   line-height: 1.06;
   margin: 0 0 6px;
-
   color: #b400ff;
   animation: titleBreath 3.6s ease-in-out infinite;
 }
@@ -132,126 +134,7 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* VIDEO                        */
-/* ============================= */
-.method-video{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-.video-shell{
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(0,0,0,0.28);
-  backdrop-filter: blur(10px);
-
-  aspect-ratio: 120 / 163;
-  width: min(92vw, 320px);
-  max-height: calc(100svh - 260px);
-}
-
-.method-player{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: #000;
-  display: block;
-}
-
-@media (max-width: 520px){
-  .video-shell{
-    width: min(92vw, 300px);
-    max-height: calc(100svh - 240px);
-  }
-}
-
-/* ============================= */
-/* METHOD DIVIDER (MATCH FOOTER) */
-/* TRUE FULL BLEED (NO MARGINS)  */
-/* ============================= */
-.method-divider{
-  height: 1px;
-  position: relative;
-
-  margin-top: 14px;
-
-  /* inside grid: stretch across column */
-  width: 100%;
-  justify-self: stretch;
-
-  /* stop cropping behavior */
-  overflow: visible;
-
-  /* remove the fake full width */
-  margin-left: 0;
-  margin-right: 0;
-}
-
-.method-divider::before{
-  content: '';
-  position: absolute;
-  top: 0;
-
-  /* REAL full viewport width */
-  width: 100vw;
-  left: 50%;
-  transform: translateX(-50%);
-
-  height: 1px;
-
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--primary),
-    var(--secondary),
-    transparent
-  );
-
-  animation: glow-line 3s ease-in-out infinite;
-}
-
-/* ============================= */
-/* DOTS                         */
-/* ============================= */
-.method-dots{
-  position: fixed !important;
-  right: 16px !important;
-  top: 50vh !important;
-  transform: translateY(-50%);
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 14px !important;
-  z-index: 9999 !important;
-}
-
-.method-dots .dot{
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 0;
-  background: rgba(255,255,255,0.28);
-}
-
-.method-dots .dot.is-active{
-  background: linear-gradient(
-    90deg,
-    rgba(0,255,255,0.95),
-    rgba(255,0,255,0.95)
-  );
-  background-size: 200% 100%;
-  animation: dotGlowShift 2.8s ease-in-out infinite;
-}
-
-@keyframes dotGlowShift{
-  0%,100%{ background-position: 0% 0%; }
-  50%{ background-position: 100% 0%; }
-}
-
-/* ============================= */
-/* SCAN BAND                    */
+/* SCAN BAND                     */
 /* ============================= */
 @keyframes scanBand{
   0%   { background-position: 200% 0; }
@@ -288,7 +171,43 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* SECTION IMAGE                */
+/* VIDEO                         */
+/* ============================= */
+.method-video{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.video-shell{
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.28);
+  backdrop-filter: blur(10px);
+  aspect-ratio: 120 / 163;
+  width: min(92vw, 320px);
+  max-height: calc(100svh - 260px);
+}
+
+.method-player{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
+  display: block;
+}
+
+@media (max-width: 520px){
+  .video-shell{
+    width: min(92vw, 300px);
+    max-height: calc(100svh - 240px);
+  }
+}
+
+/* ============================= */
+/* SECTION IMAGE                 */
 /* ============================= */
 .method-image{
   display: flex;
@@ -304,11 +223,9 @@ body[data-page="method"] .method-section{
   display: block;
 }
 
-/* ================================================= */
-/* SECTION 3 ACCORDION (3 CARDS, SMOOTH DROP-DOWN)   */
-/* Expands INSIDE the same card (no extra boxes).    */
-/* ================================================= */
-
+/* ============================= */
+/* ACCORDION                     */
+/* ============================= */
 .method-accordion{
   width: 100%;
   max-width: 820px;
@@ -317,7 +234,6 @@ body[data-page="method"] .method-section{
   margin-top: 12px;
 }
 
-/* One card per item */
 .method-acc-item{
   position: relative;
   border-radius: 18px;
@@ -327,7 +243,6 @@ body[data-page="method"] .method-section{
   overflow: hidden;
 }
 
-/* Cyan → Purple glow border */
 .method-acc-item::before{
   content: "";
   position: absolute;
@@ -355,27 +270,21 @@ body[data-page="method"] .method-section{
   50%{ opacity: 0.95; filter: blur(0.6px); }
 }
 
-/* Button = header inside the same card */
 .method-acc-btn{
   width: 100%;
   min-height: 64px;
-  padding: 14px 52px 14px 16px; /* right padding includes arrow room */
-
+  padding: 14px 52px 14px 16px;
   display: grid;
   grid-template-columns: 34px 1fr;
   align-items: center;
   gap: 12px;
-
   cursor: pointer;
   user-select: none;
-
   background: transparent;
   border: 0;
   text-align: left;
-
   color: rgba(255,255,255,0.92);
   font-family: "Montserrat", sans-serif;
-
   position: relative;
   z-index: 1;
 }
@@ -387,20 +296,17 @@ body[data-page="method"] .method-section{
   color: rgba(255,255,255,0.92);
 }
 
-/* Number balls */
 .method-acc-bullet{
   width: 28px;
   height: 28px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
   font-size: 14px;
   line-height: 1;
   color: #fff;
-
   background: linear-gradient(
     90deg,
     rgba(0,255,255,0.95),
@@ -408,13 +314,16 @@ body[data-page="method"] .method-section{
   );
   background-size: 200% 100%;
   animation: dotGlowShift 2.8s ease-in-out infinite;
-
   box-shadow:
     0 0 10px rgba(0,255,255,0.25),
     0 0 14px rgba(255,0,255,0.18);
 }
 
-/* Hover/focus */
+@keyframes dotGlowShift{
+  0%,100%{ background-position: 0% 0%; }
+  50%{ background-position: 100% 0%; }
+}
+
 .method-acc-btn:hover{
   transform: translateY(-1px);
 }
@@ -424,19 +333,14 @@ body[data-page="method"] .method-section{
   outline-offset: 3px;
 }
 
-/* Panel INSIDE same card (animated dropdown) */
 .method-acc-panel{
   position: relative;
   z-index: 1;
-
-  /* CLOSED = no vertical padding (prevents ghost space) */
   padding: 0 16px 0;
-
   max-height: 0;
   opacity: 0;
   transform: translateY(-6px);
   overflow: hidden;
-
   transition:
     max-height 520ms cubic-bezier(.2,.8,.2,1),
     opacity 380ms ease,
@@ -444,11 +348,10 @@ body[data-page="method"] .method-section{
     padding 520ms cubic-bezier(.2,.8,.2,1);
 }
 
-/* open state toggled by JS on the item */
 .method-acc-item.is-open .method-acc-panel{
   opacity: 1;
   transform: translateY(0);
-  max-height: 420px; /* safe fallback; JS should override */
+  max-height: 420px;
   padding: 8px 16px 14px;
 }
 
@@ -462,48 +365,46 @@ body[data-page="method"] .method-section{
     padding: 12px 48px 12px 14px;
     grid-template-columns: 32px 1fr;
   }
+
   .method-acc-bullet{
     width: 26px;
     height: 26px;
     font-size: 13px;
   }
+
   .method-acc-panel{
     padding: 0 14px 0;
   }
+
   .method-acc-item.is-open .method-acc-panel{
     max-height: 520px;
     padding: 8px 14px 14px;
   }
 }
 
-/* Reduced motion: no slide, just show/hide */
 @media (prefers-reduced-motion: reduce){
   .method-acc-panel{
     transition: none;
     transform: none;
   }
+
   .method-acc-item.is-open .method-acc-panel{
     transform: none;
   }
 }
 
 /* ============================= */
-/* ACCORDION CHEVRON INDICATOR  */
+/* ACCORDION CHEVRON             */
 /* ============================= */
-
 .method-acc-btn::after{
   content: "";
   position: absolute;
   right: 20px;
   top: 50%;
-
   width: 12px;
   height: 12px;
-
   border-right: 2px solid transparent;
   border-bottom: 2px solid transparent;
-
-  /* cyan → purple gradient stroke */
   background: linear-gradient(
     90deg,
     rgba(0,255,255,1),
@@ -511,30 +412,23 @@ body[data-page="method"] .method-section{
   );
   background-size: 200% 100%;
   animation: dotGlowShift 2.8s ease-in-out infinite;
-
   -webkit-mask:
     linear-gradient(#000 0 0) padding-box,
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-
   transform: translateY(-50%) rotate(45deg);
   transition:
     transform 420ms cubic-bezier(.2,.8,.2,1),
     box-shadow 300ms ease;
-
   opacity: 0.9;
-
-  /* subtle idle glow */
   box-shadow:
     0 0 4px rgba(0,255,255,0.35),
     0 0 6px rgba(255,0,255,0.25);
 }
 
-/* OPEN STATE – stronger neon */
 .method-acc-item.is-open .method-acc-btn::after{
   transform: translateY(-50%) rotate(-135deg);
-
   box-shadow:
     0 0 8px rgba(0,255,255,0.9),
     0 0 14px rgba(255,0,255,0.8),
@@ -542,109 +436,27 @@ body[data-page="method"] .method-section{
 }
 
 /* ============================= */
-/* SECTION 4 CTA BUTTON          */
+/* FOOTER NOTE / FINAL IMAGE     */
 /* ============================= */
-.method-cta{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-
-  padding: 14px 26px;
-  border-radius: 999px;
-
-  font-family: "Montserrat", sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-
-  color: rgba(255,255,255,0.95);
-  text-decoration: none;
-
-  position: relative;
-  isolation: isolate;
-
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(0,0,0,0.28);
-  backdrop-filter: blur(10px);
-
-  transition: transform 180ms ease, box-shadow 220ms ease, color 220ms ease;
+.method-footer-section{
+  padding-top: 24px;
 }
 
-.method-cta::before{
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: 999px;
-  padding: 1px;
-
-  background: linear-gradient(
-    90deg,
-    rgba(0,255,255,0.95),
-    rgba(255,0,255,0.95)
-  );
-  background-size: 200% 100%;
-  animation: dotGlowShift 2.8s ease-in-out infinite;
-
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-
-  opacity: 0.75;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.method-cta:hover{
-  transform: translateY(-1px);
-  box-shadow:
-    0 0 14px rgba(0,255,255,0.20),
-    0 0 20px rgba(255,0,255,0.14);
-  color: #ffffff;
-}
-
-.method-cta:active{
-  transform: translateY(0px);
-}
-
-.method-cta:focus-visible{
-  outline: 2px solid rgba(0,255,255,0.75);
-  outline-offset: 4px;
-}
-
-
-/* ============================= */
-/* BOTTOM FAQ NOTE               */
-/* ============================= */
 .method-footer-note{
+  max-width: 900px;
+  margin-bottom: 14px;
+}
+
+.method-footer-image{
   width: 100%;
-  max-width: 920px;
-  margin: 8px auto 34px;
-  padding: 0 24px;
-  box-sizing: border-box;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 2px;
 }
 
-.method-footer-note .method-text{
-  color: rgba(255,255,255,0.72);
-}
-
-.method-footer-note a{
-  color: #66ccff;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.method-footer-note a:hover{
-  color: #8fd8ff;
-}
-
-@media (max-width: 520px){
-  .method-footer-note{
-    padding: 0 20px;
-    margin-bottom: 28px;
-  }
+.method-footer-image img{
+  width: 100%;
+  max-width: 980px;
+  height: auto;
+  display: block;
 }
