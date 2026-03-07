@@ -318,3 +318,30 @@ body[data-page="collection"] .collection-page{
   margin-right: 8px;
   color: rgba(0,255,255,0.85);
 }
+
+
+.collection-deck-image{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 14px 0 4px;
+}
+
+.collection-deck-image img{
+  width: min(100%, 720px);
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 18px;
+  object-fit: cover;
+}
+
+@media (max-width: 520px){
+  .collection-deck-image{
+    margin: 12px 0 2px;
+  }
+
+  .collection-deck-image img{
+    width: min(100%, 92vw);
+  }
+}
