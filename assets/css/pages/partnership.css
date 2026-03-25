@@ -359,7 +359,6 @@ body[data-page="partnership"] .partnership-section{
 .method-acc-item.is-open .method-acc-panel{
   opacity: 1;
   transform: translateY(0);
-  max-height: 240px;
   padding: 8px 16px 14px;
 }
 
