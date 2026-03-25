@@ -1,5 +1,4 @@
 // assets/js/method-accordion.js
-// Smooth accordion for Method section 3 (expands inside the same card).
 (() => {
   const root = document.querySelector('#section-3 .method-accordion');
   if (!root) return;
@@ -10,6 +9,13 @@
     window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  const setPanelHeight = (panel) => {
+    if (!panel) return;
+    panel.style.maxHeight = 'none';
+    const target = panel.scrollHeight;
+    panel.style.maxHeight = target + 'px';
+  };
+
   const closeItem = (item) => {
     const btn = item.querySelector('.method-acc-btn');
     const panel = item.querySelector('.method-acc-panel');
@@ -18,9 +24,8 @@
     btn.setAttribute('aria-expanded', 'false');
     item.classList.remove('is-open');
 
-    // Animate height down to 0
+    // Start from current natural height, then animate down
     panel.style.maxHeight = panel.scrollHeight + 'px';
-    // Force reflow so the browser registers the current height
     panel.getBoundingClientRect();
     panel.style.maxHeight = '0px';
     panel.setAttribute('aria-hidden', 'true');
@@ -35,13 +40,18 @@
     item.classList.add('is-open');
     panel.setAttribute('aria-hidden', 'false');
 
-    // Wait for open-state layout to apply, then measure.
+    // Let open-state padding/layout apply first
     requestAnimationFrame(() => {
-      panel.style.maxHeight = panel.scrollHeight + 'px';
+      setPanelHeight(panel);
 
-      // One extra pass catches late text wrapping / font settling on mobile.
+      // Second pass catches late wrapping/font settling
       requestAnimationFrame(() => {
-        panel.style.maxHeight = panel.scrollHeight + 'px';
+        setPanelHeight(panel);
+
+        // Third delayed pass catches mobile Safari / delayed font paint
+        setTimeout(() => {
+          setPanelHeight(panel);
+        }, 50);
       });
     });
   };
@@ -51,7 +61,6 @@
     const panel = item.querySelector('.method-acc-panel');
     if (!btn || !panel) return;
 
-    // Remove HTML 'hidden' so transitions can work
     if (panel.hasAttribute('hidden')) panel.removeAttribute('hidden');
     panel.style.maxHeight = '0px';
     panel.setAttribute('aria-hidden', 'true');
@@ -73,17 +82,18 @@
     });
   });
 
-  // Keep heights correct if fonts load / window resizes
   const refreshOpenHeights = () => {
     items.forEach((item) => {
       if (!item.classList.contains('is-open')) return;
       const panel = item.querySelector('.method-acc-panel');
-      if (!panel) return;
-      panel.style.maxHeight = panel.scrollHeight + 'px';
+      setPanelHeight(panel);
     });
   };
 
   window.addEventListener('resize', refreshOpenHeights);
-  // fonts/images can shift layout after load
   window.addEventListener('load', refreshOpenHeights);
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(refreshOpenHeights).catch(() => {});
+  }
 })();
