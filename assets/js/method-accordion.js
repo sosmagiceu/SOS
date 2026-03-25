@@ -1,9 +1,7 @@
 // assets/js/method-accordion.js
 (() => {
-  const root = document.querySelector('#section-3 .method-accordion');
-  if (!root) return;
-
-  const items = Array.from(root.querySelectorAll('.method-acc-item'));
+  const accordions = Array.from(document.querySelectorAll('.method-accordion'));
+  if (!accordions.length) return;
 
   const prefersReduced =
     window.matchMedia &&
@@ -24,7 +22,6 @@
     btn.setAttribute('aria-expanded', 'false');
     item.classList.remove('is-open');
 
-    // Start from current natural height, then animate down
     panel.style.maxHeight = panel.scrollHeight + 'px';
     panel.getBoundingClientRect();
     panel.style.maxHeight = '0px';
@@ -40,52 +37,51 @@
     item.classList.add('is-open');
     panel.setAttribute('aria-hidden', 'false');
 
-    // Let open-state padding/layout apply first
     requestAnimationFrame(() => {
       setPanelHeight(panel);
 
-      // Second pass catches late wrapping/font settling
       requestAnimationFrame(() => {
         setPanelHeight(panel);
 
-        // Third delayed pass catches mobile Safari / delayed font paint
         setTimeout(() => {
           setPanelHeight(panel);
-        }, 50);
+        }, 60);
       });
     });
   };
 
-  items.forEach((item) => {
-    const btn = item.querySelector('.method-acc-btn');
-    const panel = item.querySelector('.method-acc-panel');
-    if (!btn || !panel) return;
+  accordions.forEach((root) => {
+    const items = Array.from(root.querySelectorAll('.method-acc-item'));
 
-    if (panel.hasAttribute('hidden')) panel.removeAttribute('hidden');
-    panel.style.maxHeight = '0px';
-    panel.setAttribute('aria-hidden', 'true');
-    item.classList.remove('is-open');
-    btn.setAttribute('aria-expanded', 'false');
+    items.forEach((item) => {
+      const btn = item.querySelector('.method-acc-btn');
+      const panel = item.querySelector('.method-acc-panel');
+      if (!btn || !panel) return;
 
-    btn.addEventListener('click', () => {
-      if (prefersReduced) {
-        const isOpen = item.classList.toggle('is-open');
-        btn.setAttribute('aria-expanded', String(isOpen));
-        panel.setAttribute('aria-hidden', String(!isOpen));
-        panel.style.maxHeight = isOpen ? panel.scrollHeight + 'px' : '0px';
-        return;
-      }
+      if (panel.hasAttribute('hidden')) panel.removeAttribute('hidden');
+      panel.style.maxHeight = '0px';
+      panel.setAttribute('aria-hidden', 'true');
+      item.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
 
-      const isOpen = item.classList.contains('is-open');
-      if (isOpen) closeItem(item);
-      else openItem(item);
+      btn.addEventListener('click', () => {
+        if (prefersReduced) {
+          const isOpen = item.classList.toggle('is-open');
+          btn.setAttribute('aria-expanded', String(isOpen));
+          panel.setAttribute('aria-hidden', String(!isOpen));
+          panel.style.maxHeight = isOpen ? panel.scrollHeight + 'px' : '0px';
+          return;
+        }
+
+        const isOpen = item.classList.contains('is-open');
+        if (isOpen) closeItem(item);
+        else openItem(item);
+      });
     });
   });
 
   const refreshOpenHeights = () => {
-    items.forEach((item) => {
-      if (!item.classList.contains('is-open')) return;
-      const panel = item.querySelector('.method-acc-panel');
+    document.querySelectorAll('.method-acc-item.is-open .method-acc-panel').forEach((panel) => {
       setPanelHeight(panel);
     });
   };
