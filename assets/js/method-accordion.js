@@ -35,12 +35,14 @@
     item.classList.add('is-open');
     panel.setAttribute('aria-hidden', 'false');
 
-    // Set to the real content height for a smooth dropdown.
-    // Use rAF so padding/font metrics from the open state are applied
-    // before we measure, otherwise mobile can clip the last line.
+    // Wait for open-state layout to apply, then measure.
     requestAnimationFrame(() => {
-      const target = panel.scrollHeight;
-      panel.style.maxHeight = target + 'px';
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+
+      // One extra pass catches late text wrapping / font settling on mobile.
+      requestAnimationFrame(() => {
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      });
     });
   };
 
