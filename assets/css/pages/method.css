@@ -336,7 +336,8 @@ body[data-page="method"] .method-section{
 .method-acc-panel{
   position: relative;
   z-index: 1;
-  padding: 0 16px 0;
+  box-sizing: border-box;
+  padding: 0 16px;
   max-height: 0;
   opacity: 0;
   transform: translateY(-6px);
@@ -344,18 +345,19 @@ body[data-page="method"] .method-section{
   transition:
     max-height 520ms cubic-bezier(.2,.8,.2,1),
     opacity 380ms ease,
-    transform 520ms cubic-bezier(.2,.8,.2,1),
-    padding 520ms cubic-bezier(.2,.8,.2,1);
+    transform 520ms cubic-bezier(.2,.8,.2,1);
 }
 
 .method-acc-item.is-open .method-acc-panel{
   opacity: 1;
   transform: translateY(0);
-  padding: 8px 16px 14px;
 }
 
+/* padding now lives on the text so it is always visible immediately */
 .method-acc-panel .method-text{
   margin: 0;
+  padding-top: 8px;
+  padding-bottom: 14px;
 }
 
 @media (max-width: 520px){
@@ -372,12 +374,12 @@ body[data-page="method"] .method-section{
   }
 
   .method-acc-panel{
-    padding: 0 14px 0;
+    padding: 0 14px;
   }
 
-  .method-acc-item.is-open .method-acc-panel{
-    max-height: 520px;
-    padding: 8px 14px 14px;
+  .method-acc-panel .method-text{
+    padding-top: 8px;
+    padding-bottom: 14px;
   }
 }
 
