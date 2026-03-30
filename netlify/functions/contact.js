@@ -45,7 +45,9 @@ Thank you for your message regarding: ${subject}
 
 We received your message and will respond to you as soon as possible.
 
-Thank you`,
+Thank you
+
+S.O.S. Magic`,
     });
 
     return {
