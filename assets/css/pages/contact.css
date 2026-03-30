@@ -65,6 +65,8 @@ body[data-page="contact"] .contact-section{
   display: block;
   position: relative;
   letter-spacing: 0.12em;
+  font-family: "Cormorant SC", serif; /* ← THIS fixes your font issue */
+  font-weight: 600;
 }
 
 .contact-line{
