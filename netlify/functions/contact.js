@@ -1,82 +1,65 @@
 const nodemailer = require("nodemailer");
 
-const FROM_ADDRESS = "support@sosmagic.eu";
-const CONTACT_TO = "valvin71@sosmagic.eu";
-const AUTO_REPLY_SUBJECT = "Message received";
-
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      body: JSON.stringify({ ok: false, error: "Method Not Allowed" })
-    };
+    return { statusCode: 405, body: "Method Not Allowed" };
   }
 
   try {
-    const { name, email, subject, message } = JSON.parse(event.body || "{}");
-
-    const safeName = String(name || "").trim();
-    const safeEmail = String(email || "").trim();
-    const safeSubject = String(subject || "").trim();
-    const safeMessage = String(message || "").trim();
-
-    if (!safeName || !safeEmail || !safeSubject || !safeMessage) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ ok: false, error: "All fields are required." })
-      };
-    }
+    const { name, email, subject, message } = JSON.parse(event.body);
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT || 587),
+      port: Number(process.env.SMTP_PORT),
       secure: false,
       auth: {
         user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
-      }
+        pass: process.env.SMTP_PASS,
+      },
     });
 
+    // 📩 EMAIL TO YOU
     await transporter.sendMail({
-      from: `"S.O.S. Magic" <${FROM_ADDRESS}>`,
-      to: CONTACT_TO,
-      replyTo: safeEmail,
-      subject: `Message received from ${safeName}`,
-      text: [
-        `Name: ${safeName}`,
-        `Email: ${safeEmail}`,
-        `Subject: ${safeSubject}`,
-        "",
-        "Message:",
-        safeMessage
-      ].join("\n")
+      from: `"S.O.S. Magic" <support@sosmagic.eu>`,
+      to: process.env.CONTACT_TO,
+      replyTo: email,
+      subject: `Message received from ${name}`,
+      text: `
+Name: ${name}
+Email: ${email}
+Subject: ${subject}
+
+Message:
+${message}
+      `,
     });
 
+    // 📩 AUTO REPLY TO USER
     await transporter.sendMail({
-      from: `"S.O.S. Magic" <${FROM_ADDRESS}>`,
-      to: safeEmail,
-      subject: AUTO_REPLY_SUBJECT,
-      text: [
-        `Hello ${safeName}!`,
-        "",
-        `Thank you for your message regarding: ${safeSubject}`,
-        "",
-        "We received your message and will respond to you as soon as possible.",
-        "",
-        "Thank you",
-        "",
-        "S.O.S. Magic"
-      ].join("\n")
+      from: `"S.O.S. Magic" <support@sosmagic.eu>`,
+      to: email,
+      subject: "Message received",
+      text: `Hello ${name}!
+
+Thank you for your message regarding: ${subject}
+
+We received your message and will respond to you as soon as possible.
+
+Thank you
+
+S.O.S. Magic`,
     });
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ ok: true })
+      body: JSON.stringify({ ok: true }),
     };
-  } catch (error) {
+
+  } catch (err) {
+    console.error(err); // <-- important for debugging
     return {
       statusCode: 500,
-      body: JSON.stringify({ ok: false, error: error.message || "Unable to send message." })
+      body: JSON.stringify({ ok: false, error: err.message }),
     };
   }
 };
