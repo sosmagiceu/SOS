@@ -55,11 +55,26 @@ body[data-page="contact"] .contact-section{
   text-align: center;
 }
 
+.contact-title{
+  margin: 0;
+  text-align: center;
+}
+
+.contact-line,
 .contact-line-mid{
   display: block;
-  font-size: clamp(34px, 8vw, 48px);
-  letter-spacing: 0.12em;
   position: relative;
+  letter-spacing: 0.12em;
+}
+
+.contact-line{
+  font-size: clamp(56px, 10vw, 92px);
+  line-height: 1.02;
+}
+
+.contact-line-mid{
+  font-size: clamp(34px, 8vw, 48px);
+  line-height: 1.08;
 }
 
 @keyframes contactScanBand{
@@ -67,6 +82,7 @@ body[data-page="contact"] .contact-section{
   100%{ background-position: 0% 0; }
 }
 
+.contact-kicker .contact-line::after,
 .contact-kicker .contact-line-mid::after{
   content: attr(data-text);
   position: absolute;
@@ -281,5 +297,9 @@ body[data-page="contact"] .contact-section{
 
   .contact-submit{
     min-width: 168px;
+  }
+
+  .contact-line{
+    font-size: clamp(44px, 12vw, 64px);
   }
 }
