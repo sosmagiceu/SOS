@@ -22,11 +22,10 @@
 
   <main class="contact-page">
     <section id="section-1" class="contact-section">
-      
       <div class="contact-hero">
         <div class="contact-kicker">
           <h1 class="contact-title">
-  <span class="contact-line-mid" data-text="Contact us">Contact us</span>
+            <span class="contact-line" data-text="Contact us">Contact us</span>
           </h1>
         </div>
 
@@ -43,7 +42,7 @@
         </p>
       </div>
 
-      <form class="contact-form-card" action="#" method="post">
+      <form class="contact-form-card" id="contact-form" method="post" novalidate>
         <div class="contact-field-grid">
           <div class="contact-field">
             <label class="contact-label" for="contact-name">Name</label>
@@ -66,12 +65,66 @@
           <textarea class="contact-input contact-textarea" id="contact-message" name="message" placeholder="Your message" required></textarea>
         </div>
 
-        <button class="contact-cta contact-submit" type="submit">Send Message</button>
-      </form>
+        <p class="contact-status" id="contact-status" aria-live="polite"></p>
 
+        <button class="contact-cta contact-submit" id="contact-submit" type="submit">Send Message</button>
+      </form>
     </section>
   </main>
 
   <div id="footer-mount"></div>
+
+  <script>
+    const contactForm = document.getElementById("contact-form");
+    const contactStatus = document.getElementById("contact-status");
+    const contactSubmit = document.getElementById("contact-submit");
+
+    contactForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (!contactForm.checkValidity()) {
+        contactForm.reportValidity();
+        return;
+      }
+
+      contactStatus.textContent = "";
+      contactStatus.className = "contact-status";
+      contactSubmit.disabled = true;
+      contactSubmit.textContent = "Sending...";
+
+      const payload = {
+        name: contactForm.name.value.trim(),
+        email: contactForm.email.value.trim(),
+        subject: contactForm.subject.value.trim(),
+        message: contactForm.message.value.trim()
+      };
+
+      try {
+        const response = await fetch("/.netlify/functions/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || !result.ok) {
+          throw new Error(result.error || "Unable to send message.");
+        }
+
+        contactForm.reset();
+        contactStatus.textContent = "Your message has been send to us.";
+        contactStatus.classList.add("is-success");
+      } catch (error) {
+        contactStatus.textContent = "Something went wrong. Please try again.";
+        contactStatus.classList.add("is-error");
+      } finally {
+        contactSubmit.disabled = false;
+        contactSubmit.textContent = "Send Message";
+      }
+    });
+  </script>
 </body>
 </html>
