@@ -1,4 +1,3 @@
-// assets/js/home-carousel.js
 (() => {
   function initHomeCarousel() {
     const carousel = document.getElementById('carousel');
@@ -28,14 +27,17 @@
       updateActiveCard();
     }
 
-    function goToSlide(index) {
-      currentIndex = ((index % featureCards.length) + featureCards.length) % featureCards.length;
-      currentRotation = -currentIndex * step;
+    function prev() {
+      currentIndex = (currentIndex - 1 + featureCards.length) % featureCards.length;
+      currentRotation += step;
       updateView();
     }
 
-    function prev() { goToSlide(currentIndex - 1); }
-    function next() { goToSlide(currentIndex + 1); }
+    function next() {
+      currentIndex = (currentIndex + 1) % featureCards.length;
+      currentRotation -= step;
+      updateView();
+    }
 
     prevBtn.addEventListener('click', (event) => {
       event.preventDefault();
