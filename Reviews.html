@@ -1,35 +1,271 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Reviews – SOS Magic</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;800&amp;family=Space+Grotesk:wght@300;400;600;700&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
-<link href="/assets/css/main.css" rel="stylesheet">
-<link href="/assets/css/header.css" rel="stylesheet"/>
-<script defer="" src="/assets/js/vendor/tooplate-2144-parallax-scripts.js"></script>
-<script defer src="/assets/js/header.js"></script>
-<script defer src="/assets/js/footer.js"></script>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reviews – SOS Magic</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <link href="/assets/css/main.css" rel="stylesheet"/>
+  <link href="/assets/css/header.css" rel="stylesheet"/>
+  <link href="/assets/css/pages/reviews.css" rel="stylesheet"/>
+
+  <script defer src="/assets/js/vendor/tooplate-2144-parallax-scripts.js"></script>
+  <script defer src="/assets/js/header.js"></script>
+  <script defer src="/assets/js/footer.js"></script>
 </head>
 <body data-page="reviews">
-<div id="header-mount"></div>
-<div class="tm-wrapper">
-<section class="tm-section tm-hero-section" style="min-height:60vh">
-<div class="tm-section-inner">
-<div class="tm-hero-content">
-<p class="tm-hero-subtitle">.</p>
-<div class="tm-button-group">
+  <div id="header-mount"></div>
 
-</div>
-</div>
-</div>
-</section>
+  <main class="reviews-page">
+    <section class="reviews-section">
+      <div class="reviews-hero">
+        <div class="reviews-kicker">
+          <h1 class="reviews-title">
+            <span class="reviews-line" data-text="Reviews">Reviews</span>
+          </h1>
+        </div>
 
-</div>
+        <p class="reviews-text reviews-intro">
+          Based on reviews, our products are rated:
+        </p>
+
+        <div class="reviews-average-card" aria-live="polite">
+          <div class="reviews-average-score" id="reviews-average-score">0.0</div>
+          <div class="reviews-average-stars" id="reviews-average-stars" aria-label="Average rating">☆☆☆☆☆</div>
+          <div class="reviews-average-meta" id="reviews-average-meta">0 approved reviews</div>
+        </div>
+      </div>
+
+      <div class="reviews-form-wrap">
+        <div class="reviews-subhead">
+          <h2 class="reviews-subtitle">Leave a review</h2>
+          <p class="reviews-text reviews-form-note">All reviews are checked before they appear on the website.</p>
+        </div>
+
+        <form class="reviews-form-card" id="review-form" method="post" novalidate>
+          <div class="reviews-field-grid">
+            <div class="reviews-field">
+              <label class="reviews-label" for="review-name">Name</label>
+              <input class="reviews-input" id="review-name" name="name" type="text" placeholder="Your name" required maxlength="80"/>
+            </div>
+          </div>
+
+          <div class="reviews-field">
+            <label class="reviews-label" for="review-message">Message</label>
+            <textarea class="reviews-input reviews-textarea" id="review-message" name="message" placeholder="Your review" required maxlength="1200"></textarea>
+          </div>
+
+          <fieldset class="reviews-score-box">
+            <legend class="reviews-label reviews-score-label">Score</legend>
+            <div class="reviews-stars-input" role="radiogroup" aria-label="Review score">
+              <input class="reviews-star-input" type="radio" name="score" id="score-5" value="5" required>
+              <label class="reviews-star-label" for="score-5" title="5 stars">★</label>
+
+              <input class="reviews-star-input" type="radio" name="score" id="score-4" value="4">
+              <label class="reviews-star-label" for="score-4" title="4 stars">★</label>
+
+              <input class="reviews-star-input" type="radio" name="score" id="score-3" value="3">
+              <label class="reviews-star-label" for="score-3" title="3 stars">★</label>
+
+              <input class="reviews-star-input" type="radio" name="score" id="score-2" value="2">
+              <label class="reviews-star-label" for="score-2" title="2 stars">★</label>
+
+              <input class="reviews-star-input" type="radio" name="score" id="score-1" value="1">
+              <label class="reviews-star-label" for="score-1" title="1 star">★</label>
+            </div>
+          </fieldset>
+
+          <p class="reviews-status" id="review-status" aria-live="polite"></p>
+
+          <button class="reviews-cta reviews-submit" id="review-submit" type="submit">Send Review</button>
+        </form>
+      </div>
+
+      <div class="reviews-list-wrap">
+        <div class="reviews-subhead reviews-list-head">
+          <h2 class="reviews-subtitle">Current reviews</h2>
+          <p class="reviews-text reviews-list-note">Showing 5 reviews per page, up to 20 pages.</p>
+        </div>
+
+        <div class="reviews-empty" id="reviews-empty" hidden>No reviews have been approved yet.</div>
+        <div class="reviews-grid" id="reviews-grid"></div>
+
+        <div class="reviews-pagination" id="reviews-pagination" hidden>
+          <button class="reviews-page-btn reviews-page-nav" id="reviews-prev" type="button">Previous</button>
+          <div class="reviews-page-list" id="reviews-page-list"></div>
+          <button class="reviews-page-btn reviews-page-nav" id="reviews-next" type="button">Next</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
   <div id="footer-mount"></div>
 
+  <script>
+    const reviewForm = document.getElementById("review-form");
+    const reviewStatus = document.getElementById("review-status");
+    const reviewSubmit = document.getElementById("review-submit");
+    const reviewsGrid = document.getElementById("reviews-grid");
+    const reviewsEmpty = document.getElementById("reviews-empty");
+    const reviewsAverageScore = document.getElementById("reviews-average-score");
+    const reviewsAverageStars = document.getElementById("reviews-average-stars");
+    const reviewsAverageMeta = document.getElementById("reviews-average-meta");
+    const reviewsPagination = document.getElementById("reviews-pagination");
+    const reviewsPageList = document.getElementById("reviews-page-list");
+    const reviewsPrev = document.getElementById("reviews-prev");
+    const reviewsNext = document.getElementById("reviews-next");
+
+    let currentPage = 1;
+    let totalPages = 1;
+
+    function renderStars(score) {
+      const value = Math.max(0, Math.min(5, Number(score) || 0));
+      const full = Math.round(value);
+      return "★".repeat(full) + "☆".repeat(5 - full);
+    }
+
+    function renderReviewCard(review) {
+      const article = document.createElement("article");
+      article.className = "reviews-card";
+      article.innerHTML = `
+        <div class="reviews-card-top">
+          <h3 class="reviews-card-name"></h3>
+          <div class="reviews-card-score" aria-label="${review.score} out of 5 stars">${renderStars(review.score)}</div>
+        </div>
+        <p class="reviews-card-message"></p>
+      `;
+      article.querySelector(".reviews-card-name").textContent = review.name;
+      article.querySelector(".reviews-card-message").textContent = review.message;
+      return article;
+    }
+
+    function renderPagination() {
+      reviewsPageList.innerHTML = "";
+
+      for (let i = 1; i <= totalPages; i += 1) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "reviews-page-btn" + (i === currentPage ? " is-active" : "");
+        btn.textContent = i;
+        btn.addEventListener("click", () => {
+          if (i !== currentPage) {
+            loadReviews(i);
+          }
+        });
+        reviewsPageList.appendChild(btn);
+      }
+
+      reviewsPrev.disabled = currentPage <= 1;
+      reviewsNext.disabled = currentPage >= totalPages;
+      reviewsPagination.hidden = totalPages <= 1;
+    }
+
+    async function loadReviews(page = 1) {
+      try {
+        const response = await fetch(`/.netlify/functions/get-reviews?page=${page}`);
+        const result = await response.json();
+
+        if (!response.ok || !result.ok) {
+          throw new Error(result.error || "Unable to load reviews.");
+        }
+
+        currentPage = result.page || 1;
+        totalPages = result.totalPages || 1;
+
+        reviewsAverageScore.textContent = Number(result.averageScore || 0).toFixed(1);
+        reviewsAverageStars.textContent = renderStars(result.averageScore || 0);
+        reviewsAverageMeta.textContent = `${result.totalApproved || 0} approved review${result.totalApproved === 1 ? "" : "s"}`;
+
+        reviewsGrid.innerHTML = "";
+
+        if (!result.reviews || result.reviews.length === 0) {
+          reviewsEmpty.hidden = false;
+        } else {
+          reviewsEmpty.hidden = true;
+          result.reviews.forEach((review) => {
+            reviewsGrid.appendChild(renderReviewCard(review));
+          });
+        }
+
+        renderPagination();
+      } catch (error) {
+        reviewsGrid.innerHTML = "";
+        reviewsEmpty.hidden = false;
+        reviewsEmpty.textContent = "Unable to load reviews right now.";
+        reviewsPagination.hidden = true;
+      }
+    }
+
+    reviewForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (!reviewForm.checkValidity()) {
+        reviewForm.reportValidity();
+        return;
+      }
+
+      const scoreField = reviewForm.querySelector('input[name="score"]:checked');
+      if (!scoreField) {
+        reviewStatus.textContent = "Please select a score.";
+        reviewStatus.className = "reviews-status is-error";
+        return;
+      }
+
+      reviewStatus.textContent = "";
+      reviewStatus.className = "reviews-status";
+      reviewSubmit.disabled = true;
+      reviewSubmit.textContent = "Sending...";
+
+      const payload = {
+        name: reviewForm.name.value.trim(),
+        message: reviewForm.message.value.trim(),
+        score: Number(scoreField.value)
+      };
+
+      try {
+        const response = await fetch("/.netlify/functions/submit-review", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || !result.ok) {
+          throw new Error(result.error || "Unable to send review.");
+        }
+
+        reviewForm.reset();
+        reviewStatus.textContent = "Your review has been sent and is waiting for approval.";
+        reviewStatus.className = "reviews-status is-success";
+      } catch (error) {
+        reviewStatus.textContent = "Something went wrong. Please try again.";
+        reviewStatus.className = "reviews-status is-error";
+      } finally {
+        reviewSubmit.disabled = false;
+        reviewSubmit.textContent = "Send Review";
+      }
+    });
+
+    reviewsPrev.addEventListener("click", () => {
+      if (currentPage > 1) {
+        loadReviews(currentPage - 1);
+      }
+    });
+
+    reviewsNext.addEventListener("click", () => {
+      if (currentPage < totalPages) {
+        loadReviews(currentPage + 1);
+      }
+    });
+
+    loadReviews(1);
+  </script>
 </body>
 </html>
