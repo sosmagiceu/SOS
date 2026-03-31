@@ -168,7 +168,7 @@ body[data-page="home"] .feature-card-3d{
   box-sizing: border-box;
   pointer-events: auto;
   touch-action: pan-y;
-  border: 2px solid rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 20px;
   transition: transform .5s ease, box-shadow .35s ease, border-color .35s ease;
   transform-style: preserve-3d;
@@ -177,12 +177,33 @@ body[data-page="home"] .feature-card-3d{
   backface-visibility: hidden;
   background: rgba(0,0,0,0.12);
   box-shadow: 0 10px 28px rgba(0,0,0,.22);
+  isolation: isolate;
+}
+
+body[data-page="home"] .feature-card-3d::before{
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(90deg, rgba(0,255,255,0.95), rgba(255,0,255,0.95));
+  background-size: 200% 100%;
+  animation: homeButtonShift 2.8s ease-in-out infinite;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: .78;
+  pointer-events: none;
+  z-index: 3;
 }
 
 body[data-page="home"] .feature-card-3d:hover,
 body[data-page="home"] .carousel-3d .feature-card-3d.is-active{
-  box-shadow: 0 18px 38px rgba(0,0,0,.28);
-  border-color: rgba(255,255,255,.26);
+  box-shadow:
+    0 0 14px rgba(0,255,255,0.20),
+    0 0 20px rgba(255,0,255,0.14),
+    0 18px 38px rgba(0,0,0,.28);
+  border-color: rgba(255,255,255,.18);
 }
 
 body[data-page="home"] .feature-card-3d:nth-child(1){ transform: rotateY(0deg) translateZ(334px); }
@@ -209,26 +230,26 @@ body[data-page="home"] .feature-card-content{
   z-index: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
-  padding: 18px 14px 16px;
+  padding: 16px 14px 16px;
   gap: 10px;
   background:
     linear-gradient(
-      to top,
-      rgba(0,0,0,.82) 0%,
-      rgba(0,0,0,.62) 28%,
-      rgba(0,0,0,.28) 55%,
-      rgba(0,0,0,.06) 78%,
-      rgba(0,0,0,0) 100%
+      to bottom,
+      rgba(0,0,0,.58) 0%,
+      rgba(0,0,0,.20) 26%,
+      rgba(0,0,0,.10) 45%,
+      rgba(0,0,0,.34) 68%,
+      rgba(0,0,0,.82) 100%
     );
 }
 
 body[data-page="home"] .feature-title-3d{
   flex: 0 0 auto;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   width: 100%;
   min-height: 2.5em;
@@ -244,7 +265,9 @@ body[data-page="home"] .feature-title-3d{
 }
 
 body[data-page="home"] .feature-description-3d{
-  flex: 0 0 auto;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: flex-end;
   width: 100%;
   margin: 0;
   color: rgba(255,255,255,.94);
