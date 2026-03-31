@@ -8,7 +8,7 @@ body[data-page="home"]{
 }
 
 body[data-page="home"] section#features{
-  padding: 88px 20px 34px;
+  padding: 76px 20px 28px;
   overflow-x: clip;
 }
 
@@ -22,7 +22,7 @@ body[data-page="home"] .container{
   position: relative;
   z-index: 2;
   text-align: center;
-  margin: 0 0 34px;
+  margin: 0 0 22px;
   font-family: "Cormorant SC", serif;
   font-size: clamp(42px, 6vw, 69px);
   font-weight: 600;
@@ -39,9 +39,9 @@ body[data-page="home"] .container{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: clamp(108px, 15vw, 150px);
+  min-height: clamp(88px, 13vw, 126px);
   min-width: clamp(220px, 36vw, 420px);
-  padding-top: 18px;
+  padding-top: 8px;
   overflow: visible;
 }
 
@@ -140,9 +140,9 @@ body[data-page="home"] .container{
 
 body[data-page="home"] .features-container{
   position: relative;
-  height: 520px;
+  height: 500px;
   perspective: 1280px;
-  margin: 38px 0 18px;
+  margin: 20px 0 8px;
   overflow: visible;
 }
 
@@ -159,22 +159,22 @@ body[data-page="home"] .feature-card-3d{
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 255px;
-  height: 340px;
-  margin-left: -127.5px;
-  margin-top: -170px;
+  width: 232px;
+  height: 332px;
+  margin-left: -116px;
+  margin-top: -166px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 12px 16px 12px;
+  padding: 10px 14px 10px;
   box-sizing: border-box;
   pointer-events: auto;
   touch-action: pan-y;
   background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
   backdrop-filter: blur(20px);
   border: 2px solid rgba(255,255,255,.16);
-  border-radius: 22px;
+  border-radius: 20px;
   transition: transform .5s ease, box-shadow .35s ease, background .35s ease, border-color .35s ease;
   transform-style: preserve-3d;
   cursor: pointer;
@@ -186,7 +186,7 @@ body[data-page="home"] .feature-card-3d::before{
   content: "";
   position: absolute;
   inset: -2px;
-  border-radius: 22px;
+  border-radius: 20px;
   background: linear-gradient(45deg, var(--primary), var(--secondary), var(--glow), var(--primary));
   background-size: 300% 300%;
   opacity: 0;
@@ -208,12 +208,12 @@ body[data-page="home"] .carousel-3d .feature-card-3d.is-active{
   box-shadow: 0 22px 54px rgba(0,217,255,.22), inset 0 0 30px rgba(255,255,255,.07);
 }
 
-body[data-page="home"] .feature-card-3d:nth-child(1){ transform: rotateY(0deg) translateZ(320px); }
-body[data-page="home"] .feature-card-3d:nth-child(2){ transform: rotateY(60deg) translateZ(320px); }
-body[data-page="home"] .feature-card-3d:nth-child(3){ transform: rotateY(120deg) translateZ(320px); }
-body[data-page="home"] .feature-card-3d:nth-child(4){ transform: rotateY(180deg) translateZ(320px); }
-body[data-page="home"] .feature-card-3d:nth-child(5){ transform: rotateY(240deg) translateZ(320px); }
-body[data-page="home"] .feature-card-3d:nth-child(6){ transform: rotateY(300deg) translateZ(320px); }
+body[data-page="home"] .feature-card-3d:nth-child(1){ transform: rotateY(0deg) translateZ(334px); }
+body[data-page="home"] .feature-card-3d:nth-child(2){ transform: rotateY(60deg) translateZ(334px); }
+body[data-page="home"] .feature-card-3d:nth-child(3){ transform: rotateY(120deg) translateZ(334px); }
+body[data-page="home"] .feature-card-3d:nth-child(4){ transform: rotateY(180deg) translateZ(334px); }
+body[data-page="home"] .feature-card-3d:nth-child(5){ transform: rotateY(240deg) translateZ(334px); }
+body[data-page="home"] .feature-card-3d:nth-child(6){ transform: rotateY(300deg) translateZ(334px); }
 
 body[data-page="home"] .feature-title-3d{
   flex: 0 0 20%;
@@ -235,8 +235,8 @@ body[data-page="home"] .feature-title-3d{
 body[data-page="home"] .carousel-card-image{
   flex: 0 0 40%;
   width: 100%;
-  max-width: 232px;
-  height: 136px;
+  max-width: 206px;
+  height: 128px;
   margin: 0 auto;
   object-fit: contain;
   object-position: center;
@@ -324,17 +324,17 @@ body[data-page="home"] .guide-btn{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 150px;
-  min-height: 38px;
+  width: 138px;
+  min-height: 36px;
   margin: 0 auto;
-  padding: 0 18px;
-  border-radius: 999px;
+  padding: 0 16px;
+  border-radius: 12px;
   text-decoration: none;
   text-align: center;
   white-space: nowrap;
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   pointer-events: auto;
@@ -342,11 +342,11 @@ body[data-page="home"] .guide-btn{
 
 body[data-page="home"] .carousel-controls{
   position: absolute;
-  bottom: -54px;
+  bottom: -40px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 20px;
+  gap: 16px;
   z-index: 300;
   pointer-events: auto;
 }
@@ -369,19 +369,19 @@ body[data-page="home"] .carousel-btn{
 
 @media (max-width: 768px){
   body[data-page="home"] section#features{
-    padding-top: 76px;
-    padding-bottom: 88px;
+    padding-top: 68px;
+    padding-bottom: 72px;
   }
 
   .section-title{
-    margin-bottom: 24px;
+    margin-bottom: 18px;
     font-size: clamp(36px, 8vw, 52px);
   }
 
   .title-swap{
-    min-height: 90px;
+    min-height: 76px;
     min-width: min(100%, 250px);
-    padding-top: 14px;
+    padding-top: 6px;
   }
 
   .section-title .sos-title-logo{
@@ -413,33 +413,33 @@ body[data-page="home"] .carousel-btn{
   }
 
   body[data-page="home"] .features-container{
-    height: 450px;
-    margin: 24px 0 26px;
+    height: 426px;
+    margin: 14px 0 10px;
     perspective: 900px;
   }
 
   body[data-page="home"] .feature-card-3d{
-    width: 214px;
-    height: 320px;
-    margin-left: -107px;
-    margin-top: -160px;
-    padding: 10px 12px 10px;
+    width: 198px;
+    height: 306px;
+    margin-left: -99px;
+    margin-top: -153px;
+    padding: 9px 11px 9px;
   }
 
-  body[data-page="home"] .feature-card-3d:nth-child(1){ transform: rotateY(0deg) translateZ(184px); }
-  body[data-page="home"] .feature-card-3d:nth-child(2){ transform: rotateY(60deg) translateZ(184px); }
-  body[data-page="home"] .feature-card-3d:nth-child(3){ transform: rotateY(120deg) translateZ(184px); }
-  body[data-page="home"] .feature-card-3d:nth-child(4){ transform: rotateY(180deg) translateZ(184px); }
-  body[data-page="home"] .feature-card-3d:nth-child(5){ transform: rotateY(240deg) translateZ(184px); }
-  body[data-page="home"] .feature-card-3d:nth-child(6){ transform: rotateY(300deg) translateZ(184px); }
+  body[data-page="home"] .feature-card-3d:nth-child(1){ transform: rotateY(0deg) translateZ(192px); }
+  body[data-page="home"] .feature-card-3d:nth-child(2){ transform: rotateY(60deg) translateZ(192px); }
+  body[data-page="home"] .feature-card-3d:nth-child(3){ transform: rotateY(120deg) translateZ(192px); }
+  body[data-page="home"] .feature-card-3d:nth-child(4){ transform: rotateY(180deg) translateZ(192px); }
+  body[data-page="home"] .feature-card-3d:nth-child(5){ transform: rotateY(240deg) translateZ(192px); }
+  body[data-page="home"] .feature-card-3d:nth-child(6){ transform: rotateY(300deg) translateZ(192px); }
 
   body[data-page="home"] .feature-title-3d{
     font-size: 1rem;
   }
 
   body[data-page="home"] .carousel-card-image{
-    max-width: 196px;
-    height: 124px;
+    max-width: 176px;
+    height: 118px;
   }
 
   body[data-page="home"] .feature-description-3d{
@@ -448,14 +448,14 @@ body[data-page="home"] .carousel-btn{
   }
 
   body[data-page="home"] .guide-btn{
-    width: 132px;
-    min-height: 34px;
-    padding: 0 14px;
-    font-size: 11px;
+    width: 122px;
+    min-height: 32px;
+    padding: 0 12px;
+    font-size: 10px;
   }
 
   body[data-page="home"] .carousel-controls{
-    bottom: -56px;
+    bottom: -38px;
   }
 
   body[data-page="home"] .carousel-btn{
