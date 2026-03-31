@@ -14,7 +14,7 @@ body[data-page="home"] section#features{
 
 body[data-page="home"] .container{
   width: min(100%, 1120px);
-  margin: 0 auto;
+  margin: auto auto 0;
   overflow-x: clip;
 }
 
@@ -181,7 +181,8 @@ body[data-page="home"] .feature-card-3d{
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 10px 14px 10px;
+  padding: 16px 14px 16px;
+  gap: 12px;
   box-sizing: border-box;
   pointer-events: auto;
   touch-action: pan-y;
@@ -230,11 +231,12 @@ body[data-page="home"] .feature-card-3d:nth-child(5){ transform: rotateY(240deg)
 body[data-page="home"] .feature-card-3d:nth-child(6){ transform: rotateY(300deg) translateZ(334px); }
 
 body[data-page="home"] .feature-title-3d{
-  flex: 0 0 20%;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+  min-height: 3.1em;
   margin: 0;
   color: var(--light);
   font-family: "Cormorant SC", serif;
@@ -247,7 +249,7 @@ body[data-page="home"] .feature-title-3d{
 }
 
 body[data-page="home"] .carousel-card-image{
-  flex: 0 0 40%;
+  flex: 0 0 auto;
   width: 100%;
   max-width: 206px;
   height: 128px;
@@ -258,11 +260,12 @@ body[data-page="home"] .carousel-card-image{
 }
 
 body[data-page="home"] .feature-description-3d{
-  flex: 0 0 20%;
+  flex: 1 1 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+  min-height: 3.7em;
   margin: 0;
   color: rgba(255,255,255,.9);
   font-family: "Montserrat", sans-serif;
@@ -330,7 +333,7 @@ body[data-page="home"] .guide-btn{
   width: auto;
   min-width: 0;
   min-height: 0;
-  margin: auto auto 0;
+  margin: 0 auto;
   padding: 14px 26px;
   border-radius: 999px;
   text-decoration: none;
@@ -438,7 +441,8 @@ body[data-page="home"] .carousel-btn{
     height: 306px;
     margin-left: -99px;
     margin-top: -153px;
-    padding: 9px 11px 9px;
+    padding: 14px 11px 14px;
+    gap: 10px;
   }
 
   body[data-page="home"] .feature-card-3d:nth-child(1){ transform: rotateY(0deg) translateZ(192px); }
