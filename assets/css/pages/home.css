@@ -135,21 +135,9 @@ body[data-page="home"] .container{
   100% { background-position: 0% 0; }
 }
 
-@keyframes homeGradientBorder{
-  0%{ background-position:0% 50%; }
-  50%{ background-position:100% 50%; }
-  100%{ background-position:0% 50%; }
-}
-
 @keyframes homeButtonShift{
   0%,100%{ background-position: 0% 0%; }
   50%{ background-position: 100% 0%; }
-}
-
-@keyframes cardNeonShiftDiagonal{
-  0%{ background-position:0% 0%; }
-  50%{ background-position:100% 100%; }
-  100%{ background-position:0% 0%; }
 }
 
 body[data-page="home"] .features-container{
@@ -177,50 +165,24 @@ body[data-page="home"] .feature-card-3d{
   height: 332px;
   margin-left: -116px;
   margin-top: -166px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 16px 14px 16px;
-  gap: 12px;
   box-sizing: border-box;
   pointer-events: auto;
   touch-action: pan-y;
-  background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
-  backdrop-filter: blur(20px);
   border: 2px solid rgba(255,255,255,.16);
   border-radius: 20px;
-  transition: transform .5s ease, box-shadow .35s ease, background .35s ease, border-color .35s ease;
+  transition: transform .5s ease, box-shadow .35s ease, border-color .35s ease;
   transform-style: preserve-3d;
   cursor: pointer;
   overflow: hidden;
   backface-visibility: hidden;
-}
-
-body[data-page="home"] .feature-card-3d::before{
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: 20px;
-  background: linear-gradient(45deg, var(--primary), var(--secondary), var(--glow), var(--primary));
-  background-size: 300% 300%;
-  opacity: 0;
-  z-index: -1;
-  transition: opacity .5s ease;
-  animation: homeGradientBorder 3s linear infinite;
-}
-
-body[data-page="home"] .feature-card-3d:hover::before,
-body[data-page="home"] .carousel-3d .feature-card-3d.is-active::before{
-  opacity: 1;
+  background: rgba(0,0,0,0.12);
+  box-shadow: 0 10px 28px rgba(0,0,0,.22);
 }
 
 body[data-page="home"] .feature-card-3d:hover,
 body[data-page="home"] .carousel-3d .feature-card-3d.is-active{
-  background: linear-gradient(135deg, rgba(255,0,255,.18) 0%, rgba(255,255,255,.06) 30%, rgba(0,255,255,.18) 100%);
-  background-size: 220% 220%;
-  animation: cardNeonShiftDiagonal 6.2s ease-in-out infinite;
-  box-shadow: 0 22px 54px rgba(0,217,255,.22), inset 0 0 30px rgba(255,255,255,.07);
+  box-shadow: 0 18px 38px rgba(0,0,0,.28);
+  border-color: rgba(255,255,255,.26);
 }
 
 body[data-page="home"] .feature-card-3d:nth-child(1){ transform: rotateY(0deg) translateZ(334px); }
@@ -230,13 +192,46 @@ body[data-page="home"] .feature-card-3d:nth-child(4){ transform: rotateY(180deg)
 body[data-page="home"] .feature-card-3d:nth-child(5){ transform: rotateY(240deg) translateZ(334px); }
 body[data-page="home"] .feature-card-3d:nth-child(6){ transform: rotateY(300deg) translateZ(334px); }
 
+body[data-page="home"] .carousel-card-image{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  z-index: 0;
+}
+
+body[data-page="home"] .feature-card-content{
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  padding: 18px 14px 16px;
+  gap: 10px;
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.82) 0%,
+      rgba(0,0,0,.62) 28%,
+      rgba(0,0,0,.28) 55%,
+      rgba(0,0,0,.06) 78%,
+      rgba(0,0,0,0) 100%
+    );
+}
+
 body[data-page="home"] .feature-title-3d{
   flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 3.1em;
+  min-height: 2.5em;
   margin: 0;
   color: var(--light);
   font-family: "Cormorant SC", serif;
@@ -245,34 +240,20 @@ body[data-page="home"] .feature-title-3d{
   line-height: 1.06;
   letter-spacing: .05em;
   text-transform: uppercase;
-  transform: translateZ(10px);
-}
-
-body[data-page="home"] .carousel-card-image{
-  flex: 0 0 auto;
-  width: 100%;
-  max-width: 206px;
-  height: 128px;
-  margin: 0 auto;
-  object-fit: contain;
-  object-position: center;
-  transform: translateZ(10px);
+  text-shadow: 0 2px 10px rgba(0,0,0,.55);
 }
 
 body[data-page="home"] .feature-description-3d{
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex: 0 0 auto;
   width: 100%;
-  min-height: 3.7em;
   margin: 0;
-  color: rgba(255,255,255,.9);
+  color: rgba(255,255,255,.94);
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
-  font-size: .9rem;
-  line-height: 1.38;
+  font-size: .86rem;
+  line-height: 1.35;
   letter-spacing: .02em;
+  text-shadow: 0 2px 10px rgba(0,0,0,.55);
 }
 
 body[data-page="home"] .feature-number{
@@ -284,8 +265,8 @@ body[data-page="home"] .carousel-btn{
   position: relative;
   isolation: isolate;
   color: rgba(255,255,255,.95);
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(0,0,0,0.28);
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.34);
   backdrop-filter: blur(10px);
   transition: transform 180ms ease, box-shadow 220ms ease, color 220ms ease, opacity 180ms ease;
   -webkit-tap-highlight-color: transparent;
@@ -333,7 +314,7 @@ body[data-page="home"] .guide-btn{
   width: auto;
   min-width: 0;
   min-height: 0;
-  margin: 0 auto;
+  margin: 2px auto 0;
   padding: 14px 26px;
   border-radius: 999px;
   text-decoration: none;
@@ -441,8 +422,6 @@ body[data-page="home"] .carousel-btn{
     height: 306px;
     margin-left: -99px;
     margin-top: -153px;
-    padding: 14px 11px 14px;
-    gap: 10px;
   }
 
   body[data-page="home"] .feature-card-3d:nth-child(1){ transform: rotateY(0deg) translateZ(192px); }
@@ -452,18 +431,19 @@ body[data-page="home"] .carousel-btn{
   body[data-page="home"] .feature-card-3d:nth-child(5){ transform: rotateY(240deg) translateZ(192px); }
   body[data-page="home"] .feature-card-3d:nth-child(6){ transform: rotateY(300deg) translateZ(192px); }
 
-  body[data-page="home"] .feature-title-3d{
-    font-size: 1rem;
+  body[data-page="home"] .feature-card-content{
+    padding: 14px 11px 14px;
+    gap: 8px;
   }
 
-  body[data-page="home"] .carousel-card-image{
-    max-width: 176px;
-    height: 118px;
+  body[data-page="home"] .feature-title-3d{
+    font-size: 1rem;
+    min-height: 2.4em;
   }
 
   body[data-page="home"] .feature-description-3d{
-    font-size: .8rem;
-    line-height: 1.38;
+    font-size: .78rem;
+    line-height: 1.34;
   }
 
   body[data-page="home"] .guide-btn{
