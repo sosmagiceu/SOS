@@ -140,6 +140,23 @@ body[data-page="home"] .container{
   50%{ background-position: 100% 0%; }
 }
 
+@keyframes homeCardTitleBreath{
+  0%,100%{
+    color: #b400ff;
+    text-shadow:
+      0 0 6px rgba(180,0,255,0.42),
+      0 0 14px rgba(180,0,255,0.30),
+      0 2px 10px rgba(0,0,0,.55);
+  }
+  50%{
+    color: #d76bff;
+    text-shadow:
+      0 0 10px rgba(215,107,255,0.78),
+      0 0 22px rgba(215,107,255,0.56),
+      0 2px 10px rgba(0,0,0,.55);
+  }
+}
+
 body[data-page="home"] .features-container{
   position: relative;
   height: 500px;
@@ -183,16 +200,16 @@ body[data-page="home"] .feature-card-3d{
 body[data-page="home"] .feature-card-3d::before{
   content: "";
   position: absolute;
-  inset: -1px;
+  inset: -2px;
   border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(90deg, rgba(0,255,255,0.95), rgba(255,0,255,0.95));
-  background-size: 200% 100%;
-  animation: homeButtonShift 2.8s ease-in-out infinite;
+  padding: 2.5px;
+  background: linear-gradient(90deg, rgba(0,255,255,1), rgba(255,0,255,1));
+  background-size: 220% 100%;
+  animation: homeButtonShift 2.4s ease-in-out infinite;
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  opacity: .78;
+  opacity: .98;
   pointer-events: none;
   z-index: 3;
 }
@@ -200,10 +217,10 @@ body[data-page="home"] .feature-card-3d::before{
 body[data-page="home"] .feature-card-3d:hover,
 body[data-page="home"] .carousel-3d .feature-card-3d.is-active{
   box-shadow:
-    0 0 14px rgba(0,255,255,0.20),
-    0 0 20px rgba(255,0,255,0.14),
+    0 0 18px rgba(0,255,255,0.28),
+    0 0 28px rgba(255,0,255,0.22),
     0 18px 38px rgba(0,0,0,.28);
-  border-color: rgba(255,255,255,.18);
+  border-color: rgba(255,255,255,.22);
 }
 
 body[data-page="home"] .feature-card-3d:nth-child(1){ transform: rotateY(0deg) translateZ(334px); }
@@ -254,14 +271,18 @@ body[data-page="home"] .feature-title-3d{
   width: 100%;
   min-height: 2.5em;
   margin: 0;
-  color: var(--light);
+  color: #b400ff;
   font-family: "Cormorant SC", serif;
   font-size: 1.22rem;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.06;
   letter-spacing: .05em;
   text-transform: uppercase;
-  text-shadow: 0 2px 10px rgba(0,0,0,.55);
+  text-shadow:
+    0 0 6px rgba(180,0,255,0.42),
+    0 0 14px rgba(180,0,255,0.30),
+    0 2px 10px rgba(0,0,0,.55);
+  animation: homeCardTitleBreath 3.6s ease-in-out infinite;
 }
 
 body[data-page="home"] .feature-description-3d{
