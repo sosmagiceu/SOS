@@ -11,8 +11,8 @@ body[data-page="home"] .features-container {
 }
 
 body[data-page="home"] .content-section {
-  padding-top: 84px;
-  padding-bottom: 72px;
+  padding-top: 68px;
+  padding-bottom: 56px;
 }
 
 /* ---------- Title ---------- */
@@ -20,7 +20,7 @@ body[data-page="home"] .section-title {
   position: relative;
   z-index: 5;
   text-align: center;
-  margin: 0 0 18px;
+  margin: 0 0 6px;
   font-family: "Cormorant SC", serif;
   font-size: clamp(42px, 6vw, 69px);
   font-weight: 600;
@@ -35,7 +35,7 @@ body[data-page="home"] .title-swap {
   position: relative;
   display: inline-block;
   min-height: 1.2em;
-  padding-top: 18px;
+  padding-top: 10px;
 }
 
 body[data-page="home"] .section-title .sos-title--text {
@@ -111,7 +111,7 @@ body[data-page="home"] .section-title .sos-title--text::after {
 body[data-page="home"] .features-container {
   height: 500px;
   perspective: 1200px;
-  margin: 22px 0 8px;
+  margin: 10px 0 0;
 }
 
 body[data-page="home"] .carousel-3d {
@@ -122,11 +122,11 @@ body[data-page="home"] .carousel-3d {
 
 /* ---------- Cards ---------- */
 body[data-page="home"] .feature-card-3d {
-  width: 228px;
-  height: 330px;
-  margin-left: -114px;
-  margin-top: -165px;
-  padding: 18px 16px 16px;
+  width: 206px;
+  height: 322px;
+  margin-left: -103px;
+  margin-top: -161px;
+  padding: 12px 12px 10px;
 
   display: flex;
   flex-direction: column;
@@ -138,12 +138,12 @@ body[data-page="home"] .feature-card-3d {
   touch-action: pan-y;
 }
 
-body[data-page="home"] .feature-card-3d:nth-child(1) { transform: rotateY(0deg) translateZ(300px); }
-body[data-page="home"] .feature-card-3d:nth-child(2) { transform: rotateY(60deg) translateZ(300px); }
-body[data-page="home"] .feature-card-3d:nth-child(3) { transform: rotateY(120deg) translateZ(300px); }
-body[data-page="home"] .feature-card-3d:nth-child(4) { transform: rotateY(180deg) translateZ(300px); }
-body[data-page="home"] .feature-card-3d:nth-child(5) { transform: rotateY(240deg) translateZ(300px); }
-body[data-page="home"] .feature-card-3d:nth-child(6) { transform: rotateY(300deg) translateZ(300px); }
+body[data-page="home"] .feature-card-3d:nth-child(1) { transform: rotateY(0deg) translateZ(314px); }
+body[data-page="home"] .feature-card-3d:nth-child(2) { transform: rotateY(60deg) translateZ(314px); }
+body[data-page="home"] .feature-card-3d:nth-child(3) { transform: rotateY(120deg) translateZ(314px); }
+body[data-page="home"] .feature-card-3d:nth-child(4) { transform: rotateY(180deg) translateZ(314px); }
+body[data-page="home"] .feature-card-3d:nth-child(5) { transform: rotateY(240deg) translateZ(314px); }
+body[data-page="home"] .feature-card-3d:nth-child(6) { transform: rotateY(300deg) translateZ(314px); }
 
 body[data-page="home"] .feature-card-3d .feature-number {
   display: none !important;
@@ -173,8 +173,8 @@ body[data-page="home"] .carousel-3d .feature-card-3d.is-active::before {
 /* ---------- Card internals ---------- */
 body[data-page="home"] .feature-title-3d {
   width: 100%;
-  min-height: 18%;
-  margin: 0 0 6px;
+  min-height: 17%;
+  margin: 0 0 2px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -188,18 +188,18 @@ body[data-page="home"] .feature-title-3d {
 body[data-page="home"] .carousel-card-image {
   display: block;
   width: 100%;
-  max-width: 214px;
+  max-width: 194px;
   height: 40%;
-  min-height: 132px;
-  max-height: 138px;
+  min-height: 130px;
+  max-height: 136px;
   object-fit: contain;
-  margin: 0 auto 8px;
+  margin: 0 auto 4px;
 }
 
 body[data-page="home"] .feature-description-3d {
   width: 100%;
   min-height: 20%;
-  margin: 0 0 10px;
+  margin: 0 0 6px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -217,18 +217,18 @@ body[data-page="home"] .guide-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 140px;
-  height: 36px;
+  width: 126px;
+  height: 34px;
   margin: auto 0 0;
-  padding: 0 16px;
-  border-radius: 11px;
+  padding: 0 14px;
+  border-radius: 8px;
   background: #000;
   color: rgba(255,255,255,.95);
   text-decoration: none;
   white-space: nowrap;
   text-align: center;
   font-family: "Montserrat", sans-serif;
-  font-size: .78rem;
+  font-size: .74rem;
   font-weight: 600;
   letter-spacing: .11em;
   text-transform: uppercase;
@@ -271,13 +271,13 @@ body[data-page="home"] .guide-btn:active {
 
 /* ---------- Controls ---------- */
 body[data-page="home"] .carousel-controls {
-  bottom: -34px;
-  gap: 14px;
+  bottom: -22px;
+  gap: 12px;
 }
 
 body[data-page="home"] .carousel-btn {
-  width: 46px;
-  height: 46px;
+  width: 42px;
+  height: 42px;
   border-radius: 12px;
   border: 2px solid rgba(255,255,255,.18);
   background: #000;
@@ -328,16 +328,16 @@ body[data-page="home"] .carousel-indicators {
 /* ---------- Mobile ---------- */
 @media (max-width: 768px) {
   body[data-page="home"] .content-section {
-    padding-top: 78px;
-    padding-bottom: 64px;
+    padding-top: 64px;
+    padding-bottom: 50px;
   }
 
   body[data-page="home"] .section-title {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
 
   body[data-page="home"] .title-swap {
-    padding-top: 14px;
+    padding-top: 8px;
   }
 
   body[data-page="home"] .section-title .sos-title-logo-wrap {
@@ -361,63 +361,63 @@ body[data-page="home"] .carousel-indicators {
   }
 
   body[data-page="home"] .features-container {
-    height: 392px;
-    margin: 18px 0 6px;
+    height: 382px;
+    margin: 8px 0 0;
     perspective: 820px;
   }
 
   body[data-page="home"] .feature-card-3d {
-    width: 182px;
-    height: 290px;
-    margin-left: -91px;
-    margin-top: -145px;
-    padding: 14px 12px 12px;
+    width: 170px;
+    height: 282px;
+    margin-left: -85px;
+    margin-top: -141px;
+    padding: 10px 10px 9px;
   }
 
-  body[data-page="home"] .feature-card-3d:nth-child(1) { transform: rotateY(0deg) translateZ(176px); }
-  body[data-page="home"] .feature-card-3d:nth-child(2) { transform: rotateY(60deg) translateZ(176px); }
-  body[data-page="home"] .feature-card-3d:nth-child(3) { transform: rotateY(120deg) translateZ(176px); }
-  body[data-page="home"] .feature-card-3d:nth-child(4) { transform: rotateY(180deg) translateZ(176px); }
-  body[data-page="home"] .feature-card-3d:nth-child(5) { transform: rotateY(240deg) translateZ(176px); }
-  body[data-page="home"] .feature-card-3d:nth-child(6) { transform: rotateY(300deg) translateZ(176px); }
+  body[data-page="home"] .feature-card-3d:nth-child(1) { transform: rotateY(0deg) translateZ(186px); }
+  body[data-page="home"] .feature-card-3d:nth-child(2) { transform: rotateY(60deg) translateZ(186px); }
+  body[data-page="home"] .feature-card-3d:nth-child(3) { transform: rotateY(120deg) translateZ(186px); }
+  body[data-page="home"] .feature-card-3d:nth-child(4) { transform: rotateY(180deg) translateZ(186px); }
+  body[data-page="home"] .feature-card-3d:nth-child(5) { transform: rotateY(240deg) translateZ(186px); }
+  body[data-page="home"] .feature-card-3d:nth-child(6) { transform: rotateY(300deg) translateZ(186px); }
 
   body[data-page="home"] .feature-title-3d {
-    min-height: 17%;
-    font-size: .92rem;
-    margin-bottom: 4px;
+    min-height: 16%;
+    font-size: .9rem;
+    margin-bottom: 2px;
   }
 
   body[data-page="home"] .carousel-card-image {
-    max-width: 170px;
-    min-height: 108px;
-    max-height: 114px;
-    margin-bottom: 6px;
+    max-width: 154px;
+    min-height: 106px;
+    max-height: 112px;
+    margin-bottom: 4px;
   }
 
   body[data-page="home"] .feature-description-3d {
-    min-height: 21%;
-    font-size: .72rem;
-    line-height: 1.34;
-    margin-bottom: 8px;
+    min-height: 20%;
+    font-size: .71rem;
+    line-height: 1.32;
+    margin-bottom: 5px;
   }
 
   body[data-page="home"] .guide-btn {
-    width: 110px;
+    width: 104px;
     height: 28px;
-    border-radius: 9px;
+    border-radius: 7px;
     padding: 0 10px;
-    font-size: .63rem;
+    font-size: .61rem;
     letter-spacing: .08em;
   }
 
   body[data-page="home"] .carousel-controls {
-    bottom: -28px;
-    gap: 10px;
+    bottom: -18px;
+    gap: 9px;
   }
 
   body[data-page="home"] .carousel-btn {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     border-radius: 10px;
     font-size: 15px;
   }
