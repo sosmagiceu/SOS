@@ -251,8 +251,8 @@ body[data-page="home"] .feature-title-3d{
 body[data-page="home"] .carousel-card-image{
   flex: 0 0 auto;
   width: 100%;
-  max-width: 206px;
-  height: 128px;
+  max-width: 309px;
+  height: 192px;
   margin: 0 auto;
   object-fit: contain;
   object-position: center;
