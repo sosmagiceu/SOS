@@ -4,9 +4,8 @@
     const carousel = document.getElementById('carousel');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
-    const indicatorsContainer = document.getElementById('indicators');
 
-    if (!carousel || !prevBtn || !nextBtn || !indicatorsContainer) return;
+    if (!carousel || !prevBtn || !nextBtn) return;
     if (carousel.dataset.carouselReady === 'true') return;
     carousel.dataset.carouselReady = 'true';
 
@@ -18,14 +17,6 @@
     let currentIndex = 0;
     let touchStartX = 0;
 
-    indicatorsContainer.innerHTML = '';
-
-    function updateIndicators() {
-      indicatorsContainer.querySelectorAll('.indicator').forEach((indicator, index) => {
-        indicator.classList.toggle('active', index === currentIndex);
-      });
-    }
-
     function updateActiveCard() {
       featureCards.forEach((card, index) => {
         card.classList.toggle('is-active', index === currentIndex);
@@ -34,7 +25,6 @@
 
     function updateView() {
       carousel.style.transform = `rotateY(${currentRotation}deg)`;
-      updateIndicators();
       updateActiveCard();
     }
 
@@ -46,19 +36,6 @@
 
     function prev() { goToSlide(currentIndex - 1); }
     function next() { goToSlide(currentIndex + 1); }
-
-    featureCards.forEach((_, index) => {
-      const indicator = document.createElement('button');
-      indicator.type = 'button';
-      indicator.className = 'indicator';
-      indicator.setAttribute('aria-label', `Go to card ${index + 1}`);
-      indicator.addEventListener('click', (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        goToSlide(index);
-      });
-      indicatorsContainer.appendChild(indicator);
-    });
 
     prevBtn.addEventListener('click', (event) => {
       event.preventDefault();
