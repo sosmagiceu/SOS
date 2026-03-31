@@ -1,4 +1,5 @@
 const { createClient } = require("@supabase/supabase-js");
+const { cleanupReviews } = require("./_reviewsCleanup");
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
@@ -37,11 +38,17 @@ exports.handler = async (event) => {
       };
     }
 
-    await supabase
+    const { error: updateError } = await supabase
       .from("reviews")
       .update({ status: "declined" })
       .eq("id", id)
       .eq("review_token", token);
+
+    if (updateError) {
+      throw updateError;
+    }
+
+    await cleanupReviews(supabase);
 
     return {
       statusCode: 200,

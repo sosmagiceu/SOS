@@ -1,6 +1,7 @@
 const { createClient } = require("@supabase/supabase-js");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
+const { cleanupReviews } = require("./_reviewsCleanup");
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
@@ -98,6 +99,8 @@ exports.handler = async (event) => {
         `,
       });
     }
+
+    await cleanupReviews(supabase);
 
     return {
       statusCode: 200,
