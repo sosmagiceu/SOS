@@ -42,13 +42,11 @@
 
     prevBtn.addEventListener('click', (event) => {
       event.preventDefault();
-      event.stopPropagation();
       prev();
     });
 
     nextBtn.addEventListener('click', (event) => {
       event.preventDefault();
-      event.stopPropagation();
       next();
     });
 
