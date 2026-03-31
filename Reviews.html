@@ -29,8 +29,9 @@
 
         <div class="reviews-average-wrap" aria-label="Average rating">
           <div class="reviews-average-stars" id="reviews-average-stars" aria-hidden="true">
-            <span class="is-filled">★★★★★</span>
+            <span class="is-empty">☆☆☆☆☆</span>
           </div>
+          <p class="reviews-average-text" id="reviews-average-text">Average 0.0 out of 5 stars</p>
         </div>
       </div>
 
@@ -124,6 +125,7 @@
       const reviewsNext = document.getElementById("reviews-next");
       const reviewsPageSelect = document.getElementById("reviews-page-select");
       const averageStars = document.getElementById("reviews-average-stars");
+      const averageText = document.getElementById("reviews-average-text");
       const starsText = document.getElementById("reviews-stars-text");
       const starInputs = Array.from(document.querySelectorAll(".reviews-star-input"));
 
@@ -138,6 +140,7 @@
 
       function renderAverageStars(score) {
         const safe = Math.max(0, Math.min(5, Number(score) || 0));
+        const roundedText = safe.toFixed(1);
         const full = Math.floor(safe);
         const hasHalf = safe - full >= 0.5;
         const empty = 5 - full - (hasHalf ? 1 : 0);
@@ -146,6 +149,8 @@
           `<span class="is-filled">${"★".repeat(full)}</span>` +
           (hasHalf ? `<span class="is-half">★</span>` : "") +
           `<span class="is-empty">${"☆".repeat(empty)}</span>`;
+
+        averageText.textContent = `Average ${roundedText} out of 5 stars`;
       }
 
       function renderReviews(items) {
@@ -215,6 +220,7 @@
           reviewsEmpty.hidden = false;
           reviewsEmpty.textContent = "Could not load reviews.";
           reviewsPagination.hidden = true;
+          renderAverageStars(0);
         }
       }
 
@@ -289,6 +295,7 @@
       });
 
       updateSelectedStarsText();
+      renderAverageStars(0);
       loadReviews(1);
     })();
   </script>
