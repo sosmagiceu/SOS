@@ -132,25 +132,27 @@
       let currentPage = 1;
       let totalPages = 1;
 
-      function renderCardStars(score) {
+      function renderDisplayStars(score) {
         const safe = Math.max(0, Math.min(5, Number(score) || 0));
-        const rounded = Math.round(safe);
-        return "★".repeat(rounded) + "☆".repeat(5 - rounded);
-      }
-
-      function renderAverageStars(score) {
-        const safe = Math.max(0, Math.min(5, Number(score) || 0));
-        const roundedText = safe.toFixed(1);
         const full = Math.floor(safe);
         const hasHalf = safe - full >= 0.5;
         const empty = 5 - full - (hasHalf ? 1 : 0);
 
-        averageStars.innerHTML =
+        return (
           `<span class="is-filled">${"★".repeat(full)}</span>` +
           (hasHalf ? `<span class="is-half">★</span>` : "") +
-          `<span class="is-empty">${"☆".repeat(empty)}</span>`;
+          `<span class="is-empty">${"☆".repeat(empty)}</span>`
+        );
+      }
 
-        averageText.textContent = `Average ${roundedText} out of 5 stars`;
+      function renderCardStars(score) {
+        return renderDisplayStars(score);
+      }
+
+      function renderAverageStars(score) {
+        const safe = Math.max(0, Math.min(5, Number(score) || 0));
+        averageStars.innerHTML = renderDisplayStars(safe);
+        averageText.textContent = `Average ${safe.toFixed(1)} out of 5 stars`;
       }
 
       function renderReviews(items) {
@@ -170,13 +172,12 @@
           article.innerHTML = `
             <div class="review-card-top">
               <h3 class="review-card-name"></h3>
-              <div class="review-card-stars" aria-label="${Number(review.score)} out of 5 stars"></div>
+              <div class="review-card-stars" aria-label="${Number(review.score)} out of 5 stars">${renderCardStars(review.score)}</div>
             </div>
             <p class="review-card-message"></p>
           `;
 
           article.querySelector(".review-card-name").textContent = review.name;
-          article.querySelector(".review-card-stars").textContent = renderCardStars(review.score);
           article.querySelector(".review-card-message").textContent = review.message;
 
           reviewsList.appendChild(article);
@@ -204,11 +205,15 @@
             throw new Error(data.error || "Failed to load reviews");
           }
 
-          renderAverageStars(data.average_score || 0);
+          const avg = data.average_score ?? data.averageScore ?? 0;
+          const pageValue = data.page || 1;
+          const totalValue = data.total_pages ?? data.totalPages ?? 1;
+
+          renderAverageStars(avg);
           renderReviews(data.reviews || []);
 
-          currentPage = data.page || 1;
-          totalPages = data.total_pages || 1;
+          currentPage = pageValue;
+          totalPages = totalValue;
 
           updatePageSelect();
 

@@ -46,8 +46,11 @@ exports.handler = async (event) => {
         ok: true,
         page: safePage,
         totalPages,
+        total_pages: totalPages,
         totalApproved,
+        total_approved: totalApproved,
         averageScore: Number(averageScore.toFixed(1)),
+        average_score: Number(averageScore.toFixed(1)),
         reviews: pageItems,
       }),
     };
