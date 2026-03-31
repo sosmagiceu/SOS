@@ -1,3 +1,4 @@
+// assets/js/home-carousel.js
 (() => {
   function initHomeCarousel() {
     const carousel = document.getElementById('carousel');
