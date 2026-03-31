@@ -193,3 +193,30 @@ body[data-page="home"] .feature-card-3d::after{
   content: "";
   flex: 0 0 8%;
 }
+
+/* Inline Home.html cleanup moved into CSS */
+body[data-page="home"] .feature-card-3d{
+  align-items: center;
+  padding: 22px 18px 20px;
+  box-sizing: border-box;
+}
+
+body[data-page="home"] .feature-title-3d{
+  margin-top: 6px;
+  margin-bottom: 8px;
+}
+
+body[data-page="home"] .carousel-card-image{
+  max-width: 220px;
+  max-height: 140px;
+  margin: 6px 0 10px;
+}
+
+body[data-page="home"] .feature-description-3d{
+  margin-top: 6px;
+  margin-bottom: 12px;
+}
+
+body[data-page="home"] .guide-btn{
+  margin-top: auto;
+}
