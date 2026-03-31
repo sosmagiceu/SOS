@@ -24,9 +24,7 @@
     <section id="section-1" class="reviews-section">
       <div class="reviews-hero">
         <div class="reviews-kicker">
-          <h1 class="reviews-title">
-            <span class="reviews-line" data-text="Reviews">Reviews</span>
-          </h1>
+          <span class="reviews-line" data-text="Reviews">Reviews</span>
         </div>
 
         <div class="reviews-average-wrap" aria-label="Average rating">
@@ -37,9 +35,7 @@
       </div>
 
       <section class="reviews-block">
-        <div class="reviews-block-heading">
-          <h2 class="reviews-breathing-title">Leave a review</h2>
-        </div>
+        <h2 class="reviews-breathing-title">Leave a review</h2>
 
         <form id="review-form" class="reviews-form-card">
           <div class="reviews-field">
@@ -65,21 +61,26 @@
             ></textarea>
           </div>
 
-          <div class="reviews-field">
-            <label class="reviews-label" for="review-score">Score</label>
-            <select
-              class="reviews-input reviews-select"
-              id="review-score"
-              name="score"
-              required
-            >
-              <option value="">Select stars</option>
-              <option value="5">★★★★★</option>
-              <option value="4">★★★★☆</option>
-              <option value="3">★★★☆☆</option>
-              <option value="2">★★☆☆☆</option>
-              <option value="1">★☆☆☆☆</option>
-            </select>
+          <div class="reviews-field reviews-stars-field">
+            <label class="reviews-label">Score</label>
+
+            <div class="reviews-stars-shell" role="radiogroup" aria-label="Review score">
+              <input class="reviews-star-input" type="radio" name="score" id="score-1" value="1" required>
+              <input class="reviews-star-input" type="radio" name="score" id="score-2" value="2" required>
+              <input class="reviews-star-input" type="radio" name="score" id="score-3" value="3" required>
+              <input class="reviews-star-input" type="radio" name="score" id="score-4" value="4" required>
+              <input class="reviews-star-input" type="radio" name="score" id="score-5" value="5" required>
+
+              <div class="reviews-stars-picker">
+                <label class="reviews-star-label" for="score-1" aria-label="1 star">★</label>
+                <label class="reviews-star-label" for="score-2" aria-label="2 stars">★</label>
+                <label class="reviews-star-label" for="score-3" aria-label="3 stars">★</label>
+                <label class="reviews-star-label" for="score-4" aria-label="4 stars">★</label>
+                <label class="reviews-star-label" for="score-5" aria-label="5 stars">★</label>
+              </div>
+
+              <div class="reviews-stars-text" id="reviews-stars-text">Select stars</div>
+            </div>
           </div>
 
           <button class="reviews-cta reviews-submit" type="submit">Send Review</button>
@@ -88,9 +89,7 @@
       </section>
 
       <section class="reviews-block">
-        <div class="reviews-block-heading">
-          <h2 class="reviews-breathing-title">Current reviews</h2>
-        </div>
+        <h2 class="reviews-breathing-title">Current reviews</h2>
 
         <div id="reviews-list" class="reviews-list"></div>
 
@@ -100,7 +99,12 @@
 
         <div class="reviews-pagination" id="reviews-pagination" hidden>
           <button type="button" class="reviews-page-btn" id="reviews-prev">Previous</button>
-          <div class="reviews-page-info" id="reviews-page-info">Page 1 of 1</div>
+
+          <label class="reviews-page-select-wrap" for="reviews-page-select">
+            <span class="reviews-page-label">Page</span>
+            <select id="reviews-page-select" class="reviews-page-select"></select>
+          </label>
+
           <button type="button" class="reviews-page-btn" id="reviews-next">Next</button>
         </div>
       </section>
@@ -118,8 +122,10 @@
       const reviewsPagination = document.getElementById("reviews-pagination");
       const reviewsPrev = document.getElementById("reviews-prev");
       const reviewsNext = document.getElementById("reviews-next");
-      const reviewsPageInfo = document.getElementById("reviews-page-info");
+      const reviewsPageSelect = document.getElementById("reviews-page-select");
       const averageStars = document.getElementById("reviews-average-stars");
+      const starsText = document.getElementById("reviews-stars-text");
+      const starInputs = Array.from(document.querySelectorAll(".reviews-star-input"));
 
       let currentPage = 1;
       let totalPages = 1;
@@ -172,6 +178,18 @@
         });
       }
 
+      function updatePageSelect() {
+        reviewsPageSelect.innerHTML = "";
+
+        for (let i = 1; i <= totalPages; i++) {
+          const option = document.createElement("option");
+          option.value = i;
+          option.textContent = i;
+          option.selected = i === currentPage;
+          reviewsPageSelect.appendChild(option);
+        }
+      }
+
       async function loadReviews(page = 1) {
         try {
           const res = await fetch(`/.netlify/functions/get-reviews?page=${page}`);
@@ -187,7 +205,8 @@
           currentPage = data.page || 1;
           totalPages = data.total_pages || 1;
 
-          reviewsPageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+          updatePageSelect();
+
           reviewsPrev.disabled = currentPage <= 1;
           reviewsNext.disabled = currentPage >= totalPages;
           reviewsPagination.hidden = totalPages <= 1;
@@ -199,16 +218,33 @@
         }
       }
 
+      function updateSelectedStarsText() {
+        const checked = document.querySelector(".reviews-star-input:checked");
+        if (!checked) {
+          starsText.textContent = "Select stars";
+          return;
+        }
+
+        const value = Number(checked.value);
+        starsText.textContent = value === 1 ? "1 star selected" : `${value} stars selected`;
+      }
+
+      starInputs.forEach((input) => {
+        input.addEventListener("change", updateSelectedStarsText);
+      });
+
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         statusEl.textContent = "Sending...";
         statusEl.classList.remove("is-error", "is-success");
 
+        const checkedScore = document.querySelector(".reviews-star-input:checked");
+
         const data = {
           name: form.name.value.trim(),
           message: form.message.value.trim(),
-          score: parseInt(form.score.value, 10)
+          score: checkedScore ? parseInt(checkedScore.value, 10) : null
         };
 
         try {
@@ -227,6 +263,7 @@
           }
 
           form.reset();
+          updateSelectedStarsText();
           statusEl.textContent = "Your review has been sent to us.";
           statusEl.classList.add("is-success");
         } catch (err) {
@@ -247,6 +284,11 @@
         }
       });
 
+      reviewsPageSelect.addEventListener("change", () => {
+        loadReviews(parseInt(reviewsPageSelect.value, 10));
+      });
+
+      updateSelectedStarsText();
       loadReviews(1);
     })();
   </script>
