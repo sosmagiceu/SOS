@@ -306,6 +306,12 @@ body[data-page="home"] .carousel-btn::after{
   z-index: -2;
 }
 
+body[data-page="home"] .guide-btn::after{
+  inset: -8px;
+  filter: blur(10px);
+  opacity: .28;
+}
+
 body[data-page="home"] .guide-btn:hover,
 body[data-page="home"] .carousel-btn:hover{
   transform: translateY(-1px);
@@ -324,17 +330,19 @@ body[data-page="home"] .guide-btn{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 138px;
-  min-height: 36px;
+  width: auto;
+  min-width: 112px;
+  min-height: 0;
   margin: 0 auto;
-  padding: 0 16px;
-  border-radius: 12px;
+  padding: 10px 18px;
+  border-radius: 10px;
   text-decoration: none;
   text-align: center;
   white-space: nowrap;
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 11px;
+  line-height: 1;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   pointer-events: auto;
@@ -448,9 +456,8 @@ body[data-page="home"] .carousel-btn{
   }
 
   body[data-page="home"] .guide-btn{
-    width: 122px;
-    min-height: 32px;
-    padding: 0 12px;
+    min-width: 104px;
+    padding: 9px 14px;
     font-size: 10px;
   }
 
