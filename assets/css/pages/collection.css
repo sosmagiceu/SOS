@@ -144,9 +144,9 @@ body[data-page="collection"] .collection-page{
   content: '';
   position: absolute;
   top: 0;
-  width: 100vw;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
+  left: 0;
+  transform: none;
   height: 1px;
   background: linear-gradient(
     90deg,
