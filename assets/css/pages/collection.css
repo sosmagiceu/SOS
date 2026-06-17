@@ -92,17 +92,18 @@ body[data-page="collection"] .collection-page{
 
 
 .collection-line-mid{
-  display: block;
+  display: inline-block;
   font-size: 2em;
   letter-spacing: 0.11em;
   position: relative;
   color: #ffffff; /* force white base so it doesn't inherit black */
+  isolation: isolate;
 }
 
 
 @keyframes collectionScanBand{
-  0%   { background-position: 200% 0; }
-  100% { background-position: 0% 0; }
+  0%   { background-position: 260% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .collection-line-mid::after,
@@ -114,16 +115,22 @@ body[data-page="collection"] .collection-page{
   background: linear-gradient(
     90deg,
     rgba(0,255,255,0) 0%,
-    rgba(0,255,255,0) 42%,
-    rgba(0,255,255,1) 48%,
-    rgba(255,0,255,1) 52%,
-    rgba(255,0,255,0) 58%,
+    rgba(0,255,255,0.15) 30%,
+    rgba(0,255,255,1) 45%,
+    rgba(174,82,255,1) 55%,
+    rgba(255,0,255,1) 66%,
+    rgba(255,0,255,0.12) 82%,
     rgba(255,0,255,0) 100%
   );
-  background-size: 200% 100%;
+  background-size: 260% 100%;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: collectionScanBand 2.2s linear infinite;
+  color: transparent;
+  transform: scale(1.18);
+  filter: blur(8px);
+  opacity: 0.95;
+  animation: collectionScanBand 2.8s linear infinite;
 }
 
 /* ============================= */
