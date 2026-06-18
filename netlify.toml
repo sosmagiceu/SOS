@@ -1,2 +1,54 @@
 [build]
+  command = "npm run build"
+  publish = "dist"
   functions = "netlify/functions"
+
+[[redirects]]
+  from = "/Home.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/Products.html"
+  to = "/products"
+  status = 301
+
+[[redirects]]
+  from = "/Method.html"
+  to = "/method"
+  status = 301
+
+[[redirects]]
+  from = "/FAQ.html"
+  to = "/faq"
+  status = 301
+
+[[redirects]]
+  from = "/Story.html"
+  to = "/story"
+  status = 301
+
+[[redirects]]
+  from = "/Partnership.html"
+  to = "/partnership"
+  status = 301
+
+[[redirects]]
+  from = "/Reviews.html"
+  to = "/reviews"
+  status = 301
+
+[[redirects]]
+  from = "/Contact.html"
+  to = "/contact"
+  status = 301
+
+[[redirects]]
+  from = "/guidedreading.html"
+  to = "/guided-reading"
+  status = 301
+
+[[redirects]]
+  from = "/TOS.html"
+  to = "/terms"
+  status = 301

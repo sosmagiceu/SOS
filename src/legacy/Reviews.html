@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta property="og:title" content="S.O.S. Magic Tarot Experience">
+<meta property="og:description" content="Explore the S.O.S. Magic tarot deck and receive a powerful digital reading.">
+<meta property="og:type" content="website">
+
+<meta name="description" content="Discover the S.O.S. Magic tarot deck and unlock your personal digital reading. Step into clarity, insight, and guidance designed to reveal what lies ahead.">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reviews – SOS Magic</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <link href="/assets/css/pages/shared.css" rel="stylesheet"/>
+  <link href="/assets/css/pages/reviews.css" rel="stylesheet"/>
+  <script defer src="/assets/js/header.js"></script>
+  <script defer src="/assets/js/footer.js"></script>
+</head>
+<body data-page="reviews">
+  <div id="header-mount"></div>
+
+  <main class="reviews-page">
+    <section id="section-1" class="reviews-section">
+      <div class="reviews-hero">
+        <div class="reviews-kicker">
+          <span class="reviews-line" data-text="Reviews">Reviews</span>
+        </div>
+
+        <div class="reviews-average-wrap" aria-label="Average rating">
+          <div class="reviews-average-stars" id="reviews-average-stars" aria-hidden="true">
+            <span class="is-empty">☆☆☆☆☆</span>
+          </div>
+          <p class="reviews-average-text" id="reviews-average-text">Average 0.0 out of 5 stars</p>
+        </div>
+      </div>
+
+      <section class="reviews-block">
+        <h2 class="reviews-breathing-title">Leave a review</h2>
+
+        <form id="review-form" class="reviews-form-card">
+          <div class="reviews-field">
+            <label class="reviews-label" for="review-name">Name</label>
+            <input
+              class="reviews-input"
+              id="review-name"
+              name="name"
+              type="text"
+              placeholder="Your name"
+              required
+            />
+          </div>
+
+          <div class="reviews-field">
+            <label class="reviews-label" for="review-message">Message</label>
+            <textarea
+              class="reviews-input reviews-textarea"
+              id="review-message"
+              name="message"
+              placeholder="Your review"
+              required
+            ></textarea>
+          </div>
+
+          <div class="reviews-field reviews-stars-field">
+            <label class="reviews-label">Score</label>
+
+            <div class="reviews-stars-shell" role="radiogroup" aria-label="Review score">
+              <input class="reviews-star-input" type="radio" name="score" id="score-1" value="1" required>
+              <input class="reviews-star-input" type="radio" name="score" id="score-2" value="2" required>
+              <input class="reviews-star-input" type="radio" name="score" id="score-3" value="3" required>
+              <input class="reviews-star-input" type="radio" name="score" id="score-4" value="4" required>
+              <input class="reviews-star-input" type="radio" name="score" id="score-5" value="5" required>
+
+              <div class="reviews-stars-picker">
+                <label class="reviews-star-label" for="score-1" aria-label="1 star">★</label>
+                <label class="reviews-star-label" for="score-2" aria-label="2 stars">★</label>
+                <label class="reviews-star-label" for="score-3" aria-label="3 stars">★</label>
+                <label class="reviews-star-label" for="score-4" aria-label="4 stars">★</label>
+                <label class="reviews-star-label" for="score-5" aria-label="5 stars">★</label>
+              </div>
+
+              <div class="reviews-stars-text" id="reviews-stars-text">Select stars</div>
+            </div>
+          </div>
+
+          <button class="reviews-cta reviews-submit" type="submit">Send Review</button>
+          <p id="review-form-status" class="reviews-form-status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="reviews-block">
+        <h2 class="reviews-breathing-title">Current reviews</h2>
+
+        <div id="reviews-list" class="reviews-list"></div>
+
+        <div id="reviews-empty" class="reviews-empty" hidden>
+          No reviews yet.
+        </div>
+
+        <div class="reviews-pagination" id="reviews-pagination" hidden>
+          <button type="button" class="reviews-page-btn" id="reviews-prev">Previous</button>
+
+          <label class="reviews-page-select-wrap" for="reviews-page-select">
+            <span class="reviews-page-label">Page</span>
+            <select id="reviews-page-select" class="reviews-page-select"></select>
+          </label>
+
+          <button type="button" class="reviews-page-btn" id="reviews-next">Next</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div id="footer-mount"></div>
+
+  <script>
+    (() => {
+      const form = document.getElementById("review-form");
+      const statusEl = document.getElementById("review-form-status");
+      const reviewsList = document.getElementById("reviews-list");
+      const reviewsEmpty = document.getElementById("reviews-empty");
+      const reviewsPagination = document.getElementById("reviews-pagination");
+      const reviewsPrev = document.getElementById("reviews-prev");
+      const reviewsNext = document.getElementById("reviews-next");
+      const reviewsPageSelect = document.getElementById("reviews-page-select");
+      const averageStars = document.getElementById("reviews-average-stars");
+      const averageText = document.getElementById("reviews-average-text");
+      const starsText = document.getElementById("reviews-stars-text");
+      const starInputs = Array.from(document.querySelectorAll(".reviews-star-input"));
+
+      let currentPage = 1;
+      let totalPages = 1;
+
+      function renderDisplayStars(score) {
+        const safe = Math.max(0, Math.min(5, Number(score) || 0));
+        const full = Math.floor(safe);
+        const hasHalf = safe - full >= 0.5;
+        const empty = 5 - full - (hasHalf ? 1 : 0);
+
+        return (
+          `<span class="is-filled">${"★".repeat(full)}</span>` +
+          (hasHalf ? `<span class="is-half">★</span>` : "") +
+          `<span class="is-empty">${"☆".repeat(empty)}</span>`
+        );
+      }
+
+      function renderCardStars(score) {
+        return renderDisplayStars(score);
+      }
+
+      function renderAverageStars(score) {
+        const safe = Math.max(0, Math.min(5, Number(score) || 0));
+        averageStars.innerHTML = renderDisplayStars(safe);
+        averageText.textContent = `Average ${safe.toFixed(1)} out of 5 stars`;
+      }
+
+      function renderReviews(items) {
+        reviewsList.innerHTML = "";
+
+        if (!items || !items.length) {
+          reviewsEmpty.hidden = false;
+          return;
+        }
+
+        reviewsEmpty.hidden = true;
+
+        items.forEach((review) => {
+          const article = document.createElement("article");
+          article.className = "review-card";
+
+          article.innerHTML = `
+            <div class="review-card-top">
+              <h3 class="review-card-name"></h3>
+              <div class="review-card-stars" aria-label="${Number(review.score)} out of 5 stars">${renderCardStars(review.score)}</div>
+            </div>
+            <p class="review-card-message"></p>
+          `;
+
+          article.querySelector(".review-card-name").textContent = review.name;
+          article.querySelector(".review-card-message").textContent = review.message;
+
+          reviewsList.appendChild(article);
+        });
+      }
+
+      function updatePageSelect() {
+        reviewsPageSelect.innerHTML = "";
+
+        for (let i = 1; i <= totalPages; i++) {
+          const option = document.createElement("option");
+          option.value = i;
+          option.textContent = i;
+          option.selected = i === currentPage;
+          reviewsPageSelect.appendChild(option);
+        }
+      }
+
+      async function loadReviews(page = 1) {
+        try {
+          const res = await fetch(`/.netlify/functions/get-reviews?page=${page}`);
+          const data = await res.json();
+
+          if (!res.ok) {
+            throw new Error(data.error || "Failed to load reviews");
+          }
+
+          const avg = data.average_score ?? data.averageScore ?? 0;
+          const pageValue = data.page || 1;
+          const totalValue = data.total_pages ?? data.totalPages ?? 1;
+
+          renderAverageStars(avg);
+          renderReviews(data.reviews || []);
+
+          currentPage = pageValue;
+          totalPages = totalValue;
+
+          updatePageSelect();
+
+          reviewsPrev.disabled = currentPage <= 1;
+          reviewsNext.disabled = currentPage >= totalPages;
+          reviewsPagination.hidden = totalPages <= 1;
+        } catch (err) {
+          reviewsList.innerHTML = "";
+          reviewsEmpty.hidden = false;
+          reviewsEmpty.textContent = "Could not load reviews.";
+          reviewsPagination.hidden = true;
+          renderAverageStars(0);
+        }
+      }
+
+      function updateSelectedStarsText() {
+        const checked = document.querySelector(".reviews-star-input:checked");
+        if (!checked) {
+          starsText.textContent = "Select stars";
+          return;
+        }
+
+        const value = Number(checked.value);
+        starsText.textContent = value === 1 ? "1 star selected" : `${value} stars selected`;
+      }
+
+      starInputs.forEach((input) => {
+        input.addEventListener("change", updateSelectedStarsText);
+      });
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        statusEl.textContent = "Sending...";
+        statusEl.classList.remove("is-error", "is-success");
+
+        const checkedScore = document.querySelector(".reviews-star-input:checked");
+
+        const data = {
+          name: form.name.value.trim(),
+          message: form.message.value.trim(),
+          score: checkedScore ? parseInt(checkedScore.value, 10) : null
+        };
+
+        try {
+          const res = await fetch("/.netlify/functions/submit-review", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+          });
+
+          const result = await res.json();
+
+          if (!res.ok) {
+            throw new Error(result.error || "Something went wrong");
+          }
+
+          form.reset();
+          updateSelectedStarsText();
+          statusEl.textContent = "Your review has been sent to us.";
+          statusEl.classList.add("is-success");
+        } catch (err) {
+          statusEl.textContent = err.message || "Something went wrong. Please try again.";
+          statusEl.classList.add("is-error");
+        }
+      });
+
+      reviewsPrev.addEventListener("click", () => {
+        if (currentPage > 1) {
+          loadReviews(currentPage - 1);
+        }
+      });
+
+      reviewsNext.addEventListener("click", () => {
+        if (currentPage < totalPages) {
+          loadReviews(currentPage + 1);
+        }
+      });
+
+      reviewsPageSelect.addEventListener("change", () => {
+        loadReviews(parseInt(reviewsPageSelect.value, 10));
+      });
+
+      updateSelectedStarsText();
+      renderAverageStars(0);
+      loadReviews(1);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+---
+import Header from '../components/Header';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props { title: string; description?: string; page?: string; stylesheet?: string; }
+const { title, description = 'S.O.S. Magic helps you pause, reflect and find clarity through beautifully designed symbolic tools.', page, stylesheet } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={`${title} | S.O.S. Magic`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    {stylesheet && <link rel="stylesheet" href={stylesheet} />}
+    <title>{title} | S.O.S. Magic</title>
+  </head>
+  <body class="page-bg" data-page={page}>
+    <div class="noise"></div>
+    <Header client:load currentPath={Astro.url.pathname.replace(/\/$/, '') || '/'} />
+    <main><slot /></main>
+    <Footer />
+  </body>
+</html>
