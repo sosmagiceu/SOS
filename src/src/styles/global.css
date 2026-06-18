@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Cormorant Garamond", serif;
+  --font-sans: "Manrope", sans-serif;
+  --color-ink: #08080d;
+  --color-violet: #8b5cf6;
+  --color-aqua: #5eead4;
+  --color-mist: #c4b5fd;
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; background: #08080d; }
+  body { margin: 0; min-height: 100vh; color: #f8f7ff; font-family: var(--font-sans); background: #08080d; }
+  ::selection { color: #08080d; background: #5eead4; }
+  a, button { -webkit-tap-highlight-color: transparent; }
+}
+
+:root {
+  --primary: #00d9ff;
+  --secondary: #ff00ea;
+  --dark: #0a0a0f;
+  --light: #ffffff;
+  --glow: #00ffcc;
+  --font-heading: "Manrope", sans-serif;
+  --font-body: "Manrope", sans-serif;
+}
+
+.legacy-content { min-height: calc(100vh - 160px); padding-top: 10px; }
+.legacy-content img, .legacy-content video { max-width: 100%; }
+
+.page-bg {
+  background:
+    radial-gradient(circle at 78% 8%, rgba(139,92,246,.18), transparent 30rem),
+    radial-gradient(circle at 8% 34%, rgba(94,234,212,.09), transparent 26rem),
+    linear-gradient(rgba(8,8,13,.86), rgba(8,8,13,.95)),
+    url("https://sosmagic.b-cdn.net/Achterground%20enzo/Achtergrond%20.png") center / cover fixed;
+}
+
+.glass { background: rgba(18, 17, 29, .68); border: 1px solid rgba(255,255,255,.09); backdrop-filter: blur(18px); }
+.eyebrow { color: #5eead4; font-size: .72rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+.display { font-family: var(--font-display); font-weight: 500; letter-spacing: -.035em; line-height: .94; }
+.gradient-text { color: transparent; background: linear-gradient(105deg,#fff 5%,#c4b5fd 55%,#5eead4); background-clip: text; }
+.soft-ring { box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 28px 80px rgba(0,0,0,.32); }
+.noise { position: fixed; inset: 0; pointer-events: none; opacity: .025; z-index: 60; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E"); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .float { animation: float 6s ease-in-out infinite; }
+  @keyframes float { 50% { transform: translateY(-10px) rotate(1deg); } }
+}
