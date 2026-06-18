@@ -1,4 +1,17 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import OriginalLayout from '../layouts/OriginalLayout.astro';
+import '../styles/original/contact.css';
 ---
-<Layout title="Page not found"><section class="grid min-h-screen place-items-center px-5 text-center"><div><p class="eyebrow">404 — Off course</p><h1 class="display gradient-text mt-5 text-7xl">Let’s find the signal again.</h1><a href="/" class="mt-8 inline-block rounded-full bg-white px-7 py-3.5 font-bold text-ink hover:bg-aqua">Back home</a></div></section></Layout>
+<OriginalLayout title="Page not found – SOS Magic" page="contact">
+  <main class="contact-page">
+    <section class="contact-section">
+      <div class="contact-hero">
+        <div class="contact-kicker">
+          <h1 class="contact-title"><span class="contact-line" data-text="Page not found">Page not found</span></h1>
+        </div>
+        <p class="contact-text">The page you requested does not exist.</p>
+        <div class="contact-actions"><a class="contact-cta" href="/">Back home</a></div>
+      </div>
+    </section>
+  </main>
+</OriginalLayout>

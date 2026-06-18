@@ -1,13 +1,150 @@
 ---
-import Layout from '../layouts/Layout.astro'; import PageHero from '../components/PageHero.astro'; import StorySlider from '../components/StorySlider';
-const slides=[
- {title:'When the Magic First Appeared',body:"In the painful silence that followed, we realized standard advice wasn't enough. We desperately needed a lifeline, a tool to instantly cut through mental noise, stop the anxious spiral, and hear our intuition again. But we found only temporary fixes. Then, something powerful began to unfold."},
- {title:'The Impossible Beginning',body:'One of the twins had zero drawing skills. Yet there came a night when her subconscious urged her to pick up an iPad. The first card, The Empress, almost drew itself. This pure inner force dictated every glowing symbol, compelling her to finish the entire deck despite severe ADHD.'},
- {title:'78 Symbols of Survival',body:'For a full year, the deck grew card by card. This wasn’t just art; it was deep, neuro-aesthetic therapy. Every glowing symbol you hold in your hands was born from real-life struggle, tested by pain, and perfectly refined to bypass your inner critic and provide instant clarity.'},
- {title:'The 250-Factory Battle',body:'Creating the deck was one challenge; printing it in 14 neon Pantone colors was another. Over 250 factories called our vision “impossible,” but we refused to compromise. We finally printed it on elite Monte Carlo casino paper. When the first sample arrived, it literally had a pulse.'},
- {title:'When the Universe Expanded',body:'Next, the other twin brought the S.O.S. MAGIC universe to life. She designed the luxurious packaging, the digital guidebooks, and created two sister decks: the Oracle and Angelic Messages. Together, they form a complete intuitive ecosystem, supporting women through every emotional season of their lives.'},
- {title:'The Moment It Became a Method',body:'Finally, the mother gathered everything into the S.O.S. MAGIC Method. By integrating the decks with proven neuro-practices, she created your ultimate Emotional First Aid. It’s a complete system designed for women ready to stop the mental spiral, reclaim their power, and tune into their own frequency.'},
- {title:'This is how S.O.S. MAGIC was born.',body:'From intuition.\nFrom struggle.\nFrom real life.\n\nAnd for every woman who’s ready to stop sinking and start swimming…\n\nSwim!..'}
-];
+import OriginalLayout from '../layouts/OriginalLayout.astro';
+import '../styles/original/story.css';
 ---
-<Layout title="Our Story"><PageHero eyebrow="How the life-changing Method was born" title="We never planned to build a brand." intro="We were trying to survive…"/><section class="px-5 pb-20"><div class="mx-auto max-w-5xl overflow-hidden rounded-[2rem] soft-ring"><video class="aspect-video w-full object-cover" src="https://sosmagic.b-cdn.net/videos/story.mp4" poster="https://sosmagic.b-cdn.net/videos/story.png" controls playsinline preload="metadata"></video></div><p class="mx-auto mt-8 max-w-3xl text-center text-lg leading-8 text-white/60"><strong class="text-white">Our pain became our purpose:</strong> to build a lighthouse for those who are still fighting the waves…</p></section><section class="px-5 pb-28"><div class="mx-auto max-w-5xl"><p class="eyebrow mb-6">The Story in Seven Slides</p><h2 class="display mb-10 text-5xl">How S.O.S. MAGIC Became a Method</h2><StorySlider client:load slides={slides}/><a href="/products" class="mt-8 inline-block rounded-full bg-white px-7 py-3.5 font-bold text-ink hover:bg-aqua">Shop the collection</a></div></section></Layout>
+<OriginalLayout title="Our Story – SOS Magic" page="story">
+<main class="story-page">
+
+    <!-- SECTION 1: Intro + Video + Purpose + CTA -->
+    <section id="section-1" class="story-section">
+
+      <div class="story-hero">
+        <div class="story-kicker">
+          <span class="story-line-mid" data-text="How the life-changing Method was born.">How the life-changing Method was born.</span>
+        </div>
+
+        <h1 class="story-title">We never planned to build a brand.</h1>
+
+        <p class="story-text">We were trying to survive…</p>
+      </div>
+
+      <div class="story-video">
+        <div class="story-video-shell">
+          <video class="story-player"
+                 src="https://sosmagic.b-cdn.net/videos/story.mp4"
+                 poster="https://sosmagic.b-cdn.net/videos/story.png"
+                 controls
+                 playsinline
+                 preload="metadata" aria-label="Page introduction video"></video>
+        </div>
+      </div>
+
+      <p class="story-text" style="margin-top: 18px;">
+        <span class="story-kicker-inline" data-text="Our pain became our purpose:">Our pain became our purpose:</span>
+        to build a lighthouse for those who are still fighting the waves…
+      </p>
+
+      <div style="margin-top: 18px;">
+        <a class="story-cta" href="/products">SHOP THE COLLECTION</a>
+      </div>
+
+      <div class="story-divider story-divider--img">
+        <img class="story-divider-img" src="https://sosmagic.b-cdn.net/fotos/Photo%2001-03-2026%2C%2006%2024%2020%20(1).png" alt="" loading="lazy" alt="" aria-hidden="true">
+      </div>
+    </section>
+
+    <!-- SECTION 2: Slides + CTA + final image -->
+    <section id="section-2" class="story-section">
+
+      <div class="story-kicker">
+        <span class="story-line-big" data-text="The Story in Six Slides">The Story in Six Slides</span>
+      </div>
+
+      <h1 class="story-title">How S.O.S. MAGIC Became a Method</h1>
+
+      <div class="story-slides" aria-label="Story slides">
+
+        <div class="slides-viewport" id="storySlides" tabindex="0" aria-label="Swipeable story slides">
+
+          <article class="story-slide" aria-label="Slide 1">
+            <div class="slide-head">
+              <span class="slide-kicker" data-text="When the Magic First Appeared">When the Magic First Appeared</span>
+            </div>
+            <p class="story-text">
+              In the painful silence that followed, we realized standard advice wasn't enough. We desperately needed a lifeline, a tool to instantly cut through mental noise, stop the anxious spiral, and hear our intuition again. But we found only temporary fixes. Then, something powerful began to unfold.
+            </p>
+          </article>
+
+          <article class="story-slide" aria-label="Slide 2">
+            <div class="slide-head">
+              <span class="slide-kicker" data-text="The Impossible Beginning">The Impossible Beginning</span>
+            </div>
+            <p class="story-text">
+              One of the twins had zero drawing skills. Yet there came a night when her subconscious urged her to pick up an iPad. The first card, The Empress, almost drew itself. This pure inner force dictated every glowing symbol, compelling her to finish the entire deck despite severe ADHD.
+            </p>
+          </article>
+
+          <article class="story-slide" aria-label="Slide 3">
+            <div class="slide-head">
+              <span class="slide-kicker" data-text="78 Symbols of Survival">78 Symbols of Survival</span>
+            </div>
+            <p class="story-text">
+              For a full year, the deck grew card by card. This wasn’t just art; it was deep, neuro-aesthetic therapy. Every glowing symbol you hold in your hands was born from real-life struggle, tested by pain, and perfectly refined to bypass your inner critic and provide instant clarity.
+            </p>
+          </article>
+
+          <article class="story-slide" aria-label="Slide 4">
+            <div class="slide-head">
+              <span class="slide-kicker" data-text="The 250-Factory Battle">The 250-Factory Battle</span>
+            </div>
+            <p class="story-text">
+              Creating the deck was one challenge; printing it in 14 neon Pantone colors was another. Over 250 factories called our vision “impossible,” but we refused to compromise. We finally printed it on elite Monte Carlo casino paper. When the first sample arrived, it literally had a pulse.
+            </p>
+          </article>
+
+          <article class="story-slide" aria-label="Slide 5">
+            <div class="slide-head">
+              <span class="slide-kicker" data-text="When the Universe Expanded">When the Universe Expanded</span>
+            </div>
+            <p class="story-text">
+              Next, the other twin brought the S.O.S. MAGIC universe to life. She designed the luxurious packaging, the digital guidebooks, and created two sister decks: the Oracle and Angelic Messages. Together, they form a complete intuitive ecosystem, supporting women through every emotional season of their lives.
+            </p>
+          </article>
+
+          <article class="story-slide" aria-label="Slide 6">
+            <div class="slide-head">
+              <span class="slide-kicker" data-text="The Moment It Became a Method">The Moment It Became a Method</span>
+            </div>
+            <p class="story-text">
+              Finally, the mother gathered everything into the S.O.S. MAGIC Method. By integrating the decks with proven neuro-practices, she created your ultimate Emotional First Aid. It’s a complete system designed for women ready to stop the mental spiral, reclaim their power, and tune into their own frequency.
+            </p>
+          </article>
+
+          <article class="story-slide" aria-label="Slide 7">
+            <div class="slide-head">
+              <span class="slide-kicker" data-text="This is how S.O.S. MAGIC was born.">This is how S.O.S. MAGIC was born.</span>
+            </div>
+            <p class="story-text">
+              From intuition.<br/>
+              From struggle.<br/>
+              From real life.
+              <br/><br/>
+              And for every woman who’s ready to stop sinking and start swimming…
+            </p>
+            <h2 class="story-title story-title-sm" style="margin-top: 12px;">Swim!..</h2>
+          </article>
+
+        </div>
+
+        <div class="slides-controls" aria-label="Slides controls">
+          <button class="slides-nav prev" type="button" aria-label="Previous slide"></button>
+          <button class="slides-nav next" type="button" aria-label="Next slide"></button>
+        </div>
+
+        <div class="slides-dots" aria-label="Slide position" id="storySlidesDots"></div>
+
+      </div>
+
+      <div style="margin-top: 18px;">
+        <a class="story-cta" href="/products">SHOP THE COLLECTION</a>
+      </div>
+
+      <div class="story-divider story-divider--img">
+        <img class="story-divider-img" src="https://sosmagic.b-cdn.net/fotos/Photo%2001-03-2026%2C%2006%2024%2020%20(10).png" alt="" loading="lazy" alt="" aria-hidden="true">
+      </div>
+    </section>
+
+  </main>
+
+<script is:inline src="/scripts/story-slides.js" defer></script>
+</OriginalLayout>

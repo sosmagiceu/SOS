@@ -1,4 +1,99 @@
 ---
-import Layout from '../layouts/Layout.astro'; import PageHero from '../components/PageHero.astro'; import Reviews from '../components/Reviews';
+import OriginalLayout from '../layouts/OriginalLayout.astro';
+import '../styles/original/reviews.css';
 ---
-<Layout title="Reviews"><PageHero eyebrow="Community" title="Reviews"/><section class="px-5 pb-28"><div class="mx-auto max-w-7xl"><Reviews client:load/></div></section></Layout>
+<OriginalLayout title="Reviews – SOS Magic" page="reviews">
+<main class="reviews-page">
+    <section id="section-1" class="reviews-section">
+      <div class="reviews-hero">
+        <div class="reviews-kicker">
+          <span class="reviews-line" data-text="Reviews">Reviews</span>
+        </div>
+
+        <div class="reviews-average-wrap" aria-label="Average rating">
+          <div class="reviews-average-stars" id="reviews-average-stars" aria-hidden="true">
+            <span class="is-empty">☆☆☆☆☆</span>
+          </div>
+          <p class="reviews-average-text" id="reviews-average-text">Average 0.0 out of 5 stars</p>
+        </div>
+      </div>
+
+      <section class="reviews-block">
+        <h2 class="reviews-breathing-title">Leave a review</h2>
+
+        <form id="review-form" class="reviews-form-card">
+          <div class="reviews-field">
+            <label class="reviews-label" for="review-name">Name</label>
+            <input
+              class="reviews-input"
+              id="review-name"
+              name="name"
+              type="text"
+              placeholder="Your name"
+              required
+            />
+          </div>
+
+          <div class="reviews-field">
+            <label class="reviews-label" for="review-message">Message</label>
+            <textarea
+              class="reviews-input reviews-textarea"
+              id="review-message"
+              name="message"
+              placeholder="Your review"
+              required
+            ></textarea>
+          </div>
+
+          <div class="reviews-field reviews-stars-field">
+            <label class="reviews-label">Score</label>
+
+            <div class="reviews-stars-shell" role="radiogroup" aria-label="Review score">
+              <input class="reviews-star-input" type="radio" name="score" id="score-1" value="1" required>
+              <input class="reviews-star-input" type="radio" name="score" id="score-2" value="2" required>
+              <input class="reviews-star-input" type="radio" name="score" id="score-3" value="3" required>
+              <input class="reviews-star-input" type="radio" name="score" id="score-4" value="4" required>
+              <input class="reviews-star-input" type="radio" name="score" id="score-5" value="5" required>
+
+              <div class="reviews-stars-picker">
+                <label class="reviews-star-label" for="score-1" aria-label="1 star">★</label>
+                <label class="reviews-star-label" for="score-2" aria-label="2 stars">★</label>
+                <label class="reviews-star-label" for="score-3" aria-label="3 stars">★</label>
+                <label class="reviews-star-label" for="score-4" aria-label="4 stars">★</label>
+                <label class="reviews-star-label" for="score-5" aria-label="5 stars">★</label>
+              </div>
+
+              <div class="reviews-stars-text" id="reviews-stars-text">Select stars</div>
+            </div>
+          </div>
+
+          <button class="reviews-cta reviews-submit" type="submit">Send Review</button>
+          <p id="review-form-status" class="reviews-form-status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="reviews-block">
+        <h2 class="reviews-breathing-title">Current reviews</h2>
+
+        <div id="reviews-list" class="reviews-list"></div>
+
+        <div id="reviews-empty" class="reviews-empty" hidden>
+          No reviews yet.
+        </div>
+
+        <div class="reviews-pagination" id="reviews-pagination" hidden>
+          <button type="button" class="reviews-page-btn" id="reviews-prev">Previous</button>
+
+          <label class="reviews-page-select-wrap" for="reviews-page-select">
+            <span class="reviews-page-label">Page</span>
+            <select id="reviews-page-select" class="reviews-page-select"></select>
+          </label>
+
+          <button type="button" class="reviews-page-btn" id="reviews-next">Next</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+<script is:inline src="/scripts/reviews-page.js"></script>
+</OriginalLayout>

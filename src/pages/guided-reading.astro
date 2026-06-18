@@ -1,4 +1,43 @@
 ---
-import Layout from '../layouts/Layout.astro'; import PageHero from '../components/PageHero.astro';
+import OriginalLayout from '../layouts/OriginalLayout.astro';
+import '../styles/original/guidedreading.css';
 ---
-<Layout title="Guided Reading"><PageHero eyebrow="Guided Reading" title="Your 24/7 online navigation to stop the mental spiral and regain control."/><section class="px-5 pb-28"><div class="mx-auto max-w-5xl"><div class="overflow-hidden rounded-[2rem] soft-ring"><video class="aspect-video w-full object-cover" src="https://sosmagic.b-cdn.net/videos/reading.mp4" poster="https://sosmagic.b-cdn.net/videos/reading.jpeg" controls playsinline preload="metadata"></video></div><div class="mx-auto mt-12 max-w-3xl text-center text-lg leading-8 text-white/60"><p>The Neon Tarot, Oracle, and Angelic message decks used in Guided Readings don’t just predict life’s storms ahead.</p><p class="mt-5">They act as the compass of your intuition, helping you weather any storm and come out on top.</p><a href="/" class="mt-8 inline-block rounded-full bg-white px-7 py-3.5 font-bold text-ink hover:bg-aqua">Get Clarity</a></div></div></section></Layout>
+<OriginalLayout title="Guided Reading – SOS Magic" page="guidedreading">
+<main class="guided-page">
+    <section class="guided-section">
+
+      <div class="guided-kicker">
+        <span class="guided-line-big" data-text="Guided Reading">Guided Reading</span>
+      </div>
+
+      <p class="guided-text guided-intro">
+        Your 24/7 online navigation to stop the mental spiral and regain control.
+      </p>
+
+      <div class="guided-video" aria-label="Guided Reading video">
+        <div class="guided-video-shell">
+          <video class="guided-player"
+                 src="https://sosmagic.b-cdn.net/videos/reading.mp4"
+                 poster="https://sosmagic.b-cdn.net/videos/reading.jpeg"
+                 controls
+                 playsinline
+                 preload="metadata" aria-label="Page introduction video"></video>
+        </div>
+      </div>
+
+      <p class="guided-text">
+        The Neon Tarot, Oracle, and Angelic message decks used in Guided Readings don’t just predict life’s storms ahead.
+      </p>
+
+      <p class="guided-text">
+        They act as the compass of your intuition, helping you weather any storm and come out on top.
+      </p>
+
+      <div class="guided-cta-wrap">
+        <a class="guided-cta" href="/">Get Clarity</a>
+      </div>
+
+    </section>
+  </main>
+
+</OriginalLayout>

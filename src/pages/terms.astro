@@ -1,4 +1,345 @@
 ---
-import Layout from '../layouts/Layout.astro'; import PageHero from '../components/PageHero.astro'; import terms from '../data/terms.json';
+import OriginalLayout from '../layouts/OriginalLayout.astro';
+import '../styles/original/tos.css';
 ---
-<Layout title="Terms & Privacy"><PageHero eyebrow={terms.effective} title={terms.title}/><section class="px-5 pb-28"><div class="mx-auto max-w-5xl space-y-6">{terms.sections.map(section => <article class="glass rounded-[2rem] p-7 sm:p-10"><h2 class="display text-4xl">{section.title}</h2><div class="rich-content mt-7 text-white/65" set:html={section.body}></div></article>)}</div></section></Layout>
+<OriginalLayout title="Terms of Service – SOS Magic" page="tos">
+<main class="legal-page">
+    <section class="legal-hero" aria-label="Terms of Service">
+      <h1 class="legal-title">Terms of Service, Privacy Policy, and Cookie Policy</h1>
+      <p class="legal-effective"><strong>Effective Date:</strong> May 29, 2026</p>
+    </section>
+
+    <div class="legal-stack">
+
+      <section class="legal-card" aria-label="Terms and Conditions">
+        <h2 class="legal-h2">Terms &amp; Conditions</h2>
+
+        <p class="legal-p">
+          By purchasing from Van der Velde Beheer B.V., operating under the registered trade name S.O.S. MAGIC
+          (the “Seller”), you (the “Buyer”) agree to these Terms &amp; Conditions. Please read them carefully.
+          If you do not agree, do not use this Website or make a purchase.
+        </p>
+
+        <div class="legal-divider"></div>
+
+        <h3 class="legal-h3">1. Definitions</h3>
+
+        <p class="legal-p">
+          <strong>“Seller”</strong> means Van der Velde Beheer B.V., operating under the registered trade name
+          S.O.S. MAGIC, a company registered in the Netherlands under KVK number 24327349, VAT NL810301076B01.
+        </p>
+
+        <p class="legal-p">
+          <strong>“Buyer”</strong> means any individual or legal entity purchasing from the Seller.
+        </p>
+
+        <p class="legal-p">
+          <strong>“Primary Digital Product”</strong> includes the digital Complete Interpretation Book with video
+          activations and the Interactive Study &amp; Practice Guided Readings Simulator, purchased by the Buyer
+          on the website sosmagic.eu (the “Website”).
+        </p>
+
+        <p class="legal-p">
+          <strong>“Complimentary Physical Items”</strong> means any physical goods shipped to the Buyer strictly
+          as free promotional gifts accompanying the Primary Digital Product, carrying zero commercial cash value.
+        </p>
+
+        <p class="legal-p">
+          <strong>“Products”</strong> collectively refers to the Primary Digital Product and any accompanying
+          Complimentary Physical Items.
+        </p>
+
+        <h3 class="legal-h3">2. Intellectual Property</h3>
+
+        <p class="legal-p">
+          All Website and Product content, including but not limited to: the digital Complete Interpretation Books
+          with the video activations, the Interactive Study Companion &amp; Practice Guided Readings Simulator,
+          texts, graphics, logos, images, unique printed product designs, and packaging, is the exclusive
+          intellectual property of the respective rights holders.
+        </p>
+
+        <p class="legal-p">
+          The Seller is an official authorized reseller of the Primary Digital Product and utilizes all related
+          intellectual property materials based on existing agreements with the rights holders.
+        </p>
+
+        <p class="legal-p">
+          The purchase of Products does not transfer any intellectual property rights to the Buyer. Any commercial
+          use, reproduction, full or partial copying, publication in open sources, or creation of derivative works
+          based on the Website materials or the Products itself is strictly prohibited without the express prior
+          written consent of the respective rights holders.
+        </p>
+
+        <h3 class="legal-h3">3. Prices, Payments &amp; Taxes</h3>
+
+        <p class="legal-p">
+          <strong>Inclusive Pricing:</strong> All prices listed on the Website are final and include all applicable
+          taxes, VAT (BTW), and import duties.
+        </p>
+
+        <p class="legal-p">
+          <strong>Payment of Taxes and Duties:</strong> The Seller utilizes specialized distribution and dropshipping
+          partners; all relevant taxes and customs duties are processed and remitted by the service providers.
+          The Buyer is not responsible for any additional tax or customs payments upon receipt.
+        </p>
+
+        <p class="legal-p">
+          <strong>Payment Processing:</strong> Payments are accepted through authorized gateways.
+        </p>
+
+        <p class="legal-p">
+          <strong>Fraud Prevention:</strong> The Seller may cancel an order or suspend access in cases of suspected
+          fraud or chargeback risk.
+        </p>
+
+        <h3 class="legal-h3">4. Primary Digital Product</h3>
+
+        <p class="legal-p">
+          <strong>Immediate Access and Loss of Refund Rights:</strong> By placing an order and requesting immediate
+          access to the Primary Digital Product, the Buyer explicitly acknowledges, consents, and agrees that once
+          the digital access link is generated, or access to the digital platform/simulator has started, the Buyer
+          loses their statutory 14-day right of withdrawal under EU consumer protection laws. Consequently, all
+          digital purchases are strictly non-refundable and non-exchangeable.
+        </p>
+
+        <p class="legal-p">
+          Access to the Primary Digital Product is provided via the internet. The Seller will make every reasonable
+          effort to ensure uninterrupted access to it, but is not responsible for any temporary downtime caused by
+          internet service provider failures, device incompatibility, or necessary technical maintenance.
+        </p>
+
+        <p class="legal-p">
+          This tool is designed strictly as an educational study aid to help the Buyer practice and accelerate the
+          understanding of The S.O.S. MAGIC Method. It operates using automated algorithms and contextual processing.
+          All layouts, interpretations and answers are provided strictly for educational and entertainment purposes only.
+        </p>
+
+        <ul class="legal-ul">
+          <li class="legal-li">
+            The responses generated by the application do not constitute, and must not be treated as, professional
+            psychological, medical, psychiatric, financial, legal, or personal advice.
+          </li>
+          <li class="legal-li">
+            The Seller makes no guarantees regarding the absolute accuracy, completeness, or real-world outcomes of
+            the automated interpretations. The Buyer assumes full, sole responsibility for any life decisions or
+            actions taken based on interactions with the application.
+          </li>
+        </ul>
+
+        <h3 class="legal-h3">5. Complimentary Physical Items</h3>
+
+        <p class="legal-p">
+          All physical items shipped to the Buyer are included strictly as complimentary, promotional gifts.
+          They are strictly non-refundable, non-exchangeable, and cannot be traded for monetary compensation
+          or partial refunds of the Primary Digital Product.
+        </p>
+
+        <p class="legal-p">
+          However, we want the experience with The S.O.S. MAGIC Method to be absolutely flawless. In the exceptional
+          event that any complimentary physical item arrives with a confirmed manufacturing defect, such as a printing
+          error on the cards, please contact the support team at
+          <a href="mailto:support@sosmagic.eu">support@sosmagic.eu</a> so the case can be reviewed and resolved
+          in the best way possible. If a replacement is approved, it will be shipped free of charge for you.
+        </p>
+
+        <p class="legal-p">
+          <strong>How to Report a Defect:</strong> To help us resolve the issue quickly, please reach out to customer
+          support within 14 days of delivery and provide an unedited video recording of the opening of your brown
+          shipping box, clearly documenting the moment the defect or damage is discovered. The Seller recommends
+          opening the package upon receipt in the presence of the courier or postal employee.
+        </p>
+
+        <p class="legal-p">
+          <strong>Pay attention:</strong> Brown Shipping Box — intended exclusively for protecting the product from
+          deformation during transit. Damage, contamination, or deformation of the brown shipping box is not grounds
+          for any claims.
+        </p>
+
+        <h3 class="legal-h3">6. Limitation of Liability</h3>
+
+        <p class="legal-p">
+          To the maximum extent permitted by law, the Seller's total liability for any claim is limited to the amount
+          actually paid by the Buyer for the specific order.
+        </p>
+
+        <p class="legal-p">
+          The Seller is not liable for any indirect losses, lost profits, or moral damages.
+        </p>
+
+        <h3 class="legal-h3">7. Force Majeure</h3>
+
+        <p class="legal-p">
+          The Seller is released from liability for delays or non-performance caused by circumstances beyond its control:
+          natural disasters, wars, transport service strikes, failures in payment or internet systems, or actions of
+          government authorities.
+        </p>
+
+        <h3 class="legal-h3">8. Data Protection (GDPR)</h3>
+
+        <p class="legal-p">
+          All personal data is processed in strict accordance with applicable data protection laws, including the GDPR
+          and Dutch legislation. For detailed information on how personal data is collected, processed, utilized, and
+          stored, please refer to our full Privacy Policy available on the Website.
+        </p>
+
+        <h3 class="legal-h3">9. Governing Law &amp; Jurisdiction</h3>
+
+        <p class="legal-p">
+          These Terms are governed by the laws of the Netherlands.
+        </p>
+
+        <p class="legal-p">
+          All disputes are subject to consideration in the competent courts of the Netherlands.
+        </p>
+
+        <h3 class="legal-h3">10. Contact Information</h3>
+
+        <p class="legal-p"><strong>Company:</strong> Van der Velde Beheer B.V.</p>
+        <p class="legal-p"><strong>Trade name:</strong> S.O.S. MAGIC</p>
+        <p class="legal-p"><strong>Registration Number (KVK):</strong> 24327349</p>
+        <p class="legal-p"><strong>VAT Number (BTW):</strong> NL810301076B01</p>
+        <p class="legal-p"><strong>Website:</strong> sosmagic.eu</p>
+        <p class="legal-p"><strong>Support:</strong> <a href="mailto:support@sosmagic.eu">support@sosmagic.eu</a></p>
+      </section>
+
+      <section class="legal-card" aria-label="Privacy Policy and Cookie Policy">
+        <h2 class="legal-h2">Privacy Policy &amp; Cookie Policy</h2>
+
+        <p class="legal-p legal-muted">
+          This Privacy Policy describes how personal data of users of the website sosmagic.eu is collected, used,
+          and protected in accordance with the General Data Protection Regulation (GDPR) and applicable data
+          protection laws.
+        </p>
+
+        <p class="legal-p">
+          By accessing the website and using our services, you confirm that you have read and understood this
+          Privacy Policy.
+        </p>
+
+        <div class="legal-divider"></div>
+
+        <h3 class="legal-h3">1. Personal Data We Collect</h3>
+
+        <p class="legal-p">
+          We may collect the following categories of personal data:
+        </p>
+
+        <ul class="legal-ul">
+          <li class="legal-li">
+            <strong>Identification and contact data:</strong> Name, email address, phone number.
+          </li>
+          <li class="legal-li">
+            <strong>Order and delivery data:</strong> Shipping address for Complimentary Physical Items,
+            information about purchased products and order status.
+          </li>
+          <li class="legal-li">
+            <strong>Payment data:</strong> Payments are processed by authorized payment service providers.
+            We do not collect or store any credit card or banking information.
+          </li>
+          <li class="legal-li">
+            <strong>Interactive Study &amp; Practice Guided Readings Simulator Data:</strong> Text queries,
+            questions, and inputs submitted by the user directly into the Interactive Study &amp; Practice
+            Guided Readings Simulator interface, along with session timestamps and log data.
+          </li>
+          <li class="legal-li">
+            <strong>Technical data:</strong> IP address, device type, browser type, operating system, and cookies.
+          </li>
+          <li class="legal-li">
+            <strong>Marketing data:</strong> Data you provide when subscribing to newsletters or marketing communications.
+          </li>
+        </ul>
+
+        <h3 class="legal-h3">2. Purposes and Legal Basis of Processing</h3>
+
+        <p class="legal-p">
+          We process personal data for the following purposes:
+        </p>
+
+        <ul class="legal-ul">
+          <li class="legal-li">
+            To perform and manage contracts with users, including order processing and providing access to products.
+          </li>
+          <li class="legal-li">
+            To provide customer support and respond to inquiries.
+          </li>
+          <li class="legal-li">
+            To comply with legal and regulatory obligations, including tax and accounting laws.
+          </li>
+          <li class="legal-li">
+            To send marketing communications, where explicit consent has been given.
+          </li>
+          <li class="legal-li">
+            To ensure security, prevent fraud, and maintain the proper functioning of the website.
+          </li>
+          <li class="legal-li">
+            To maintain the contextual memory and personalization of the Interactive Study &amp; Practice Guided
+            Readings Simulator session, allowing the application to track learning progress and deliver tailored
+            educational interpretations.
+          </li>
+        </ul>
+
+        <h3 class="legal-h3">3. Data Sharing with Third Parties</h3>
+
+        <p class="legal-p">
+          We may share personal data only with:
+        </p>
+
+        <ul class="legal-ul">
+          <li class="legal-li">
+            Authorized payment systems — for secure payment processing.
+          </li>
+          <li class="legal-li">
+            Delivery partners — for shipping physical products.
+          </li>
+          <li class="legal-li">
+            IT and AI service providers — including hosting, cloud database, artificial intelligence (AI) processing,
+            email, and analytics services necessary to power the Website, Flipbook and the Study &amp; Practice
+            Guided Readings Simulator.
+          </li>
+          <li class="legal-li">
+            Accounting and legal advisors — where required by law.
+          </li>
+        </ul>
+
+        <p class="legal-p">
+          All third parties process personal data strictly in accordance with applicable data protection laws and
+          contractual obligations.
+        </p>
+
+        <h3 class="legal-h3">4. International Data Transfers</h3>
+
+        <p class="legal-p">
+          Personal data may be transferred to and processed in countries outside the European Union (EU) and the
+          European Economic Area (EEA), including to locations where our service providers or operational partners
+          operate. In such cases, we rely on appropriate safeguards under the GDPR, including Standard Contractual
+          Clauses (SCCs) adopted by the European Commission, ensuring an adequate level of data protection.
+        </p>
+
+        <h3 class="legal-h3">5. Data Retention</h3>
+
+        <p class="legal-p">
+          We retain personal data only for as long as necessary for the specific purposes described:
+        </p>
+
+        <ul class="legal-ul">
+          <li class="legal-li">
+            <strong>Order and accounting data:</strong> up to 10 years, in accordance with applicable EU tax and
+            statutory retention legislation.
+          </li>
+          <li class="legal-li">
+            <strong>Study &amp; Practice Guided Readings Simulator Data:</strong> retained for the duration of the
+            user's active account life cycle to maintain session history, or until a formal deletion request is
+            submitted by the user.
+          </li>
+          <li class="legal-li">
+            <strong>Marketing data:</strong> until consent is explicitly withdrawn.
+          </li>
+          <li class="legal-li">
+            <strong>Technical data and system logs:</strong> up to 12 months.
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+</OriginalLayout>

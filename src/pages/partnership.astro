@@ -1,5 +1,116 @@
 ---
-import Layout from '../layouts/Layout.astro'; import PageHero from '../components/PageHero.astro'; import Accordion from '../components/Accordion';
-const steps=[{question:'Sign up as an Ambassador',answer:'<p>Simple registration takes just a couple of minutes.</p>'},{question:'Access ready-to-use materials',answer:'<p>Get instant access to free marketing assets and our “Effortless Sales” mini-course.</p>'},{question:'Earn stable, ethical income',answer:'<p>Receive your payouts without delays just by posting our ready videos!</p>'}];
+import OriginalLayout from '../layouts/OriginalLayout.astro';
+import '../styles/original/partnership.css';
 ---
-<Layout title="Partnership"><PageHero eyebrow="Become an S.O.S. MAGIC Ambassador" title="Earn up to 30% per sale while helping others!"/><section class="px-5 pb-20"><div class="mx-auto max-w-5xl overflow-hidden rounded-[2rem] soft-ring"><video class="aspect-video w-full object-cover" src="https://sosmagic.b-cdn.net/videos/partnership.mov" poster="https://sosmagic.b-cdn.net/videos/partnership.jpg" controls playsinline preload="metadata"></video></div></section><section class="px-5 py-20"><div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.8fr_1.2fr]"><h2 class="display text-6xl">3 Steps to Financial Freedom</h2><Accordion client:load items={steps}/></div></section><section class="px-5 pb-28 pt-16"><div class="mx-auto max-w-5xl text-center"><p class="eyebrow">Why now?</p><h2 class="display mt-5 text-5xl">Because This Is the Fastest-Growing Multi-Billion-Dollar Market!</h2><img src="https://sosmagic.b-cdn.net/videos/graph.png" alt="Growth market graph" class="mx-auto mt-10 rounded-[2rem] soft-ring"/><h3 class="display mt-14 text-4xl">Join the S.O.S. MAGIC Unique Partnership Program!</h3><a href="/contact" class="mt-8 inline-block rounded-full bg-white px-7 py-3.5 font-bold text-ink hover:bg-aqua">Become an Ambassador</a><p class="mt-8 leading-7 text-white/60">You don't need to “sell” aggressively.<br/>Simply share S.O.S. MAGIC ready-made content or film your own!</p></div></section></Layout>
+<OriginalLayout title="Partnership – SOS Magic" page="partnership">
+<main class="partnership-page">
+
+    <section id="section-1" class="partnership-section">
+
+      <div class="partnership-hero">
+        <div class="partnership-kicker">
+          <span class="partnership-line-mid" data-text="Become an S.O.S. MAGIC Ambassador">
+            Become an S.O.S. MAGIC Ambassador
+          </span>
+        </div>
+
+        <h1 class="partnership-title">Earn up to 30% per sale while helping others!</h1>
+      </div>
+
+      <div class="partnership-video">
+        <div class="partnership-video-shell">
+          <video class="partnership-player"
+                 src="https://sosmagic.b-cdn.net/videos/partnership.mov"
+                 poster="https://sosmagic.b-cdn.net/videos/partnership.jpg"
+                 controls
+                 playsinline
+                 preload="metadata" aria-label="Page introduction video">
+          </video>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="section-3" class="partnership-section">
+
+      <h1 class="partnership-title">3 Steps to Financial Freedom</h1>
+
+      <div class="method-accordion" aria-label="Three steps to financial freedom">
+
+        <div class="method-acc-item">
+          <button class="method-acc-btn" type="button" aria-expanded="false" aria-controls="partner-layer-1">
+            <span class="method-acc-bullet" aria-hidden="true">1</span>
+            <span class="method-acc-title">Sign up as an Ambassador</span>
+          </button>
+          <div class="method-acc-panel" id="partner-layer-1" hidden>
+            <p class="partnership-text">
+              Simple registration takes just a couple of minutes.
+            </p>
+          </div>
+        </div>
+
+        <div class="method-acc-item">
+          <button class="method-acc-btn" type="button" aria-expanded="false" aria-controls="partner-layer-2">
+            <span class="method-acc-bullet" aria-hidden="true">2</span>
+            <span class="method-acc-title">Access ready-to-use materials</span>
+          </button>
+          <div class="method-acc-panel" id="partner-layer-2" hidden>
+            <p class="partnership-text">
+              Get instant access to free marketing assets and our “Effortless Sales” mini-course.
+            </p>
+          </div>
+        </div>
+
+        <div class="method-acc-item">
+          <button class="method-acc-btn" type="button" aria-expanded="false" aria-controls="partner-layer-3">
+            <span class="method-acc-bullet" aria-hidden="true">3</span>
+            <span class="method-acc-title">Earn stable, ethical income</span>
+          </button>
+          <div class="method-acc-panel" id="partner-layer-3" hidden>
+            <p class="partnership-text">
+              Receive your payouts without delays just by posting our ready videos!
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section id="section-4" class="partnership-section">
+
+      <div class="partnership-kicker">
+        <span class="partnership-line-mid" data-text="Why now?">Why now?</span>
+      </div>
+
+      <h1 class="partnership-title">Because This Is the Fastest-Growing Multi-Billion-Dollar Market!</h1>
+
+      <div class="partnership-graph">
+        <img src="https://sosmagic.b-cdn.net/videos/graph.png" alt="Growth market graph"/ alt="" aria-hidden="true">
+      </div>
+
+      <div class="partnership-kicker">
+        <span class="partnership-line-mid" data-text="Join the S.O.S. MAGIC Unique Partnership Program!">
+          Join the S.O.S. MAGIC Unique Partnership Program!
+        </span>
+      </div>
+
+      <div class="partnership-cta-wrap">
+        <a class="partnership-cta" href="/">Become an Ambassador</a>
+      </div>
+
+      <p class="partnership-text partnership-footer-text">
+        You don't need to “sell” aggressively.<br/>
+        Simply share S.O.S. MAGIC our ready-made content or filming your own!
+      </p>
+
+      <p class="partnership-text partnership-footer-text">
+        For more information visit our <a href="/faq">FAQ</a>
+      </p>
+
+    </section>
+
+  </main>
+
+<script is:inline src="/scripts/method-accordion.js" defer></script>
+</OriginalLayout>
