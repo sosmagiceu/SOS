@@ -168,7 +168,7 @@ body[data-page="story"] .story-page{
   backdrop-filter: blur(10px);
 
   /* Vertical video sizing (match Method) */
-  aspect-ratio: 120 / 163;
+  aspect-ratio: 3 / 4;
   width: min(92vw, 320px);
   max-height: calc(100svh - 260px);
 }
@@ -178,7 +178,7 @@ body[data-page="story"] .story-page{
   height: 100%;
   max-width: 100%;
   max-height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   background: #000;
   display: block;
 }

@@ -1,0 +1,23 @@
+.payhip-product-page{
+  width:min(100% - 32px, 1100px);
+  min-height:100vh;
+  margin:0 auto;
+  padding:96px 0 48px;
+}
+
+.payhip-back{
+  display:inline-flex;
+  margin-bottom:20px;
+  font-family:var(--font-heading);
+  font-weight:600;
+  text-decoration:none;
+}
+
+.payhip-back:hover{
+  color:var(--primary);
+}
+
+.payhip-embed-page{
+  width:100%;
+  min-height:70vh;
+}

@@ -148,7 +148,7 @@ body[data-page="partnership"] .partnership-section{
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
-  aspect-ratio: 120 / 163;
+  aspect-ratio: 3 / 4;
   width: min(92vw, 320px);
   max-height: calc(100svh - 260px);
 }
@@ -156,7 +156,7 @@ body[data-page="partnership"] .partnership-section{
 .partnership-player{
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   background: #000;
   display: block;
 }

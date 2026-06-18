@@ -1,0 +1,22 @@
+---
+import OriginalLayout from '../../layouts/OriginalLayout.astro';
+import '../../styles/original/payhip.css';
+
+export function getStaticPaths() {
+  return [
+    { params: { product: 'collection' }, props: { key: 'lIR71', title: 'The S.O.S. Magic Collection' } },
+    { params: { product: 'mysticharms' }, props: { key: 'S7zDl', title: 'Mysticharms' } },
+    { params: { product: 'enchanted-depths' }, props: { key: 'dkWpi', title: 'Enchanted Depths' } },
+    { params: { product: 'tarot-deck' }, props: { key: 'wyrex', title: 'Tarot “Sink or Swim”' } },
+  ];
+}
+
+const { key, title } = Astro.props;
+---
+<OriginalLayout title={`${title} – SOS Magic`} page="payhip-product">
+  <main class="payhip-product-page">
+    <a class="payhip-back" href="/products">← Back to products</a>
+    <div class="payhip-embed-page" data-key={key}>...</div>
+  </main>
+  <script is:inline type="text/javascript" src="https://payhip.com/embed-page.js?v=24u68985"></script>
+</OriginalLayout>
