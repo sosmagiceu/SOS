@@ -1,7 +1,7 @@
 # S.O.S. Magic — Astro rebuild
 
-Modern rebuild using Astro, React and Tailwind CSS. The original page copy, media,
-links, forms, legal text and interactive behaviour are preserved in full.
+Modern rebuild using native Astro pages, React interactions and Tailwind CSS.
+The original page copy, media, forms, legal text and behaviour are preserved.
 
 ## Start locally
 

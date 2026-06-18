@@ -1,0 +1,4 @@
+---
+import Layout from '../layouts/Layout.astro'; import PageHero from '../components/PageHero.astro'; import Accordion from '../components/Accordion'; import faqSections from '../data/faq.json';
+---
+<Layout title="FAQ"><PageHero eyebrow="Questions & Answers" title="FAQ" intro="Everything you might want to know about the S.O.S. MAGIC Method, the decks, and how to use them."/><section class="px-5 pb-20"><div class="mx-auto max-w-5xl overflow-hidden rounded-[2rem] soft-ring"><video class="aspect-video w-full object-cover" src="https://sosmagic.b-cdn.net/videos/faq.mp4" poster="https://sosmagic.b-cdn.net/videos/faq.png" controls playsinline preload="metadata"></video></div></section><div class="px-5 pb-28"><div class="mx-auto max-w-5xl space-y-20">{faqSections.map(section => <section><p class="eyebrow">{section.title}</p><h2 class="display mb-8 mt-4 text-4xl">{section.title}</h2><Accordion client:load items={section.items}/></section>)}</div></div></Layout>

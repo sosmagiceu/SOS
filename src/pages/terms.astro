@@ -1,0 +1,4 @@
+---
+import Layout from '../layouts/Layout.astro'; import PageHero from '../components/PageHero.astro'; import terms from '../data/terms.json';
+---
+<Layout title="Terms & Privacy"><PageHero eyebrow={terms.effective} title={terms.title}/><section class="px-5 pb-28"><div class="mx-auto max-w-5xl space-y-6">{terms.sections.map(section => <article class="glass rounded-[2rem] p-7 sm:p-10"><h2 class="display text-4xl">{section.title}</h2><div class="rich-content mt-7 text-white/65" set:html={section.body}></div></article>)}</div></section></Layout>
