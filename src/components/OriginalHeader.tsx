@@ -40,7 +40,7 @@ export default function OriginalHeader() {
             <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z" /></svg>
           </button>
           <div id="navMenu" className="menu-panel menu-panel--wide" hidden={open !== 'nav'}><nav className="menu-list" aria-label="Main menu">
-            <a className="menu-link" href="/products">Products</a><a className="menu-link" href="/method">Method</a><a className="menu-link" href="/faq">FAQ</a><a className="menu-link" href="/story">Our Story</a><a className="menu-link" href="/partnership">Partnership</a><a className="menu-link" href="/reviews">Reviews</a><a className="menu-link" href="/contact">Contact</a><a className="menu-link" href="/terms">Terms of Service</a>
+            <a className="menu-link" href="/products">Products</a><a className="menu-link" href="/guided-reading">Guided Reading</a><a className="menu-link" href="/method">Method</a><a className="menu-link" href="/faq">FAQ</a><a className="menu-link" href="/story">Our Story</a><a className="menu-link" href="/partnership">Partnership</a><a className="menu-link" href="/reviews">Reviews</a><a className="menu-link" href="/contact">Contact</a><a className="menu-link" href="/terms">Terms of Service</a>
           </nav></div>
         </div>
       </div>
