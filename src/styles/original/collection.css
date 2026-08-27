@@ -324,7 +324,10 @@ body[data-page="collection"] .collection-page{
   width: 100%;
   display: flex;
   justify-content: center;
-  margin: 14px 0 4px;
+  /* The CTA sits between this photo and the divider below it. The gap under the
+     button is 32px (.collection-cards gap 14px + .collection-divider margin-top
+     18px), so match it here to centre the button between the two. */
+  margin: 14px 0 32px;
 }
 
 .collection-deck-image img{
@@ -338,10 +341,67 @@ body[data-page="collection"] .collection-page{
 
 @media (max-width: 520px){
   .collection-deck-image{
-    margin: 12px 0 2px;
+    margin: 12px 0 32px;
   }
 
   .collection-deck-image img{
     width: min(100%, 92vw);
   }
+}
+
+/* ============================= */
+/* REVIEWS TEASER                */
+/* ============================= */
+.collection-reviews-list{
+  width: 100%;
+  max-width: 920px;
+  display: grid;
+  gap: 14px;
+  margin: 14px 0 22px;
+}
+
+@media (min-width: 860px){
+  .collection-reviews-list{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.collection-review{
+  padding: 18px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.22);
+  backdrop-filter: blur(8px);
+  text-align: left;
+}
+
+.collection-review-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.collection-review-name{
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 1.1;
+  color: #ffffff;
+}
+
+.collection-review-stars{
+  font-size: 15px;
+  white-space: nowrap;
+  color: rgba(0,255,255,0.9);
+}
+
+.collection-review-message{
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.84);
 }
