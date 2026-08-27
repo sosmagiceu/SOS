@@ -612,3 +612,38 @@ body[data-page="reviews"] .reviews-section{
     font-size: 28px;
   }
 }
+
+/* The page H1 is the kicker line — keep it identical to the span it replaced. */
+h1.reviews-line{
+  margin: 0;
+}
+
+/* ============================= */
+/* PHOTO / UGC REVIEWS           */
+/* ============================= */
+.reviews-photo-grid{
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin: 0 auto;
+  max-width: 920px;
+}
+
+.reviews-photo{
+  margin: 0;
+  text-align: center;
+}
+
+.reviews-photo img{
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 18px;
+}
+
+.reviews-photo-caption{
+  margin-top: 8px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  color: rgba(255,255,255,0.72);
+}
