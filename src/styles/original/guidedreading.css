@@ -189,3 +189,9 @@ body[data-page="guidedreading"] .guided-page{
   outline: 2px solid rgba(0,255,255,0.75);
   outline-offset: 4px;
 }
+
+/* The page H1 is the kicker line — keep it identical to the span it replaced. */
+h1.guided-line-big{
+  margin: 0;
+  font-weight: inherit;
+}
