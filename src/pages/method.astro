@@ -1,8 +1,13 @@
 ---
 import OriginalLayout from '../layouts/OriginalLayout.astro';
+import Ornament from '../components/Ornament.astro';
 import '../styles/original/method.css';
 ---
-<OriginalLayout title="Method – SOS Magic" page="method">
+<OriginalLayout
+  page="method"
+  title="The S.O.S. Magic Method | Emotional First Aid"
+  description="Discover how the S.O.S. Magic Method combines neon visuals, symbolic imagery and guided interpretation to help quiet mental noise and find clarity."
+>
 <main class="method-page">
 
     <section id="section-1" class="method-section">
@@ -29,7 +34,7 @@ import '../styles/original/method.css';
                  poster="https://sosmagic.b-cdn.net/videos/method.png"
                  controls
                  playsinline
-                 preload="metadata" aria-label="Page introduction video">
+                 preload="none" aria-label="Page introduction video">
           </video>
         </div>
       </div>
@@ -38,9 +43,9 @@ import '../styles/original/method.css';
 
     <section id="section-2" class="method-section">
 
-      <h1 class="method-title">
+      <h2 class="method-title">
         From Mental Noise to Inner Silence and Clarity in Minutes
-      </h1>
+      </h2>
 
       <p class="method-text">
         This is your guide to the subconscious depths where your true answers wait.
@@ -50,9 +55,9 @@ import '../styles/original/method.css';
         By reconnecting with your intuition, you reclaim the confidence you need to feel grounded and finally tune into your own frequency.
       </p>
 
-      <div class="method-image">
-        <img src="https://sosmagic.b-cdn.net/fotos/luxury_horizontal_mermaid_ocean_sigil%2C_202606071806.png" alt="Section 2 visual"/ alt="" aria-hidden="true">
-      </div>
+      <!-- gapBottom is negative to pull the ornament into the 38px of section
+           padding that follows it, so both sides end up ~24px. -->
+      <Ornament name="ocean" gap={10} gapBottom={-14} width="min(75vw, 900px)" />
 
     </section>
 
@@ -64,7 +69,7 @@ import '../styles/original/method.css';
           <span class="method-line-mid" data-text="Why it works?">Why it works?</span>
         </div>
 
-        <h1 class="method-title">The Three Layers of Your Transformation</h1>
+        <h2 class="method-title">The Three Layers of Your Transformation</h2>
 
         <p class="method-text">
           This journey is an effortless, science-backed method designed to bypass mental resistance
@@ -139,8 +144,10 @@ import '../styles/original/method.css';
         <img
           src="https://sosmagic.b-cdn.net/fotos/IMG_7980.PNG"
           alt=""
-          loading="eager"
-        / alt="" aria-hidden="true">
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+        >
       </div>
 
     </section>
