@@ -3,7 +3,47 @@ import OriginalHeader from '../components/OriginalHeader';
 import OriginalFooter from '../components/OriginalFooter.astro';
 import '../styles/tailwind-utilities.css';
 import '../styles/original/shared.css';
-interface Props { title: string; description?: string; page: string; }
-const { title, page, description = 'Discover the S.O.S. Magic tarot deck and unlock your personal digital reading.' } = Astro.props;
+import { SITE_NAME, SITE_URL, OG_IMAGE, ORGANIZATION_SCHEMA } from '../lib/seo';
+
+interface Props {
+  title: string;
+  description?: string;
+  page: string;
+  /** Extra JSON-LD documents for this page (Organization is always emitted). */
+  schema?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+
+const {
+  title,
+  page,
+  description = 'Discover the S.O.S. Magic tarot deck and unlock your personal digital reading.',
+  schema = [],
+  noindex = false,
+} = Astro.props;
+
+// Self-referencing canonical without a trailing slash, so /faq/ and /faq agree.
+const path = Astro.url.pathname.replace(/\/+$/, '');
+const canonical = path ? `${SITE_URL}${path}` : `${SITE_URL}/`;
+const jsonLd = [ORGANIZATION_SCHEMA, ...schema];
 ---
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="description" content={description}/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;600;700&family=Inter:wght@300;400;600&family=Cormorant+SC:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/><title>{title}</title></head><body data-page={page} class="bg-video-ready"><div class="bg-video-layer"><video class="bg-video" autoplay muted loop playsinline preload="auto" poster="https://sosmagic.b-cdn.net/Achterground%20enzo/Achtergrond%20.png" aria-hidden="true"><source src="https://sosmagic.b-cdn.net/Achterground%20enzo/Bubbles_.mp4" type="video/mp4"/></video></div><OriginalHeader client:load/><slot/><OriginalFooter/><script is:inline>const backgroundVideo=document.querySelector('.bg-video-layer video');if(backgroundVideo){backgroundVideo.loop=true;backgroundVideo.muted=true;backgroundVideo.playsInline=true;const showVideo=()=>document.body.classList.add('bg-video-ready');const showFallback=()=>document.body.classList.remove('bg-video-ready');const playBackground=()=>backgroundVideo.play().then(showVideo).catch(()=>{});const restartBackground=()=>{backgroundVideo.currentTime=0;playBackground()};backgroundVideo.addEventListener('loadeddata',showVideo);backgroundVideo.addEventListener('canplay',playBackground);backgroundVideo.addEventListener('ended',restartBackground);backgroundVideo.addEventListener('error',showFallback);window.addEventListener('pageshow',playBackground);document.addEventListener('visibilitychange',()=>{if(!document.hidden)playBackground()});playBackground();}</script></body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>{title}</title>
+<meta name="description" content={description}/>
+{noindex && <meta name="robots" content="noindex, follow"/>}
+<link rel="canonical" href={canonical}/>
+<meta property="og:site_name" content={SITE_NAME}/>
+<meta property="og:title" content={title}/>
+<meta property="og:description" content={description}/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content={canonical}/>
+<meta property="og:image" content={OG_IMAGE}/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:locale" content="en_US"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content={title}/>
+<meta name="twitter:description" content={description}/>
+<meta name="twitter:image" content={OG_IMAGE}/>
+{jsonLd.map(doc => <script type="application/ld+json" set:html={JSON.stringify(doc)}/>)}
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;600;700&family=Inter:wght@300;400;600&family=Cormorant+SC:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/></head><body data-page={page} class="bg-video-ready"><div class="bg-video-layer"><video class="bg-video" autoplay muted loop playsinline preload="auto" poster="https://sosmagic.b-cdn.net/Achterground%20enzo/Achtergrond%20.png" aria-hidden="true"><source src="https://sosmagic.b-cdn.net/Achterground%20enzo/Bubbles_.mp4" type="video/mp4"/></video></div><OriginalHeader client:load/><slot/><OriginalFooter/><script is:inline>const backgroundVideo=document.querySelector('.bg-video-layer video');if(backgroundVideo){backgroundVideo.loop=true;backgroundVideo.muted=true;backgroundVideo.playsInline=true;const showVideo=()=>document.body.classList.add('bg-video-ready');const showFallback=()=>document.body.classList.remove('bg-video-ready');const playBackground=()=>backgroundVideo.play().then(showVideo).catch(()=>{});const restartBackground=()=>{backgroundVideo.currentTime=0;playBackground()};backgroundVideo.addEventListener('loadeddata',showVideo);backgroundVideo.addEventListener('canplay',playBackground);backgroundVideo.addEventListener('ended',restartBackground);backgroundVideo.addEventListener('error',showFallback);window.addEventListener('pageshow',playBackground);document.addEventListener('visibilitychange',()=>{if(!document.hidden)playBackground()});playBackground();}</script></body></html>
