@@ -394,3 +394,42 @@ a{
     text-align:center;
   }
 }
+
+.footer-nav{
+  margin-top:4px;
+  font-size:11px;
+  line-height:1.15;
+  text-align:center;
+  color:rgba(255,255,255,.6);
+  font-family:var(--font-heading);
+  letter-spacing:.02em;
+}
+
+.footer-nav a{
+  color:rgba(255,255,255,.78);
+  text-decoration:none;
+}
+
+.footer-nav a:hover{
+  text-decoration:underline;
+}
+
+/* Ornament divider — see Ornament.astro for the per-file trim values.
+   The negative margins cancel the transparent padding baked into the PNGs, so
+   the artwork sits close to the text instead of floating in empty space. The
+   trim is a percentage, which keeps it exact at every screen size. */
+.page-ornament{
+  /* Must be exactly as wide as the image: the trim below is a percentage, and
+     percentage margins resolve against this wrapper, not against the image. */
+  width: var(--ornament-width, min(100%, 760px));
+  margin: 0 auto;
+  pointer-events: none;
+}
+
+.page-ornament img{
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: calc(var(--ornament-gap-top, 18px) - var(--ornament-trim-top, 11.4%));
+  margin-bottom: calc(var(--ornament-gap-bottom, 18px) - var(--ornament-trim-bottom, 11%));
+}
