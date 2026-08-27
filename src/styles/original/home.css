@@ -369,21 +369,68 @@ body[data-page="home"] .carousel-controls{
 }
 
 body[data-page="home"] .carousel-btn{
+  width: 58px;
   min-width: 58px;
   height: 58px;
-  padding: 14px 18px;
+  padding: 0;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 700;
-  font-size: 18px;
   line-height: 1;
   user-select: none;
   appearance: none;
   -webkit-appearance: none;
+  color: rgba(255,255,255,0.94);
+  border-color: rgba(255,255,255,0.12);
+  /* Glass disc: light catches the top edge, so it reads as a physical control. */
+  background:
+    radial-gradient(125% 125% at 50% 0%, rgba(255,255,255,0.17), rgba(255,255,255,0) 58%),
+    rgba(8,3,24,0.44);
+  box-shadow:
+    0 0 18px rgba(0,255,255,0.12),
+    0 0 30px rgba(255,0,255,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.16);
+}
+
+body[data-page="home"] .carousel-btn::before{
+  opacity: 1;
+}
+
+body[data-page="home"] .carousel-btn svg{
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px rgba(0,255,255,0.45));
+  transition: transform 200ms ease, filter 220ms ease;
+}
+
+body[data-page="home"] .carousel-btn:hover{
+  box-shadow:
+    0 0 22px rgba(0,255,255,0.30),
+    0 0 40px rgba(255,0,255,0.20),
+    inset 0 1px 0 rgba(255,255,255,0.22);
+}
+
+body[data-page="home"] .carousel-btn:hover svg{
+  filter: drop-shadow(0 0 9px rgba(0,255,255,0.75));
+}
+
+body[data-page="home"] #prevBtn:hover svg{ transform: translateX(-2px); }
+body[data-page="home"] #nextBtn:hover svg{ transform: translateX(2px); }
+
+body[data-page="home"] .carousel-btn:active{
+  transform: scale(0.94);
+}
+
+body[data-page="home"] .carousel-btn:focus-visible{
+  outline: 2px solid rgba(0,255,255,0.75);
+  outline-offset: 4px;
 }
 
 @media (max-width: 768px){
@@ -481,9 +528,14 @@ body[data-page="home"] .carousel-btn{
   }
 
   body[data-page="home"] .carousel-btn{
-    min-width: 46px;
-    height: 46px;
-    padding: 10px 14px;
-    font-size: 16px;
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+    padding: 0;
+  }
+
+  body[data-page="home"] .carousel-btn svg{
+    width: 20px;
+    height: 20px;
   }
 }
