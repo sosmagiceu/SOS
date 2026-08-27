@@ -1,13 +1,18 @@
 ---
 import OriginalLayout from '../layouts/OriginalLayout.astro';
+import { PHOTO_REVIEWS } from '../data/photo-reviews';
 import '../styles/original/reviews.css';
 ---
-<OriginalLayout title="Reviews – SOS Magic" page="reviews">
+<OriginalLayout
+  page="reviews"
+  title="S.O.S. Magic Reviews | Customer Experiences"
+  description="Read what customers say about the S.O.S. Magic neon Tarot, Oracle and Angelic Messages decks and the Emotional First Aid method."
+>
 <main class="reviews-page">
     <section id="section-1" class="reviews-section">
       <div class="reviews-hero">
         <div class="reviews-kicker">
-          <span class="reviews-line" data-text="Reviews">Reviews</span>
+          <h1 class="reviews-line" data-text="Reviews">Reviews</h1>
         </div>
 
         <div class="reviews-average-wrap" aria-label="Average rating">
@@ -17,6 +22,21 @@ import '../styles/original/reviews.css';
           <p class="reviews-average-text" id="reviews-average-text">Average 0.0 out of 5 stars</p>
         </div>
       </div>
+
+      {PHOTO_REVIEWS.length > 0 && (
+        <section class="reviews-block">
+          <h2 class="reviews-breathing-title">In their own words</h2>
+
+          <div class="reviews-photo-grid">
+            {PHOTO_REVIEWS.map(photo => (
+              <figure class="reviews-photo">
+                <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
+                {photo.caption && <figcaption class="reviews-photo-caption">{photo.caption}</figcaption>}
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section class="reviews-block">
         <h2 class="reviews-breathing-title">Leave a review</h2>
