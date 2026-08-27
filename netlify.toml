@@ -52,3 +52,34 @@
   from = "/TOS.html"
   to = "/terms"
   status = 301
+
+# The webshop lives on Payhip; the old internal /buy/* pages redirect to it.
+[[redirects]]
+  from = "/buy/collection"
+  to = "https://payhip.com/b/lIR71"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/buy/tarot-deck"
+  to = "https://payhip.com/b/0neSN"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/buy/enchanted-depths"
+  to = "https://payhip.com/b/dkWpi"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/buy/mysticharms"
+  to = "https://payhip.com/b/S7zDl"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/buy/*"
+  to = "/products"
+  status = 301
+  force = true
