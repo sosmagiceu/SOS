@@ -1,17 +1,27 @@
 ---
 import OriginalLayout from '../layouts/OriginalLayout.astro';
+import Ornament from '../components/Ornament.astro';
+import { buildFaqSchema } from '../lib/faq-schema';
+import faqSource from './faq.astro?raw';
 import '../styles/original/faq.css';
+
+const faqSchema = buildFaqSchema(faqSource);
 ---
 
-<OriginalLayout title="FAQ – SOS Magic" page="faq">
+<OriginalLayout
+  page="faq"
+  title="S.O.S. Magic FAQ | Method, Decks & How It Works"
+  description="Answers about the S.O.S. Magic Method, Neon Tarot, Oracle and Angelic Messages, how to use the decks, digital access, delivery and more."
+  schema={[faqSchema]}
+>
   <main class="faq-page">
 
     <section id="section-1" class="faq-section">
       <div class="faq-hero">
         <div class="faq-kicker">
-          <span class="faq-line-small" data-text="Questions & Answers">
+          <h1 class="faq-line-small" data-text="Questions & Answers">
             Questions & Answers
-          </span>
+          </h1>
 
           <span class="faq-line-big" data-text="FAQ">
             FAQ
@@ -32,7 +42,7 @@ import '../styles/original/faq.css';
             poster="https://sosmagic.b-cdn.net/videos/faq.png"
             controls
             playsinline
-            preload="metadata"
+            preload="none"
             aria-label="Page introduction video"
           ></video>
         </div>
@@ -1033,6 +1043,10 @@ import '../styles/original/faq.css';
       <a class="faq-cta" href="/contact">
         Message us
       </a>
+
+      <!-- gapBottom is negative to pull the ornament into the section's own
+           54px of bottom padding, leaving ~18px above the footer. -->
+      <Ornament gap={12} gapBottom={-36} />
     </section>
 
   </main>
