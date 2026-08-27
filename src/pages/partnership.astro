@@ -1,8 +1,13 @@
 ---
 import OriginalLayout from '../layouts/OriginalLayout.astro';
+import Ornament from '../components/Ornament.astro';
 import '../styles/original/partnership.css';
 ---
-<OriginalLayout title="Partnership – SOS Magic" page="partnership">
+<OriginalLayout
+  page="partnership"
+  title="Partnership – SOS Magic"
+  description="Become an S.O.S. Magic Ambassador and earn up to 30% per sale of the neon Tarot, Oracle and Angelic Messages decks."
+>
 <main class="partnership-page">
 
     <section id="section-1" class="partnership-section">
@@ -20,11 +25,12 @@ import '../styles/original/partnership.css';
       <div class="partnership-video">
         <div class="partnership-video-shell">
           <video class="partnership-player"
-                 src="https://sosmagic.b-cdn.net/videos/partnership.mov"
                  poster="https://sosmagic.b-cdn.net/videos/partnership.jpg"
                  controls
                  playsinline
-                 preload="metadata" aria-label="Page introduction video">
+                 preload="none" aria-label="Page introduction video">
+            <source src="https://sosmagic.b-cdn.net/videos/partnership.mp4" type="video/mp4"/>
+            <source src="https://sosmagic.b-cdn.net/videos/partnership.mov" type="video/quicktime"/>
           </video>
         </div>
       </div>
@@ -33,7 +39,7 @@ import '../styles/original/partnership.css';
 
     <section id="section-3" class="partnership-section">
 
-      <h1 class="partnership-title">3 Steps to Financial Freedom</h1>
+      <h2 class="partnership-title">3 Steps to Financial Freedom</h2>
 
       <div class="method-accordion" aria-label="Three steps to financial freedom">
 
@@ -83,10 +89,10 @@ import '../styles/original/partnership.css';
         <span class="partnership-line-mid" data-text="Why now?">Why now?</span>
       </div>
 
-      <h1 class="partnership-title">Because This Is the Fastest-Growing Multi-Billion-Dollar Market!</h1>
+      <h2 class="partnership-title">Because This Is the Fastest-Growing Multi-Billion-Dollar Market!</h2>
 
       <div class="partnership-graph">
-        <img src="https://sosmagic.b-cdn.net/videos/graph.png" alt="Growth market graph"/ alt="" aria-hidden="true">
+        <img src="https://sosmagic.b-cdn.net/videos/graph.png" alt="Market growth chart presented on the S.O.S. Magic Ambassador Program page" loading="lazy" decoding="async">
       </div>
 
       <div class="partnership-kicker">
@@ -106,6 +112,8 @@ import '../styles/original/partnership.css';
       <p class="partnership-text partnership-footer-text">
         For more information visit our <a href="/faq">FAQ</a>
       </p>
+
+      <Ornament gap={12} gapBottom={0} />
 
     </section>
 
