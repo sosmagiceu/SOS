@@ -1,13 +1,18 @@
 ---
 import OriginalLayout from '../layouts/OriginalLayout.astro';
+import Ornament from '../components/Ornament.astro';
 import '../styles/original/guidedreading.css';
 ---
-<OriginalLayout title="Guided Reading – SOS Magic" page="guidedreading">
+<OriginalLayout
+  page="guidedreading"
+  title="Guided Reading – SOS Magic"
+  description="S.O.S. Magic Guided Reading — your 24/7 online navigation to stop the mental spiral and regain control."
+>
 <main class="guided-page">
     <section class="guided-section">
 
       <div class="guided-kicker">
-        <span class="guided-line-big" data-text="Guided Reading">Guided Reading</span>
+        <h1 class="guided-line-big" data-text="Guided Reading">Guided Reading</h1>
       </div>
 
       <p class="guided-text guided-intro">
@@ -21,7 +26,7 @@ import '../styles/original/guidedreading.css';
                  poster="https://sosmagic.b-cdn.net/videos/reading.jpeg"
                  controls
                  playsinline
-                 preload="metadata" aria-label="Page introduction video"></video>
+                 preload="none" aria-label="Page introduction video"></video>
         </div>
       </div>
 
@@ -36,6 +41,10 @@ import '../styles/original/guidedreading.css';
       <div class="guided-cta-wrap">
         <a class="guided-cta" href="/">Get Clarity</a>
       </div>
+
+      <!-- gapBottom is negative to pull the ornament into the section's own
+           bottom padding (36px, 28px on phones), leaving ~18px above the footer. -->
+      <Ornament gap={12} gapBottom={-14} />
 
     </section>
   </main>
