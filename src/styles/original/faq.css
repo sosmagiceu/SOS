@@ -30,7 +30,8 @@ body[data-page="faq"] .faq-section{
 #section-2,
 #section-3,
 #section-4,
-#section-5{
+#section-5,
+#section-6{
   padding-top: 28px;
 }
 
@@ -38,7 +39,8 @@ body[data-page="faq"] .faq-section{
   #section-2,
   #section-3,
   #section-4,
-  #section-5{
+  #section-5,
+  #section-6{
     padding-top: 20px;
   }
 }
@@ -412,4 +414,11 @@ body[data-page="faq"] .faq-section{
 .faq-cta:focus-visible{
   outline: 2px solid rgba(0,255,255,0.75);
   outline-offset: 4px;
+}
+
+/* The page H1 is the small kicker line — keep it identical to the span it replaced. */
+h1.faq-line-small{
+  margin: 0;
+  font-weight: inherit;
+  font-size: 1.3em;
 }
