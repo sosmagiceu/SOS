@@ -209,20 +209,6 @@ body[data-page="method"] .method-section{
 /* ============================= */
 /* SECTION IMAGE                 */
 /* ============================= */
-.method-image{
-  display: flex;
-  justify-content: center;
-  margin-top: 18px;
-}
-
-.method-image img{
-  width: 75vw;
-  max-width: 900px;
-  height: auto;
-  border-radius: 18px;
-  display: block;
-}
-
 /* ============================= */
 /* ACCORDION                     */
 /* ============================= */
