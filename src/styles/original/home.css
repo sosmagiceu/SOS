@@ -39,11 +39,7 @@ body[data-page="home"] .container{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  /* The logo is absolutely positioned and centred here, so it hangs ~0.42 of
-     its own height below the middle of this box. Reserving the logo's own
-     width (its height is 1.095x that) keeps it inside no matter what the font
-     metrics do — otherwise it lands on the carousel card below. */
-  min-height: clamp(102px, 15.3vw, 187px);
+  min-height: clamp(88px, 13vw, 126px);
   min-width: clamp(220px, 36vw, 420px);
   padding-top: 8px;
   overflow: visible;
@@ -61,9 +57,15 @@ body[data-page="home"] .container{
 .section-title .sos-title-logo-wrap{
   position: absolute;
   left: 50%;
-  top: 50%;
+  /* Pinned to the bottom of the block rather than centred in it: the logo is
+     taller than this block and used to hang below it by however much the
+     arithmetic worked out to, landing on the carousel card. Anchored this way
+     it can only ever grow upwards, into the empty space under the header. */
+  bottom: 0;
   z-index: 2;
-  transform: translate(-50%, -58%);
+  transform: translateX(-50%);
+  /* The heartbeat pulse scales upwards too, never past the bottom edge. */
+  transform-origin: bottom center;
   opacity: 1;
   visibility: visible;
   pointer-events: none;
@@ -100,17 +102,17 @@ body[data-page="home"] .container{
   0%, 64% {
     opacity: 1;
     visibility: visible;
-    transform: translate(-50%, -58%) scale(1);
+    transform: translateX(-50%) scale(1);
   }
   69% {
     opacity: 0;
     visibility: hidden;
-    transform: translate(-50%, -58%) scale(0.98);
+    transform: translateX(-50%) scale(0.98);
   }
   100% {
     opacity: 0;
     visibility: hidden;
-    transform: translate(-50%, -58%) scale(0.98);
+    transform: translateX(-50%) scale(0.98);
   }
 }
 
@@ -130,8 +132,8 @@ body[data-page="home"] .container{
 }
 
 @keyframes heartBeat{
-  0%, 100% { transform: translate(-50%, -58%) scale(1); }
-  50%      { transform: translate(-50%, -58%) scale(1.05); }
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50%      { transform: translateX(-50%) scale(1.05); }
 }
 
 @keyframes scanBand{
@@ -452,8 +454,7 @@ body[data-page="home"] .carousel-btn:focus-visible{
   }
 
   .title-swap{
-    /* Matches the logo width below — see the note on .title-swap. */
-    min-height: clamp(88px, 28vw, 136px);
+    min-height: 76px;
     min-width: min(100%, 250px);
     padding-top: 6px;
   }
@@ -462,31 +463,27 @@ body[data-page="home"] .carousel-btn:focus-visible{
     width: clamp(88px, 28vw, 136px);
   }
 
-  .section-title .sos-title-logo-wrap{
-    transform: translate(-50%, -56%);
-  }
-
   @keyframes logoSwapFade{
     0%, 64% {
       opacity: 1;
       visibility: visible;
-      transform: translate(-50%, -56%) scale(1);
+      transform: translateX(-50%) scale(1);
     }
     69% {
       opacity: 0;
       visibility: hidden;
-      transform: translate(-50%, -56%) scale(0.98);
+      transform: translateX(-50%) scale(0.98);
     }
     100% {
       opacity: 0;
       visibility: hidden;
-      transform: translate(-50%, -56%) scale(0.98);
+      transform: translateX(-50%) scale(0.98);
     }
   }
 
   @keyframes heartBeat{
-    0%, 100% { transform: translate(-50%, -56%) scale(1); }
-    50%      { transform: translate(-50%, -56%) scale(1.05); }
+    0%, 100% { transform: translateX(-50%) scale(1); }
+    50%      { transform: translateX(-50%) scale(1.05); }
   }
 
   body[data-page="home"] .features-container{
