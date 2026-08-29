@@ -22,9 +22,7 @@ body[data-page="home"] .container{
   position: relative;
   z-index: 2;
   text-align: center;
-  /* Room for the logo, which hangs below this block — see the note in the
-     max-width:768px block. */
-  margin: 0 0 clamp(22px, 2.4vw, 38px);
+  margin: 0 0 22px;
   font-family: "Cormorant SC", serif;
   font-size: clamp(42px, 6vw, 69px);
   font-weight: 600;
@@ -41,7 +39,11 @@ body[data-page="home"] .container{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: clamp(88px, 13vw, 126px);
+  /* The logo is absolutely positioned and centred here, so it hangs ~0.42 of
+     its own height below the middle of this box. Reserving the logo's own
+     width (its height is 1.095x that) keeps it inside no matter what the font
+     metrics do — otherwise it lands on the carousel card below. */
+  min-height: clamp(102px, 15.3vw, 187px);
   min-width: clamp(220px, 36vw, 420px);
   padding-top: 8px;
   overflow: visible;
@@ -445,15 +447,13 @@ body[data-page="home"] .carousel-btn:focus-visible{
   }
 
   .section-title{
-    /* The logo is absolutely positioned and hangs ~0.44 of its own height below
-       this block, so the room underneath has to grow with it — otherwise it
-       lands on the carousel card around 600-768px. */
-    margin-bottom: clamp(18px, 7vw, 44px);
+    margin-bottom: 18px;
     font-size: clamp(36px, 8vw, 52px);
   }
 
   .title-swap{
-    min-height: 76px;
+    /* Matches the logo width below — see the note on .title-swap. */
+    min-height: clamp(88px, 28vw, 136px);
     min-width: min(100%, 250px);
     padding-top: 6px;
   }
