@@ -16,6 +16,7 @@
     let currentRotation = 0;
     let currentIndex = 0;
     let touchStartX = 0;
+    let swiped = false;
 
     function updateActiveCard() {
       featureCards.forEach((card, index) => {
@@ -50,22 +51,50 @@
       next();
     });
 
+    // Rotate the shortest way round to any card.
+    function goTo(index) {
+      let delta = index - currentIndex;
+      if (delta > featureCards.length / 2) delta -= featureCards.length;
+      if (delta < -featureCards.length / 2) delta += featureCards.length;
+      currentIndex = index;
+      currentRotation -= delta * step;
+      updateView();
+    }
+
     carousel.addEventListener('touchstart', (event) => {
       touchStartX = event.changedTouches[0].screenX;
+      swiped = false;
     }, { passive: true });
 
     carousel.addEventListener('touchend', (event) => {
       const touchEndX = event.changedTouches[0].screenX;
-      if (touchEndX < touchStartX - 50) next();
-      if (touchEndX > touchStartX + 50) prev();
+      if (touchEndX < touchStartX - 50) { swiped = true; next(); }
+      if (touchEndX > touchStartX + 50) { swiped = true; prev(); }
     }, { passive: true });
 
-    featureCards.forEach((card) => {
+    featureCards.forEach((card, index) => {
       card.addEventListener('click', (event) => {
-        if (!event.target.closest('.guide-btn')) {
+        // A swipe ends in a click too — that one must not navigate.
+        if (swiped) {
+          swiped = false;
           event.preventDefault();
-          event.stopPropagation();
+          return;
         }
+
+        // The button is a real link; let it do its own job.
+        if (event.target.closest('.guide-btn')) return;
+
+        event.preventDefault();
+
+        // Only the card facing the viewer navigates. The ones turned away are
+        // easy to hit by accident, so they just rotate to the front instead.
+        if (index !== currentIndex) {
+          goTo(index);
+          return;
+        }
+
+        const link = card.querySelector('.guide-btn');
+        if (link) window.location.href = link.href;
       });
     });
 
