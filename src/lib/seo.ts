@@ -25,6 +25,6 @@ export const ORGANIZATION_SCHEMA = {
     '@type': 'ContactPoint',
     contactType: 'customer support',
     email: 'support@sosmagic.eu',
-    url: `${SITE_URL}/contact`,
+    url: `${SITE_URL}/contact/`,
   },
 };
