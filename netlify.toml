@@ -53,6 +53,22 @@
   to = "/terms"
   status = 301
 
+# Old addresses Search Console still reports as 404s.
+[[redirects]]
+  from = "/home"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/ru"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/ru/*"
+  to = "/"
+  status = 301
+
 # The webshop lives on Payhip; the old internal /buy/* pages redirect to it.
 [[redirects]]
   from = "/buy/collection"
