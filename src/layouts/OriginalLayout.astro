@@ -22,9 +22,11 @@ const {
   noindex = false,
 } = Astro.props;
 
-// Self-referencing canonical without a trailing slash, so /faq/ and /faq agree.
-const path = Astro.url.pathname.replace(/\/+$/, '');
-const canonical = path ? `${SITE_URL}${path}` : `${SITE_URL}/`;
+// Netlify serves the directory form — /faq answers with a 301 to /faq/ — so the
+// canonical has to carry the trailing slash as well. Pointing it at the bare
+// path made every page name a URL that redirected straight back to itself.
+const path = Astro.url.pathname.replace(/\/*$/, '/');
+const canonical = `${SITE_URL}${path}`;
 const jsonLd = [ORGANIZATION_SCHEMA, ...schema];
 ---
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
