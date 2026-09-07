@@ -25,7 +25,7 @@ export function buildFaqSchema(source: string) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    '@id': `${SITE_URL}/faq`,
+    '@id': `${SITE_URL}/faq/`,
     mainEntity,
   };
 }
